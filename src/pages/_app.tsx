@@ -4,6 +4,7 @@ import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { Inter } from "@next/font/google";
 import RouterTransition from "@/components/common/RouterTransition";
+import "../services/i18next";
 
 const inter = Inter({ subsets: ["latin"] });
 
