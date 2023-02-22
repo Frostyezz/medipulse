@@ -5,6 +5,8 @@ import { MantineProvider } from "@mantine/core";
 import { Inter } from "@next/font/google";
 import RouterTransition from "@/components/common/RouterTransition";
 import "../services/i18next";
+import { Provider } from "react-redux/es/exports";
+import { store } from "@/services/redux/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,18 +22,19 @@ export default function App(props: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          fontFamily: inter.style.fontFamily,
-          colorScheme: "light",
-        }}
-      >
-        <RouterTransition />
-        <Component {...pageProps} />
-      </MantineProvider>
+      <Provider store={store}>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            fontFamily: inter.style.fontFamily,
+            colorScheme: "light",
+          }}
+        >
+          <RouterTransition />
+          <Component {...pageProps} />
+        </MantineProvider>
+      </Provider>
     </>
   );
 }
