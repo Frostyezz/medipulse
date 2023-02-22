@@ -3,9 +3,9 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { Inter } from "@next/font/google";
-import RouterTransition from "@/components/common/RouterTransition";
+import RouterTransition from "@/common/components/RouterTransition";
 import "../services/i18next";
-import { Provider } from "react-redux/es/exports";
+import { Provider } from "react-redux";
 import { store } from "@/services/redux/store";
 
 const inter = Inter({ subsets: ["latin"] });
