@@ -1,4 +1,5 @@
 import Logo from "@/common/components/Logo";
+import { ROUTES } from "@/common/utils/routes";
 import { Button, Title, Text } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export default function Hero() {
         {t("landingPage.hero.title")}
       </Title>
       <Text color="dark.3">{t("landingPage.hero.subtitle")}</Text>
-      <Link href="">
+      <Link href={ROUTES.REGISTER_MEDIC}>
         <Button leftIcon={<UserPlus />} variant="default">
           {t("landingPage.hero.signup")}
         </Button>

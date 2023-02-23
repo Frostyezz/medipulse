@@ -53,7 +53,7 @@ function listener(changeType) {
   ${routeKeys.map((key, i) => `${i ? "\r  " : ""}${key} = '${routes[i]}'`)}
 }`;
 
-  const _type = `export type Targs =\r| [ROUTES.ROOT]${routeKeys.map(
+  const _type = `export type TArgs =\r| [ROUTES.ROOT]${routeKeys.map(
     (key, i) =>
       `\r| [ROUTES.${key}${
         params[i]
