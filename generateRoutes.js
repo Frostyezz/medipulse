@@ -62,7 +62,7 @@ function listener() {
   )};`.replace(/],/g, "]");
 
   writeFile(DEST_DIR, `${_enum}\r\r${_type}\r`, (err) => {
-    if (err) throw err;
+    if (err) return console.log("ROUTE GENERATION FAILED WITH ERROR", err);
     console.log("ROUTES GENERATED SUCCESFULLY!");
   });
 }
