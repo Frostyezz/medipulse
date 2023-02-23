@@ -23,7 +23,7 @@ export default function Hero() {
         fill
         priority
         className={classes.heroImg}
-        src="/bg.jpg"
+        src="/images/landing-page/bg.jpg"
         alt="hero"
       />
     </div>

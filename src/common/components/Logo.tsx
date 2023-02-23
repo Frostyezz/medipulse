@@ -9,7 +9,7 @@ const Logo: React.FC<Partial<ImageProps & { textLogo: boolean }>> = ({
 }) => {
   return (
     <Image
-      src={textLogo ? "/text_logo.svg" : "/logo.svg"}
+      src={textLogo ? "/images/logos/text_logo.svg" : "/images/logos/logo.svg"}
       {...props}
       width={width}
       height={height}

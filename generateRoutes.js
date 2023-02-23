@@ -4,7 +4,8 @@ const watchr = require("watchr");
 const TARGET_DIR = "./src/pages";
 const DEST_DIR = "./src/common/utils/routes.ts";
 
-function listener() {
+function listener(changeType) {
+  if (changeType === "update") return;
   const getFileList = (dirName) => {
     let files = [];
     const items = readdirSync(dirName, { withFileTypes: true });
