@@ -28,6 +28,7 @@ export default function App(props: AppProps) {
           withNormalizeCSS
           theme={{
             fontFamily: inter.style.fontFamily,
+            headings: { fontFamily: inter.style.fontFamily },
             colorScheme: "light",
           }}
         >
