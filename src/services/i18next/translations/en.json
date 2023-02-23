@@ -1,4 +1,6 @@
 {
   "landingPage.hero.title": "Welcome to MediPulse",
-  "landingPage.hero.subtitle": "The comprehensive solution for managing your healthcare needs."
+  "landingPage.hero.subtitle": "The comprehensive solution for managing your healthcare needs.",
+  "landingPage.hero.signup": "Create an account",
+  "landingPage.hero.login": "Log in"
 }

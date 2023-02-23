@@ -3,6 +3,7 @@ import { Button, Title, Text } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { UserPlus, UserCheck } from "tabler-icons-react";
 import { useStyles } from "../styles";
 
 export default function Hero() {
@@ -17,7 +18,14 @@ export default function Hero() {
       </Title>
       <Text color="dark.3">{t("landingPage.hero.subtitle")}</Text>
       <Link href="">
-        <Button></Button>
+        <Button leftIcon={<UserPlus />} variant="default">
+          {t("landingPage.hero.signup")}
+        </Button>
+      </Link>
+      <Link href="">
+        <Button leftIcon={<UserCheck />} variant="default">
+          {t("landingPage.hero.login")}
+        </Button>
       </Link>
       <Image
         fill
