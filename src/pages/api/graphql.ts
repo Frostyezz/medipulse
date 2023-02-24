@@ -12,7 +12,11 @@ import { Context } from "@/services/graphql/types/context";
 const cors = Cors({
   methods: ["GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true,
-  origin: ["https://studio.apollographql.com", "http://localhost:3000"],
+  origin: [
+    "https://studio.apollographql.com",
+    "http://localhost:3000",
+    "https://medipulse.vercel.app",
+  ],
 });
 
 function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: any) {
