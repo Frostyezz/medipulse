@@ -1,5 +1,4 @@
 export enum ROLES {
-  NONE = "NONE",
   MEDIC = "MEDIC",
   NURSE = "NURSE",
   PATIENT = "PATIENT",

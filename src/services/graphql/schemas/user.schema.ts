@@ -12,7 +12,7 @@ import {
 import { IsEmail, MaxLength, MinLength } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
-import { LANGUAGES, ROLES } from "@/common/utils/enums";
+import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -79,12 +79,16 @@ export class User {
   @prop()
   avatar?: string;
 
+  @Field(() => Boolean)
+  @prop({ default: false })
+  isEmailVerified: boolean;
+
   @Field(() => ROLES)
   @prop({ enum: ROLES, required: true })
   role: ROLES;
 
   @Field(() => LANGUAGES)
-  @prop({ enum: LANGUAGES, required: true, default: "en" })
+  @prop({ enum: LANGUAGES, required: true, default: LANGUAGES.EN })
   languagePref: LANGUAGES;
 
   @Field(() => Number)

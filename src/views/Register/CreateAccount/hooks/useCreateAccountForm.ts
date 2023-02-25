@@ -1,6 +1,6 @@
-import { LANGUAGES } from "@/common/utils/enums";
-import { useForm } from "@mantine/form";
 import { useEffect } from "react";
+import { LANGUAGES } from "@/services/graphql/types/enums";
+import { useForm } from "@mantine/form";
 import { useTranslation } from "react-i18next";
 import validator from "validator";
 

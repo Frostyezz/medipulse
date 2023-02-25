@@ -3,7 +3,7 @@ import RegisterPasswordInput from "@/common/components/RegisterPasswordInput";
 import { Button, Flex, Select, TextInput } from "@mantine/core";
 import useCreateAccountForm from "./hooks/useCreateAccountForm";
 import { useTranslation } from "react-i18next";
-import { LANGUAGES } from "@/common/utils/enums";
+import { LANGUAGES } from "@/services/graphql/types/enums";
 
 const CreateAccount: React.FC = () => {
   const form = useCreateAccountForm();

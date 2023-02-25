@@ -1,23 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/services/graphql/schemas/user.schema";
-import { LANGUAGES, ROLES } from "@/common/utils/enums";
+import { LANGUAGES } from "@/services/graphql/types/enums";
 
-const initialState: Omit<User, "password"> = {
-  _id: "",
-  email: "",
-  firstName: "",
-  lastName: "",
+type UserSliceType = Partial<Omit<User, "password">>;
+
+const initialState: UserSliceType = {
   languagePref: LANGUAGES.EN,
-  registerStep: 0,
-  role: ROLES.NONE,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    SET_USER_DATA: (state, action: PayloadAction<Partial<User>>) => ({
+    SET_USER_DATA: (state, action: PayloadAction<UserSliceType>) => ({
       ...state,
       ...action.payload,
     }),
