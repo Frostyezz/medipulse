@@ -18,7 +18,7 @@ export default function Hero() {
         {t("landingPage.hero.title")}
       </Title>
       <Text color="dark.3">{t("landingPage.hero.subtitle")}</Text>
-      <Link href={ROUTES.REGISTER_MEDIC}>
+      <Link href={ROUTES.REGISTER}>
         <Button leftIcon={<UserPlus />} variant="default">
           {t("landingPage.hero.signup")}
         </Button>

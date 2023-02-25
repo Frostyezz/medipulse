@@ -2,5 +2,8 @@
   "landingPage.hero.title": "Welcome to MediPulse",
   "landingPage.hero.subtitle": "The comprehensive solution for managing your healthcare needs.",
   "landingPage.hero.signup": "Create an account",
-  "landingPage.hero.login": "Log in"
+  "landingPage.hero.login": "Log in",
+  "register.caption.1": "Schedule and manage appointments on the fly",
+  "register.caption.2": "Access and manage medical records from anywhere, at anytime",
+  "register.caption.3": "Stay in touch with the medical staff or with patients"
 }
