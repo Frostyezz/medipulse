@@ -27,7 +27,7 @@
   "register.password.requirement.number": "Includes number",
   "register.password.requirement.lowercase": "Includes lowercase letter",
   "register.password.requirement.uppercase": "Includes uppercase letter",
-  "register.password.requirement.symbol": "Includes special symbol",
+  "register.password.requirement.symbol": "Includes special symbol (!@#$%^&*)",
   "register.password.requirement.chars": "Includes at least 6 characters",
   "register.createAccount.button": "Create account",
   "languages.en": "English",

@@ -1,17 +1,13 @@
+import { LANGUAGES } from "@/common/utils/enums";
 import { useForm } from "@mantine/form";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import validator from "validator";
 
-export enum LANGUAGE_PREF {
-  EN = "en",
-  RO = "ro",
-}
-
 export interface CreateAccountFormValues {
   email: string;
   password: string;
-  language: LANGUAGE_PREF;
+  language: LANGUAGES;
 }
 
 const useCreateAccountForm = () => {
@@ -21,7 +17,7 @@ const useCreateAccountForm = () => {
     initialValues: {
       email: "",
       password: "",
-      language: LANGUAGE_PREF.EN,
+      language: LANGUAGES.EN,
     },
     validateInputOnBlur: true,
     validate: {

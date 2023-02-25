@@ -1,10 +1,9 @@
 import React from "react";
 import RegisterPasswordInput from "@/common/components/RegisterPasswordInput";
 import { Button, Flex, Select, TextInput } from "@mantine/core";
-import useCreateAccountForm, {
-  LANGUAGE_PREF,
-} from "./hooks/useCreateAccountForm";
+import useCreateAccountForm from "./hooks/useCreateAccountForm";
 import { useTranslation } from "react-i18next";
+import { LANGUAGES } from "@/common/utils/enums";
 
 const CreateAccount: React.FC = () => {
   const form = useCreateAccountForm();
@@ -33,8 +32,8 @@ const CreateAccount: React.FC = () => {
         label={t("register.label.language") as string}
         placeholder={t("register.label.language") as string}
         data={[
-          { value: LANGUAGE_PREF.EN, label: t("languages.en") as string },
-          { value: LANGUAGE_PREF.RO, label: t("languages.ro") as string },
+          { value: LANGUAGES.EN, label: t("languages.en") as string },
+          { value: LANGUAGES.RO, label: t("languages.ro") as string },
         ]}
         withAsterisk
         {...form.getInputProps("language")}

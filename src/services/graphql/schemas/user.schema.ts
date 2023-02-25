@@ -12,17 +12,7 @@ import {
 import { IsEmail, MaxLength, MinLength } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
-
-export enum ROLES {
-  MEDIC = "MEDIC",
-  NURSE = "NURSE",
-  PATIENT = "PATIENT",
-}
-
-export enum LANGUAGES {
-  EN = "en",
-  RO = "ro",
-}
+import { LANGUAGES, ROLES } from "@/common/utils/enums";
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -95,15 +85,11 @@ export class User {
 
   @Field(() => LANGUAGES)
   @prop({ enum: LANGUAGES, required: true, default: "en" })
-  languagePref: ROLES;
+  languagePref: LANGUAGES;
 
   @Field(() => Number)
   @prop({ required: true, default: 1 })
   registerStep: number;
-
-  @Field(() => String)
-  @prop()
-  office: string;
 }
 
 const UserModel = getModelForClass<typeof User, QueryHelpers>(User);
@@ -126,6 +112,9 @@ export class CreateUserInput {
 
   @Field(() => ROLES)
   role: ROLES;
+
+  @Field(() => LANGUAGES)
+  language: LANGUAGES;
 }
 
 @InputType()
