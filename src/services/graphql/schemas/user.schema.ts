@@ -19,6 +19,15 @@ export enum ROLES {
   PATIENT = "PATIENT",
 }
 
+export enum LANGUAGES {
+  EN = "en",
+  RO = "ro",
+}
+
+registerEnumType(LANGUAGES, {
+  name: "LANGUAGES",
+});
+
 registerEnumType(ROLES, {
   name: "ROLES",
 });
@@ -83,6 +92,14 @@ export class User {
   @Field(() => ROLES)
   @prop({ enum: ROLES, required: true })
   role: ROLES;
+
+  @Field(() => LANGUAGES)
+  @prop({ enum: LANGUAGES, required: true, default: "en" })
+  languagePref: ROLES;
+
+  @Field(() => Number)
+  @prop({ required: true, default: 1 })
+  registerStep: number;
 
   @Field(() => String)
   @prop()

@@ -13,6 +13,7 @@ const Logo: React.FC<Partial<ImageProps & { textLogo: boolean }>> = ({
       {...props}
       width={width}
       height={height}
+      priority
       alt="MediPulse Logo"
     />
   );

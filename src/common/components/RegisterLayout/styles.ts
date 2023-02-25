@@ -34,7 +34,7 @@ export const useStyles = createStyles((theme) => ({
     padding: "70px",
     [theme.fn.smallerThan("md")]: {
       width: "100%",
-      padding: "50px 30px",
+      padding: "20px",
     },
   },
 }));
