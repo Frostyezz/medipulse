@@ -16,7 +16,9 @@
   "register.step.title.2": "Acum, să ne asigurăm că avem adresa ta de e-mail corectă",
   "register.step.title.3": "Aproape, personalizați-vă aspectul pe MediPulse",
   "register.step.title.completed": "Asta este tot!",
+  "register.error": "A aparut o eroare",
   "register.error.email.isEmail": "Vă rugăm să introduceți o adresă de email validă",
+  "register.error.emailAlreadyUsed": "Această adresă de e-mail este deja folosită.",
   "register.error.email.passwordTooWeak": "Parola introdusă este prea slabă",
   "register.error.email.required": "Este necesară adresa de e-mail",
   "register.error.password.required": "Parola este necesara",
@@ -27,8 +29,13 @@
   "register.password.requirement.number": "Include numărul",
   "register.password.requirement.lowercase": "Include litere mici",
   "register.password.requirement.uppercase": "Include literă mare",
-  "register.password.requirement.symbol": "Include simbol special",
+  "register.password.requirement.symbol": "Include simbolul special (!@",
   "register.password.requirement.chars": "Include cel puțin 6 caractere",
+  "register.createAccount.button": "Creează cont",
   "languages.en": "Engleză",
-  "languages.ro": "Română"
+  "languages.ro": "Română",
+  "email.validationCode.subject": "MediPulse - Verificați-vă adresa de e-mail",
+  "email.validationCode.title": "Salutare,",
+  "email.validationCode.subtitle": "Utilizați codul de mai jos pentru a vă valida adresa de e-mail și pentru a vă crea profilul:",
+  "email.validationCode.caption": "Vă mulțumim pentru înregistrarea la MediPulse"
 }

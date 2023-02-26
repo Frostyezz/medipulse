@@ -10,7 +10,7 @@ export default class UserResolver {
   }
 
   @Mutation(() => User)
-  createUser(@Arg("input") input: CreateUserInput, @Ctx() context: Context) {
+  createUser(@Arg("input") input: CreateUserInput) {
     return this.userService.createUser(input);
   }
 

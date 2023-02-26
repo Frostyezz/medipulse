@@ -5,6 +5,6 @@ export enum ROLES {
 }
 
 export enum LANGUAGES {
-  EN = "en",
-  RO = "ro",
+  en = "en",
+  ro = "ro",
 }

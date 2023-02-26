@@ -4,10 +4,36 @@ import { Context } from "../types/context";
 import bcrypt from "bcrypt";
 import { serialize } from "cookie";
 import { signJwt } from "@/common/utils/jwt";
+import { transporter } from "@/services/nodemailer";
+import i18next from "i18next";
 
 class UserService {
   async createUser(input: CreateUserInput) {
-    return UserModel.create(input);
+    const user = await UserModel.find().findByEmail(input.email).lean();
+    if (user) throw new ApolloError("register.error.emailAlreadyUsed");
+    const newUser = await UserModel.create({
+      ...input,
+      validationCode: Math.floor(Math.random() * 9000 + 1000),
+    });
+    i18next.changeLanguage(newUser.language);
+    try {
+      transporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: newUser.email,
+        subject: i18next.t("email.validationCode.subject") as string,
+        // @ts-ignore-next-line
+        template: "validation-code",
+        context: {
+          validationCode: newUser.validationCode,
+          title: i18next.t("email.validationCode.title"),
+          subtitle: i18next.t("email.validationCode.subtitle"),
+          caption: i18next.t("email.validationCode.caption"),
+        },
+      });
+    } catch (err) {
+      throw new ApolloError(`${err}`);
+    }
+    return newUser;
   }
 
   async login(input: LoginInput, context: Context) {

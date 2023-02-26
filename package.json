@@ -46,6 +46,8 @@
     "micro": "^10.0.1",
     "mongoose": "^6.10.0",
     "next": "13.1.6",
+    "nodemailer": "^6.9.1",
+    "nodemailer-express-handlebars": "^6.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^12.1.5",
@@ -62,6 +64,8 @@
     "@types/cors": "^2.8.13",
     "@types/js-cookie": "^3.0.3",
     "@types/jsonwebtoken": "^9.0.1",
+    "@types/nodemailer": "^6.4.7",
+    "@types/nodemailer-express-handlebars": "^4.0.2",
     "concurrently": "^7.6.0",
     "localtunnel": "^2.0.2",
     "watchr": "^6.11.0"

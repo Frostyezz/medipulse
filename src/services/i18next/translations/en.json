@@ -16,7 +16,9 @@
   "register.step.title.2": "Now, let's make sure we have your correct email address",
   "register.step.title.3": "Almost there, customize your appearance on MediPulse",
   "register.step.title.completed": "That's everything!",
+  "register.error": "An error occured",
   "register.error.email.isEmail": "Please enter a valid email address",
+  "register.error.emailAlreadyUsed": "This email address is already used.",
   "register.error.email.passwordTooWeak": "The password you entered is too weak",
   "register.error.email.required": "Email address is required",
   "register.error.password.required": "Password is required",
@@ -31,5 +33,9 @@
   "register.password.requirement.chars": "Includes at least 6 characters",
   "register.createAccount.button": "Create account",
   "languages.en": "English",
-  "languages.ro": "Romanian"
+  "languages.ro": "Romanian",
+  "email.validationCode.subject": "MediPulse - Verify Your Email Address",
+  "email.validationCode.title": "Hello there,",
+  "email.validationCode.subtitle": "Use the code below to validate you email address:",
+  "email.validationCode.caption": "Thank you for registering with MediPulse"
 }

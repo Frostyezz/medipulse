@@ -3,7 +3,7 @@ import { PasswordInput, Progress, Text, Popover, Box } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { Check, X } from "tabler-icons-react";
 import { UseFormReturnType } from "@mantine/form";
-import { CreateAccountFormValues } from "@/views/Register/CreateAccount/hooks/useCreateAccountForm";
+import { CreateUserInput } from "@/services/graphql/schemas/user.schema";
 
 const PasswordRequirement: React.FC<{
   meets: boolean;
@@ -22,7 +22,7 @@ const PasswordRequirement: React.FC<{
 };
 
 const RegisterPasswordInput: React.FC<{
-  form: UseFormReturnType<CreateAccountFormValues>;
+  form: UseFormReturnType<CreateUserInput>;
 }> = ({ form }) => {
   const [popoverOpened, setPopoverOpened] = useState(false);
   const { t } = useTranslation();

@@ -1,8 +1,15 @@
-import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
+import {
+  Field,
+  InputType,
+  Int,
+  ObjectType,
+  registerEnumType,
+} from "type-graphql";
 import {
   getModelForClass,
   index,
   ModelOptions,
+  post,
   pre,
   prop,
   queryMethod,
@@ -13,6 +20,7 @@ import { IsEmail, MaxLength, MinLength } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
 import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
+import { PostMiddlewareFunction } from "mongoose";
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -44,7 +52,7 @@ function findByEmail(
 @pre<User>("save", function () {
   if (!this.isModified("password")) return;
   const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(this.password, salt);
+  const hash = bcrypt.hashSync(this.password.trim(), salt);
   this.password = hash;
 })
 @index({ email: 1 })
@@ -68,31 +76,43 @@ export class User {
   password: string;
 
   @Field(() => String)
-  @prop({ trim: true })
-  firstName: string;
-
-  @Field(() => String)
-  @prop({ trim: true })
-  lastName: string;
-
-  @Field(() => String, { nullable: true })
   @prop()
-  avatar?: string;
+  profileId: string;
+
+  // @Field(() => String)
+  // @prop({ trim: true })
+  // firstName: string;
+
+  // @Field(() => String)
+  // @prop({ trim: true })
+  // lastName: string;
+
+  // @Field(() => String, { nullable: true })
+  // @prop()
+  // avatar?: string;
+
+  @prop()
+  validationCode: number;
 
   @Field(() => Boolean)
   @prop({ default: false })
   isEmailVerified: boolean;
 
   @Field(() => ROLES)
-  @prop({ enum: ROLES, required: true })
+  @prop({ type: String, enum: ROLES, required: true, default: ROLES.MEDIC })
   role: ROLES;
 
   @Field(() => LANGUAGES)
-  @prop({ enum: LANGUAGES, required: true, default: LANGUAGES.EN })
-  languagePref: LANGUAGES;
+  @prop({
+    type: String,
+    enum: LANGUAGES,
+    required: true,
+    default: LANGUAGES.en,
+  })
+  language: LANGUAGES;
 
-  @Field(() => Number)
-  @prop({ required: true, default: 1 })
+  @Field(() => Int)
+  @prop({ default: 1 })
   registerStep: number;
 }
 
