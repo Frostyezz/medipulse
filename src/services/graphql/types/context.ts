@@ -4,5 +4,5 @@ import { User } from "../schemas/user.schema";
 export interface Context {
   req: NextApiRequest;
   res: NextApiResponse;
-  user: User | null;
+  userId: User["_id"] | null;
 }

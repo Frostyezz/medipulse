@@ -44,7 +44,12 @@ const CreateAccount: React.FC = () => {
           withAsterisk
           {...form.getInputProps("language")}
         />
-        <Button type="submit" disabled={loading || !form.isValid()} mt={10}>
+        <Button
+          type="submit"
+          loading={loading}
+          disabled={!form.isValid()}
+          mt={10}
+        >
           {t("register.createAccount.button")}
         </Button>
       </Flex>

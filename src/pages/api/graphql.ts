@@ -38,8 +38,8 @@ const server = new ApolloServer({
   schema,
   context: (ctx: Context) => {
     if (ctx.req.cookies.MediPulseJWT) {
-      const user = verifyJwt<User>(ctx.req.cookies.MediPulseJWT);
-      ctx.user = user;
+      const id = verifyJwt<User["_id"]>(ctx.req.cookies.MediPulseJWT);
+      ctx.userId = id;
     }
     return ctx;
   },

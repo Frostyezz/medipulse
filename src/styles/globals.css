@@ -13,3 +13,9 @@ body {
 a {
   width: max-content;
 }
+
+.a {
+  color: rgb(0, 0, 238);
+  text-decoration: underline;
+  cursor: pointer;
+}

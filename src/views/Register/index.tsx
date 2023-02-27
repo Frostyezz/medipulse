@@ -1,14 +1,19 @@
 import React from "react";
-import RegisterStepper from "@/common/components/RegisterStepper";
 import CreateAccount from "./CreateAccount";
+import { useAppSelector } from "@/services/redux/hooks";
+import VerifyEmail from "./VerifyEmail";
+import Redirect from "@/common/components/Redirect";
+import { ROUTES } from "@/common/utils/routes";
+
+const RegisterControllerComponents: Record<number, React.ReactElement> = {
+  0: <CreateAccount />,
+  1: <VerifyEmail />,
+  3: <Redirect to={ROUTES.ROOT} replace />,
+};
 
 const RegisterController: React.FC = () => {
-  return (
-    <>
-      <RegisterStepper />
-      <CreateAccount />
-    </>
-  );
+  const registerStep = useAppSelector((store) => store.user?.registerStep);
+  return RegisterControllerComponents[registerStep ?? 0];
 };
 
 export default RegisterController;

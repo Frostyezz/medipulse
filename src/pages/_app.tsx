@@ -10,6 +10,7 @@ import { store } from "@/services/redux/store";
 import { ApolloProvider } from "@apollo/client";
 import client from "@/services/apollo";
 import { NotificationsProvider } from "@mantine/notifications";
+import CurrentUserProvider from "@/common/components/CurrentUserProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,8 +38,10 @@ export default function App(props: AppProps) {
             }}
           >
             <NotificationsProvider>
-              <RouterTransition />
-              <Component {...pageProps} />
+              <CurrentUserProvider>
+                <RouterTransition />
+                <Component {...pageProps} />
+              </CurrentUserProvider>
             </NotificationsProvider>
           </MantineProvider>
         </Provider>

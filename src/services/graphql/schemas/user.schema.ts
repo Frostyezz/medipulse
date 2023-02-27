@@ -9,18 +9,16 @@ import {
   getModelForClass,
   index,
   ModelOptions,
-  post,
   pre,
   prop,
   queryMethod,
   ReturnModelType,
   Severity,
 } from "@typegoose/typegoose";
-import { IsEmail, MaxLength, MinLength } from "class-validator";
+import { IsEmail, Max, MaxLength, Min, MinLength } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
 import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
-import { PostMiddlewareFunction } from "mongoose";
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -75,7 +73,7 @@ export class User {
   @prop({ required: true, trim: true })
   password: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @prop()
   profileId: string;
 
@@ -92,9 +90,8 @@ export class User {
   // avatar?: string;
 
   @prop()
-  validationCode: number;
+  validationCode?: number;
 
-  @Field(() => Boolean)
   @prop({ default: false })
   isEmailVerified: boolean;
 
@@ -139,6 +136,14 @@ export class CreateUserInput {
 
   @Field(() => LANGUAGES)
   language: LANGUAGES;
+}
+
+@InputType()
+export class VerifyEmailInput {
+  @Min(1000)
+  @Max(9999)
+  @Field(() => Int)
+  validationCode: number;
 }
 
 @InputType()

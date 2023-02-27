@@ -3,10 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/services/graphql/schemas/user.schema";
 import { LANGUAGES } from "@/services/graphql/types/enums";
 
-export type UserSliceType = Partial<Omit<User, "password" | "validationCode">>;
+export type UserSliceType = Partial<
+  Omit<User, "password" | "validationCode" | "isEmailVerified">
+>;
 
 const initialState: UserSliceType = {
   language: LANGUAGES.en,
+  registerStep: 0,
 };
 
 export const userSlice = createSlice({

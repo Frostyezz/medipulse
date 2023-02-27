@@ -1,5 +1,9 @@
 import { ApolloError } from "apollo-server-micro";
-import UserModel, { CreateUserInput, LoginInput } from "../schemas/user.schema";
+import UserModel, {
+  CreateUserInput,
+  LoginInput,
+  VerifyEmailInput,
+} from "../schemas/user.schema";
 import { Context } from "../types/context";
 import bcrypt from "bcrypt";
 import { serialize } from "cookie";
@@ -8,7 +12,7 @@ import { transporter } from "@/services/nodemailer";
 import i18next from "i18next";
 
 class UserService {
-  async createUser(input: CreateUserInput) {
+  async createUser(input: CreateUserInput, context: Context) {
     const user = await UserModel.find().findByEmail(input.email).lean();
     if (user) throw new ApolloError("register.error.emailAlreadyUsed");
     const newUser = await UserModel.create({
@@ -33,7 +37,54 @@ class UserService {
     } catch (err) {
       throw new ApolloError(`${err}`);
     }
+    const token = signJwt({ _id: newUser._id });
+    const serialised = serialize("MediPulseJWT", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: 3.154e10,
+      path: "/",
+    });
+    context.res.setHeader("Set-Cookie", serialised);
     return newUser;
+  }
+
+  async resendValidationCode(context: Context) {
+    const newValidationCode = Math.floor(Math.random() * 9000 + 1000);
+    const user = await UserModel.findByIdAndUpdate(context.userId, {
+      validationCode: newValidationCode,
+    });
+    if (!user) throw new ApolloError("register.error");
+    try {
+      transporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: user.email,
+        subject: i18next.t("email.validationCode.subject") as string,
+        // @ts-ignore-next-line
+        template: "validation-code",
+        context: {
+          validationCode: newValidationCode,
+          title: i18next.t("email.validationCode.title"),
+          subtitle: i18next.t("email.validationCode.subtitle"),
+          caption: i18next.t("email.validationCode.caption"),
+        },
+      });
+    } catch (err) {
+      throw new ApolloError(`${err}`);
+    }
+
+    return true;
+  }
+
+  async verifyEmail(input: VerifyEmailInput, context: Context) {
+    const { validationCode } = (await UserModel.findById(context.userId)) ?? {};
+    if (validationCode !== input.validationCode)
+      throw new ApolloError("verify.errors.invalidCode");
+    await UserModel.findByIdAndUpdate(context.userId, {
+      isEmailVerified: true,
+      registerStep: 2,
+    });
+    return true;
   }
 
   async login(input: LoginInput, context: Context) {
@@ -43,7 +94,7 @@ class UserService {
     const isValidPassword = bcrypt.compareSync(input.password, user.password);
     if (!isValidPassword) throw new ApolloError("login.error.failed");
 
-    const token = signJwt(user);
+    const token = signJwt({ _id: user._id });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
@@ -54,6 +105,11 @@ class UserService {
     context.res.setHeader("Set-Cookie", serialised);
 
     return token;
+  }
+
+  async getUser(context: Context) {
+    const user = await UserModel.findById(context.userId).lean();
+    return user;
   }
 }
 
