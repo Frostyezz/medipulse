@@ -87,6 +87,19 @@ class UserService {
     return true;
   }
 
+  async deleteUser(context: Context) {
+    await UserModel.findByIdAndRemove(context.userId);
+    const serialised = serialize("MediPulseJWT", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: -1,
+      path: "/",
+    });
+    context.res.setHeader("Set-Cookie", serialised);
+    return true;
+  }
+
   async login(input: LoginInput, context: Context) {
     const user = await UserModel.find().findByEmail(input.email).lean();
     if (!user) throw new ApolloError("login.error.failed");

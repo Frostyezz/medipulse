@@ -34,6 +34,11 @@ export default class UserResolver {
     return this.userService.verifyEmail(input, context);
   }
 
+  @Mutation(() => Boolean, { nullable: true })
+  deleteUser(@Ctx() context: Context) {
+    return this.userService.deleteUser(context);
+  }
+
   @Query(() => User, { nullable: true })
   me(@Ctx() context: Context) {
     return this.userService.getUser(context);

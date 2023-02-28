@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/services/redux/hooks";
 import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
 import { gql, useMutation } from "@apollo/client";
 import { showNotification } from "@mantine/notifications";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const VERIFY_EMAIL = gql`
@@ -27,6 +27,7 @@ const useVerifyEmail = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const email = useAppSelector((store) => store.user.email);
+  const [cooldown, setCooldown] = useState(false);
 
   useEffect(() => {
     if (resendError)
@@ -35,13 +36,17 @@ const useVerifyEmail = () => {
         message: t(resendError.message),
         color: "red",
       });
-    else if (resendData?.resendValidationCode)
+    else if (resendData?.resendValidationCode) {
       showNotification({
         title: t("verify.notify.emailSent.title", { email }),
         message: t("verify.notify.emailSent.subtitle"),
         color: "blue",
         autoClose: 6000,
       });
+      setCooldown(true);
+      const timeout = setTimeout(() => setCooldown(false), 1000 * 60 * 3);
+      return () => clearTimeout(timeout);
+    }
   }, [resendError, resendData]);
 
   useEffect(() => {
@@ -55,7 +60,7 @@ const useVerifyEmail = () => {
       dispatch(SET_USER_DATA({ registerStep: 2 }));
   }, [data, loading, error]);
 
-  return { loading, verifyEmail, resendEmail };
+  return { loading, cooldown, verifyEmail, resendEmail };
 };
 
 export default useVerifyEmail;

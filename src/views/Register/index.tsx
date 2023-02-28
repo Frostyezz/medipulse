@@ -8,6 +8,7 @@ import { ROUTES } from "@/common/utils/routes";
 const RegisterControllerComponents: Record<number, React.ReactElement> = {
   0: <CreateAccount />,
   1: <VerifyEmail />,
+  2: <p>s</p>,
   3: <Redirect to={ROUTES.ROOT} replace />,
 };
 

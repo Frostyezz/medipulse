@@ -3,16 +3,29 @@ import { Flex, NumberInput, Button, Alert, Text } from "@mantine/core";
 import useVerifyEmailForm from "./hooks/useVerifyEmailForm";
 import { Trans, useTranslation } from "react-i18next";
 import { AlertCircle } from "tabler-icons-react";
-import Link from "next/link";
 import useVerifyEmail from "./hooks/useVerifyEmail";
+import Countdown from "react-countdown";
+import { CountdownRendererFn } from "react-countdown/dist/Countdown";
+import useDeleteUser from "@/common/hooks/useDeleteUser";
 
 const VerifyEmail: React.FC = () => {
   const form = useVerifyEmailForm();
   const { t } = useTranslation();
-  const { loading, resendEmail, verifyEmail } = useVerifyEmail();
+  const { loading, resendEmail, cooldown, verifyEmail } = useVerifyEmail();
+  const deleteUser = useDeleteUser(undefined);
+
+  const renderer: CountdownRendererFn = ({ minutes, seconds, completed }) => {
+    if (completed) return <></>;
+    return `${t("verify.help.step.2.sent")} ${minutes}:${seconds}`;
+  };
 
   return (
-    <form onSubmit={form.onSubmit(async ({ validationCode }) => {})}>
+    <form
+      onSubmit={form.onSubmit(
+        async ({ validationCode }) =>
+          await verifyEmail({ variables: { input: { validationCode } } })
+      )}
+    >
       <Flex
         sx={(theme) => ({
           maxWidth: "400px",
@@ -44,17 +57,26 @@ const VerifyEmail: React.FC = () => {
           <ol>
             <li>{t("verify.help.step.1")}</li>
             <li>
-              <Trans
-                i18nKey="verify.help.step.2"
-                components={{
-                  btn: <span className="a" onClick={() => resendEmail()} />,
-                }}
-              />
+              {cooldown ? (
+                <Countdown
+                  date={Date.now() + 1000 * 60 * 3}
+                  renderer={renderer}
+                />
+              ) : (
+                <Trans
+                  i18nKey="verify.help.step.2"
+                  components={{
+                    btn: <span className="a" onClick={() => resendEmail()} />,
+                  }}
+                />
+              )}
             </li>
             <li>
               <Trans
                 i18nKey="verify.help.step.3"
-                components={{ btn: <Link href="#" /> }}
+                components={{
+                  btn: <span className="a" onClick={() => deleteUser()} />,
+                }}
               />
             </li>
           </ol>
