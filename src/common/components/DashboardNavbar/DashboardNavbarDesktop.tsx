@@ -10,7 +10,7 @@ const DashboardNavbarDesktop: React.FC = () => {
 
   return (
     <Navbar
-      height="100vh"
+      height={typeof window !== "undefined" ? window.innerHeight : "100vh"}
       width={{ sm: 300 }}
       p="md"
       className={classes.navbar}

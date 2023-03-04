@@ -27,7 +27,7 @@ const useLogin = () => {
   ] = useLazyQuery<{
     me: User;
     getMyProfile: Profile;
-  }>(FETCH_CURRENT_USER);
+  }>(FETCH_CURRENT_USER, { fetchPolicy: "network-only" });
   const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -40,6 +40,7 @@ const useLogin = () => {
         color: "red",
       });
     } else if (data?.login && !loading) {
+      console.log("da");
       fetchUser();
     }
   }, [data, loading, error]);
