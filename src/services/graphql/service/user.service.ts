@@ -21,7 +21,7 @@ class UserService {
     });
     i18next.changeLanguage(newUser.language);
     try {
-      transporter.sendMail({
+      await transporter.sendMail({
         from: process.env.MAIL_USER,
         to: newUser.email,
         subject: i18next.t("email.validationCode.subject") as string,
@@ -56,7 +56,7 @@ class UserService {
     });
     if (!user) throw new ApolloError("register.error");
     try {
-      transporter.sendMail({
+      await transporter.sendMail({
         from: process.env.MAIL_USER,
         to: user.email,
         subject: i18next.t("email.validationCode.subject") as string,

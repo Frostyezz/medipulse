@@ -1,6 +1,6 @@
 import { ROLES } from "@/services/graphql/types/enums";
 import { useAppSelector } from "@/services/redux/hooks";
-import { IconProps, LayoutDashboard } from "tabler-icons-react";
+import { IconProps, LayoutDashboard, UserPlus } from "tabler-icons-react";
 import { ROUTES } from "../utils/routes";
 
 interface DashboardLinkType {
@@ -18,6 +18,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       to: ROUTES.MEDIC_DASHBOARD,
       icon: LayoutDashboard,
     },
+    {
+      label: "dashboard.label.invite",
+      to: ROUTES.MEDIC_INVITE,
+      icon: UserPlus,
+    },
   ],
   [ROLES.NURSE]: [
     {
@@ -25,6 +30,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       label: "dashboard.label.home",
       to: ROUTES.MEDIC_DASHBOARD,
       icon: LayoutDashboard,
+    },
+    {
+      label: "dashboard.label.invite",
+      to: ROUTES.MEDIC_INVITE,
+      icon: UserPlus,
     },
   ],
   [ROLES.PATIENT]: [

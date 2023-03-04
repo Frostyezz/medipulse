@@ -4,6 +4,7 @@ import { useAppSelector } from "@/services/redux/hooks";
 import { useTranslation } from "react-i18next";
 import { Logout } from "tabler-icons-react";
 import useLogout from "@/common/hooks/useLogout";
+import Image from "next/image";
 
 const DashboardProfileMenu: React.FC = () => {
   const { avatar, firstName, lastName } =
@@ -14,7 +15,18 @@ const DashboardProfileMenu: React.FC = () => {
 
   return (
     <Flex gap={12} align="center">
-      <Avatar size="lg" radius="xl" src={avatar} />
+      <Avatar size="lg" radius="xl">
+        {!!avatar && (
+          <Image
+            src={avatar}
+            fill
+            objectFit="cover"
+            style={{ borderRadius: "100%" }}
+            alt="Profile avatar"
+            priority
+          />
+        )}
+      </Avatar>
       <Flex gap={6} direction="column">
         <Title weight={500} order={5}>{`${firstName} ${lastName}`}</Title>
         <Badge sx={{ width: "min-content" }}>{t(`roles.${role}`)}</Badge>
