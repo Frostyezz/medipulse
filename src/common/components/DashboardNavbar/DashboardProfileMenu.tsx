@@ -3,12 +3,14 @@ import { Avatar, Flex, Title, Badge, Tooltip } from "@mantine/core";
 import { useAppSelector } from "@/services/redux/hooks";
 import { useTranslation } from "react-i18next";
 import { Logout } from "tabler-icons-react";
+import useLogout from "@/common/hooks/useLogout";
 
 const DashboardProfileMenu: React.FC = () => {
   const { avatar, firstName, lastName } =
     useAppSelector((store) => store.profile) ?? {};
   const { role } = useAppSelector((store) => store.user) ?? {};
   const { t } = useTranslation();
+  const logout = useLogout();
 
   return (
     <Flex gap={12} align="center">
@@ -18,7 +20,10 @@ const DashboardProfileMenu: React.FC = () => {
         <Badge sx={{ width: "min-content" }}>{t(`roles.${role}`)}</Badge>
       </Flex>
       <Tooltip label={t("logout")}>
-        <div style={{ marginLeft: "auto", cursor: "pointer" }}>
+        <div
+          onClick={() => logout()}
+          style={{ marginLeft: "auto", cursor: "pointer" }}
+        >
           <Logout />
         </div>
       </Tooltip>

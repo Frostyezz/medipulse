@@ -24,6 +24,11 @@ export default class UserResolver {
     return this.userService.login(input, context);
   }
 
+  @Mutation(() => Boolean)
+  logout(@Ctx() context: Context) {
+    return this.userService.logout(context);
+  }
+
   @Mutation(() => Boolean, { nullable: true })
   resendValidationCode(@Ctx() context: Context) {
     return this.userService.resendValidationCode(context);

@@ -33,6 +33,7 @@
   "register.password.requirement.symbol": "Includes special symbol (!@#$%^&*)",
   "register.password.requirement.chars": "Includes at least 6 characters",
   "register.createAccount.button": "Create account",
+  "error.logout": "Something went wrong while logging you out.",
   "languages.en": "English",
   "languages.ro": "Romanian",
   "email.validationCode.subject": "MediPulse - Verify Your Email Address",
