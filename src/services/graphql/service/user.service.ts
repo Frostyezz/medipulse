@@ -35,8 +35,12 @@ class UserService {
             caption: i18next.t("email.validationCode.caption"),
           },
         },
-        (err) => {
-          throw new ApolloError(`${err}`);
+        (err, info) => {
+          if (err) {
+            throw new ApolloError(`${err}`);
+            console.error(err);
+          }
+          console.log(info);
         }
       );
     } catch (err) {
@@ -76,9 +80,12 @@ class UserService {
             caption: i18next.t("email.validationCode.caption"),
           },
         },
-        (err) => {
-          console.error(err);
-          throw new ApolloError(`${err}`);
+        (err, info) => {
+          if (err) {
+            console.error(err);
+            throw new ApolloError(`${err}`);
+          }
+          console.log(info);
         }
       );
     } catch (err) {
