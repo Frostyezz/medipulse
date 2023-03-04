@@ -52,6 +52,7 @@
     "react-dom": "18.2.0",
     "react-i18next": "^12.1.5",
     "react-redux": "^8.0.5",
+    "react-swipeable": "^7.0.0",
     "reflect-metadata": "^0.1.13",
     "tabler-icons-react": "^1.56.0",
     "type-graphql": "^1.1.1",

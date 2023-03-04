@@ -1,4 +1,4 @@
-import MedicResolver from "./profile.resolver";
+import ProfileResolver from "./profile.resolver";
 import UserResolver from "./user.resolver";
 
-export const resolvers = [UserResolver, MedicResolver] as const;
+export const resolvers = [UserResolver, ProfileResolver] as const;
