@@ -2,11 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/services/graphql/schemas/user.schema";
 import { LANGUAGES } from "@/services/graphql/types/enums";
-import { Medic } from "@/services/graphql/schemas/medic.schema";
 
 export type UserSliceType = Partial<
-  Omit<User, "password" | "validationCode" | "isEmailVerified"> &
-    Omit<Medic, "medicalProof" | "_id">
+  Omit<User, "password" | "validationCode" | "isEmailVerified">
 >;
 
 const initialState: UserSliceType = {

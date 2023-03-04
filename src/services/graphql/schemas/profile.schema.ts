@@ -15,8 +15,8 @@ interface QueryHelpers {
 }
 
 function findByContextId(
-  this: ReturnModelType<typeof Medic, QueryHelpers>,
-  contextId: Medic["contextId"]
+  this: ReturnModelType<typeof Profile, QueryHelpers>,
+  contextId: Profile["contextId"]
 ) {
   return this.findOne({ contextId });
 }
@@ -32,7 +32,7 @@ function findByContextId(
 @index({ contextId: 1 })
 @queryMethod(findByContextId)
 @ObjectType()
-export class Medic {
+export class Profile {
   @Field(() => String)
   readonly _id: string;
 
@@ -52,23 +52,24 @@ export class Medic {
   @prop({ required: true, trim: true })
   lastName: string;
 
-  @prop({ required: true })
+  @prop()
   medicalProof: string;
 }
 
-const MedicModel = getModelForClass<typeof Medic, QueryHelpers>(Medic);
-export default MedicModel;
+const ProfileModel = getModelForClass<typeof Profile, QueryHelpers>(Profile);
+export default ProfileModel;
 
 @InputType()
-export class CreateMedicInput {
+export class CreateProfileInput {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
   avatar?: string;
 
+  @IsOptional()
   @IsString()
-  @Field(() => String)
-  medicalProof: string;
+  @Field(() => String, { nullable: true })
+  medicalProof?: string;
 
   @Field(() => String)
   firstName: string;

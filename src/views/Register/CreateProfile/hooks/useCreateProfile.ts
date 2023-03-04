@@ -1,16 +1,17 @@
 import { useAppDispatch } from "@/services/redux/hooks";
 import {
-  SET_USER_DATA,
-  UserSliceType,
-} from "@/services/redux/slices/userSlice";
+  ProfileSliceType,
+  SET_PROFILE_DATA,
+} from "@/services/redux/slices/profileSlice";
+import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
 import { gql, useMutation } from "@apollo/client";
 import { showNotification } from "@mantine/notifications";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-const CREATE_MEDIC_PROFILE = gql`
-  mutation CreateMedic($input: CreateMedicInput!) {
-    createMedic(input: $input) {
+const CREATE_PROFILE = gql`
+  mutation CreateProfile($input: CreateProfileInput!) {
+    createProfile(input: $input) {
       _id
       avatar
       contextId
@@ -20,10 +21,10 @@ const CREATE_MEDIC_PROFILE = gql`
   }
 `;
 
-const useCreateMedicProfile = () => {
-  const [createMedicProfile, { data, loading, error }] = useMutation<{
-    createMedic: UserSliceType;
-  }>(CREATE_MEDIC_PROFILE);
+const useCreateProfile = () => {
+  const [createProfile, { data, loading, error }] = useMutation<{
+    createProfile: ProfileSliceType;
+  }>(CREATE_PROFILE);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -34,17 +35,18 @@ const useCreateMedicProfile = () => {
         message: t(error.message),
         color: "red",
       });
-    else if (data?.createMedic)
+    else if (data?.createProfile) {
+      dispatch(SET_PROFILE_DATA(data.createProfile));
       dispatch(
         SET_USER_DATA({
-          ...(data.createMedic ?? {}),
-          profileId: data.createMedic._id,
+          profileId: data.createProfile._id,
           registerStep: 3,
         })
       );
+    }
   }, [data, error, dispatch]);
 
-  return { createMedicProfile, loading };
+  return { createProfile, loading };
 };
 
-export default useCreateMedicProfile;
+export default useCreateProfile;

@@ -4,12 +4,12 @@ import { useAppSelector } from "@/services/redux/hooks";
 import VerifyEmail from "./VerifyEmail";
 import Redirect from "@/common/components/Redirect";
 import { ROUTES } from "@/common/utils/routes";
-import CreateProfileController from "./CreateProfile/CreateProfileController";
+import CreateProfile from "./CreateProfile/CreateProfile";
 
 const RegisterControllerComponents: Record<number, React.ReactElement> = {
   0: <CreateAccount />,
   1: <VerifyEmail />,
-  2: <CreateProfileController />,
+  2: <CreateProfile />,
   3: <Redirect to={ROUTES.ROOT} replace />,
 };
 

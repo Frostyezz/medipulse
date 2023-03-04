@@ -112,7 +112,7 @@ const DropzoneButton: React.FC<
         radius="xl"
         onClick={() => openRef.current?.()}
       >
-        {t("createProfile.medic.button.proof")}
+        {t("createProfile.button.proof")}
       </Button>
     </div>
   );
