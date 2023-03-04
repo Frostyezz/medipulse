@@ -4,6 +4,8 @@ import { useAppDispatch } from "@/services/redux/hooks";
 import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
 import { gql, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
+import { Profile } from "@/services/graphql/schemas/profile.schema";
+import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
 
 const FETCH_CURRENT_USER = gql`
   query FetchCurrentUser {
@@ -15,19 +17,34 @@ const FETCH_CURRENT_USER = gql`
       language
       registerStep
     }
+    getMyProfile {
+      _id
+      contextId
+      avatar
+      firstName
+      lastName
+    }
   }
 `;
 
 const useFetchCurrentUser = () => {
-  const { data, loading, error } = useQuery<{ me: User }>(FETCH_CURRENT_USER);
+  const { data, loading, error } = useQuery<{
+    me: User;
+    getMyProfile: Profile;
+  }>(FETCH_CURRENT_USER);
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (error) console.error(error);
-    else if (!loading && data?.me) {
-      i18n.changeLanguage(data.me.language);
-      dispatch(SET_USER_DATA(data.me));
+    else if (!loading) {
+      if (data?.me) {
+        i18n.changeLanguage(data.me.language);
+        dispatch(SET_USER_DATA(data.me));
+      }
+      if (data?.getMyProfile) {
+        dispatch(SET_PROFILE_DATA(data.getMyProfile));
+      }
     }
   }, [data, loading, error, dispatch]);
 };

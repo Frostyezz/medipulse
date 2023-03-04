@@ -37,7 +37,7 @@ class UserService {
     } catch (err) {
       throw new ApolloError(`${err}`);
     }
-    const token = signJwt({ _id: newUser._id });
+    const token = signJwt({ _id: newUser._id, role: newUser.role });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
@@ -107,7 +107,7 @@ class UserService {
     const isValidPassword = bcrypt.compareSync(input.password, user.password);
     if (!isValidPassword) throw new ApolloError("login.error.failed");
 
-    const token = signJwt({ _id: user._id });
+    const token = signJwt({ _id: user._id, role: user.role });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",

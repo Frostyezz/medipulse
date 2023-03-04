@@ -7,7 +7,7 @@ export type ProfileSliceType = Partial<Omit<Profile, "medicalProof">>;
 const initialState: ProfileSliceType = {};
 
 export const profileSlice = createSlice({
-  name: "Profile",
+  name: "profile",
   initialState,
   reducers: {
     SET_PROFILE_DATA: (state, action: PayloadAction<ProfileSliceType>) => ({

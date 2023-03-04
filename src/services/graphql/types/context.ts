@@ -5,4 +5,5 @@ export interface Context {
   req: NextApiRequest;
   res: NextApiResponse;
   userId: User["_id"] | null;
+  role: User["role"] | null;
 }
