@@ -129,7 +129,7 @@ class UserService {
     });
     context.res.setHeader("Set-Cookie", serialised);
 
-    return token;
+    return true;
   }
 
   async getUser(context: Context) {

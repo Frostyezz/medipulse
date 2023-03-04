@@ -19,7 +19,7 @@ export default class UserResolver {
     return this.userService.createUser(input, context);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   login(@Arg("input") input: LoginInput, @Ctx() context: Context) {
     return this.userService.login(input, context);
   }

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Profile } from "@/services/graphql/schemas/profile.schema";
 import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
 
-const FETCH_CURRENT_USER = gql`
+export const FETCH_CURRENT_USER = gql`
   query FetchCurrentUser {
     me {
       _id

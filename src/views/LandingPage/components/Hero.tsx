@@ -23,7 +23,7 @@ export default function Hero() {
           {t("landingPage.hero.signup")}
         </Button>
       </Link>
-      <Link href="">
+      <Link href={ROUTES.LOGIN}>
         <Button leftIcon={<UserCheck />} variant="default">
           {t("landingPage.hero.login")}
         </Button>
