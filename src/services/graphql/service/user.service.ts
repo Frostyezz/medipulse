@@ -21,20 +21,26 @@ class UserService {
     });
     i18next.changeLanguage(newUser.language);
     try {
-      await transporter.sendMail({
-        from: process.env.MAIL_USER,
-        to: newUser.email,
-        subject: i18next.t("email.validationCode.subject") as string,
-        // @ts-ignore-next-line
-        template: "validation-code",
-        context: {
-          validationCode: newUser.validationCode,
-          title: i18next.t("email.validationCode.title"),
-          subtitle: i18next.t("email.validationCode.subtitle"),
-          caption: i18next.t("email.validationCode.caption"),
+      await transporter.sendMail(
+        {
+          from: process.env.MAIL_USER,
+          to: newUser.email,
+          subject: i18next.t("email.validationCode.subject") as string,
+          // @ts-ignore-next-line
+          template: "validation-code",
+          context: {
+            validationCode: newUser.validationCode,
+            title: i18next.t("email.validationCode.title"),
+            subtitle: i18next.t("email.validationCode.subtitle"),
+            caption: i18next.t("email.validationCode.caption"),
+          },
         },
-      });
+        (err) => {
+          throw new ApolloError(`${err}`);
+        }
+      );
     } catch (err) {
+      console.error(err);
       throw new ApolloError(`${err}`);
     }
     const token = signJwt({ _id: newUser._id, role: newUser.role });
@@ -56,19 +62,25 @@ class UserService {
     });
     if (!user) throw new ApolloError("register.error");
     try {
-      await transporter.sendMail({
-        from: process.env.MAIL_USER,
-        to: user.email,
-        subject: i18next.t("email.validationCode.subject") as string,
-        // @ts-ignore-next-line
-        template: "validation-code",
-        context: {
-          validationCode: newValidationCode,
-          title: i18next.t("email.validationCode.title"),
-          subtitle: i18next.t("email.validationCode.subtitle"),
-          caption: i18next.t("email.validationCode.caption"),
+      await transporter.sendMail(
+        {
+          from: process.env.MAIL_USER,
+          to: user.email,
+          subject: i18next.t("email.validationCode.subject") as string,
+          // @ts-ignore-next-line
+          template: "validation-code",
+          context: {
+            validationCode: newValidationCode,
+            title: i18next.t("email.validationCode.title"),
+            subtitle: i18next.t("email.validationCode.subtitle"),
+            caption: i18next.t("email.validationCode.caption"),
+          },
         },
-      });
+        (err) => {
+          console.error(err);
+          throw new ApolloError(`${err}`);
+        }
+      );
     } catch (err) {
       throw new ApolloError(`${err}`);
     }
