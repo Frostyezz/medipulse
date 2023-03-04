@@ -37,10 +37,10 @@ class UserService {
         },
         (err, info) => {
           if (err) {
-            throw new ApolloError(`${err}`);
             console.error(err);
+            throw new ApolloError(`${err}`);
           }
-          console.log(info);
+          console.info(info);
         }
       );
     } catch (err) {
@@ -85,7 +85,7 @@ class UserService {
             console.error(err);
             throw new ApolloError(`${err}`);
           }
-          console.log(info);
+          console.info(info);
         }
       );
     } catch (err) {
