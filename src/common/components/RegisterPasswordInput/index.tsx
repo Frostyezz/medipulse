@@ -79,7 +79,7 @@ const RegisterPasswordInput: React.FC<{
         opened={popoverOpened}
         position="bottom"
         width="target"
-        transition="pop"
+        transitionProps={{ transition: "pop" }}
       >
         <Popover.Target>
           <div
