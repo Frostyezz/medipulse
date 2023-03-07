@@ -24,7 +24,13 @@ const MobileDashboardNavbar: React.FC = () => {
       >
         <Menu2 />
       </ActionIcon>
-      <Drawer withCloseButton={false} opened={opened} onClose={close}>
+      <Drawer
+        withCloseButton={false}
+        opened={opened}
+        onClose={close}
+        padding={0}
+        transitionProps={{ duration: 300 }}
+      >
         <div {...handlers}>
           <DashboardNavbar />
         </div>
