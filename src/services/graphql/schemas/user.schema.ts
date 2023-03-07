@@ -15,7 +15,7 @@ import {
   ReturnModelType,
   Severity,
 } from "@typegoose/typegoose";
-import { IsEmail, Max, MaxLength, Min, MinLength } from "class-validator";
+import { IsEmail, IsOptional, Max, MaxLength, Min, MinLength } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
 import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
@@ -77,17 +77,9 @@ export class User {
   @prop()
   profileId: string;
 
-  // @Field(() => String)
-  // @prop({ trim: true })
-  // firstName: string;
-
-  // @Field(() => String)
-  // @prop({ trim: true })
-  // lastName: string;
-
-  // @Field(() => String, { nullable: true })
-  // @prop()
-  // avatar?: string;
+  @Field(() => String, { nullable: true })
+  @prop()
+  medicId: string;
 
   @prop()
   validationCode?: number;
@@ -130,6 +122,10 @@ export class CreateUserInput {
   })
   @Field(() => String)
   password: string;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  medicId?: string;
 
   @Field(() => ROLES)
   role: ROLES;

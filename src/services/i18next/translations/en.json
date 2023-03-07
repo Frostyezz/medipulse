@@ -81,5 +81,8 @@
   "roles.PATIENT": "Patient",
   "logout": "Log out",
   "dashboard.label.home": "Home",
-  "dashboard.label.invite": "Invite patients or nurses"
+  "dashboard.label.invite": "Invite patients or nurses",
+  "invite.mail.subject": "MediPulse - You receivred an invitation!",
+  "invite.mail.title": "You got invited by your {{role}}!",
+  "invite.mail.button": "Accept the invitation"
 }

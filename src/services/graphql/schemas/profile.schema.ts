@@ -54,6 +54,10 @@ export class Profile {
 
   @prop()
   medicalProof: string;
+
+  @Field(() => String, { nullable: true })
+  @prop()
+  medicId: string;
 }
 
 const ProfileModel = getModelForClass<typeof Profile, QueryHelpers>(Profile);
