@@ -10,7 +10,10 @@ export default class InviteResolver {
   }
 
   @Mutation(() => Invite)
-  createUser(@Arg("input") input: CreateInviteInput, @Ctx() context: Context) {
+  createInvite(
+    @Arg("input") input: CreateInviteInput,
+    @Ctx() context: Context
+  ) {
     return this.inviteService.createInvite(input, context);
   }
 }

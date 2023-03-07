@@ -77,12 +77,20 @@
   "login.help.step.3": "If you are a nurse, ask your medical supervisor for an invite.",
   "login.button": "Log in",
   "roles.MEDIC": "Medic",
+  "roles.short.MEDIC": "Dr.",
+  "roles.short.NURSE": "Nrs.",
   "roles.NURSE": "Nurse",
   "roles.PATIENT": "Patient",
   "logout": "Log out",
   "dashboard.label.home": "Home",
   "dashboard.label.invite": "Invite patients or nurses",
-  "invite.mail.subject": "MediPulse - You receivred an invitation!",
+  "invite.mail.subject": "MediPulse - You received an invitation!",
   "invite.mail.title": "You got invited by your {{role}}!",
-  "invite.mail.button": "Accept the invitation"
+  "invite.mail.button": "Accept the invitation",
+  "invite.error.role": "Invitation type is required",
+  "invite.error.role.label": "Invitation type",
+  "invite.button": "Send invite",
+  "invite.success.title": "Invite sent successfully!",
+  "invite.error.alreadySent": "You have already sent an invite to this email address!",
+  "invite.error.emailTaken": "There is already an account using this email address!"
 }

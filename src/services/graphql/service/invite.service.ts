@@ -4,18 +4,29 @@ import InviteModel, { CreateInviteInput } from "../schemas/invite.schema";
 import ProfileModel from "../schemas/profile.schema";
 import { Context } from "../types/context";
 import i18next from "i18next";
+import UserModel from "../schemas/user.schema";
+import { INVITATION_STATUS } from "../types/enums";
 
 class InviteService {
   async createInvite(input: CreateInviteInput, context: Context) {
     const alreadySent = !!(await InviteModel.find({ email: input.email }))
       .length;
-    if (alreadySent) throw new ApolloError("invite.already.sent");
+    if (alreadySent) throw new ApolloError("invite.error.alreadySent");
+
+    const emailTaken = !!(await UserModel.find()
+      .findByEmail(input.email)
+      .lean());
+    if (emailTaken) throw new ApolloError("invite.error.emailTaken");
 
     const profile = await ProfileModel.find().findByContextId(
       context.userId ?? ""
     );
 
-    const invite = await InviteModel.create(input);
+    const invite = await InviteModel.create({
+      ...input,
+      medicId: context.userId,
+      status: INVITATION_STATUS.SENT,
+    });
 
     i18next.changeLanguage(input.language);
     await transporter.sendMail(
@@ -24,11 +35,15 @@ class InviteService {
         to: input.email,
         subject: i18next.t("invite.mail.subject") as string,
         // @ts-ignore-next-line
-        template: "validation-code",
+        template: "invite",
         context: {
-          title: i18next.t("invite.mail.title"),
+          title: i18next.t("invite.mail.title", {
+            role: context.role?.toLowerCase(),
+          }),
           name: [
-            i18next.t(`roles.${context.role}`),
+            i18next.t(`roles.short.${context.role}`, {
+              role: context.role?.toLowerCase(),
+            }),
             profile?.firstName,
             profile?.lastName,
           ].join(" "),

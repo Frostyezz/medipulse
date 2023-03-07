@@ -9,8 +9,15 @@ import {
 import { AsQueryMethod, ReturnModelType } from "@typegoose/typegoose/lib/types";
 import { IsEmail } from "class-validator";
 import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
+import {
+  INVITATION_STATUS,
+  LANGUAGES,
+  ROLES,
+} from "@/services/graphql/types/enums";
 
-import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
+registerEnumType(INVITATION_STATUS, {
+  name: "INVITATION_STATUS",
+});
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -47,7 +54,7 @@ export class Invite {
   readonly _id: string;
 
   @Field(() => String)
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   medicId: String;
 
   @IsEmail()
@@ -67,6 +74,15 @@ export class Invite {
     default: LANGUAGES.en,
   })
   language: LANGUAGES;
+
+  @Field(() => INVITATION_STATUS)
+  @prop({
+    type: String,
+    enum: INVITATION_STATUS,
+    required: true,
+    default: INVITATION_STATUS.SENT,
+  })
+  status: INVITATION_STATUS;
 }
 
 const InviteModel = getModelForClass<typeof Invite, QueryHelpers>(Invite);

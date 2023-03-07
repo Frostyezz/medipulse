@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, NumberInput, Button, Alert, Text } from "@mantine/core";
+import { Flex, PinInput, Button, Alert, Text } from "@mantine/core";
 import useVerifyEmailForm from "./hooks/useVerifyEmailForm";
 import { Trans, useTranslation } from "react-i18next";
 import { AlertCircle } from "tabler-icons-react";
@@ -23,7 +23,9 @@ const VerifyEmail: React.FC = () => {
     <form
       onSubmit={form.onSubmit(
         async ({ validationCode }) =>
-          await verifyEmail({ variables: { input: { validationCode } } })
+          await verifyEmail({
+            variables: { input: { validationCode: Number(validationCode) } },
+          })
       )}
     >
       <Flex
@@ -37,12 +39,9 @@ const VerifyEmail: React.FC = () => {
         gap={12}
         direction="column"
       >
-        <NumberInput
-          label={t("verify.label.code")}
-          min={1000}
-          max={9999}
-          withAsterisk
-          hideControls
+        <PinInput
+          size="xl"
+          type="number"
           {...form.getInputProps("validationCode")}
         />
         <Button loading={loading} disabled={!form.isValid()} type="submit">
