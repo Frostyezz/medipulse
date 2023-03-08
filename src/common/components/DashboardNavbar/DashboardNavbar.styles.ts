@@ -4,6 +4,8 @@ export const useDashboardNavbarStyles = createStyles((theme) => ({
   navbar: {
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    position: "fixed",
+    top: 0,
   },
 
   link: {

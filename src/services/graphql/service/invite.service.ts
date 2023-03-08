@@ -68,6 +68,12 @@ class InviteService {
 
     return invite;
   }
+
+  async getInvites(context: Context) {
+    const invites = await InviteModel.find({ medicId: context?.userId ?? "" });
+
+    return invites;
+  }
 }
 
 export default InviteService;

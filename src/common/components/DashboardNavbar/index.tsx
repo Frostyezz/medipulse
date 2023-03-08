@@ -14,7 +14,14 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ children }) => {
   return (
     <Flex gap={24}>
       {isMobile ? <MobileDashboardNavbar /> : <DashboardNavbarDesktop />}
-      {children}
+      <div
+        style={{
+          padding: isMobile ? "60px 12px 40px 12px" : "50px 50px 50px 350px",
+          width: "100%",
+        }}
+      >
+        {children}
+      </div>
     </Flex>
   );
 };

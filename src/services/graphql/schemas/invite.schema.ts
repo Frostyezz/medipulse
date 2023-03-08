@@ -28,7 +28,7 @@ registerEnumType(ROLES, {
 });
 
 interface QueryHelpers {
-  findByContextId: AsQueryMethod<typeof findByMedicId>;
+  findByMedicId: AsQueryMethod<typeof findByMedicId>;
 }
 
 function findByMedicId(
@@ -83,6 +83,9 @@ export class Invite {
     default: INVITATION_STATUS.SENT,
   })
   status: INVITATION_STATUS;
+
+  @Field(() => String)
+  createdAt: string;
 }
 
 const InviteModel = getModelForClass<typeof Invite, QueryHelpers>(Invite);

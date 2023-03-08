@@ -15,6 +15,7 @@ const SEND_INVITE = gql`
       role
       language
       status
+      createdAt
     }
   }
 `;
