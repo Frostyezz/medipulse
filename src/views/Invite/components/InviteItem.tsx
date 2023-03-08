@@ -15,6 +15,7 @@ const StatusColorMap: Record<INVITATION_STATUS, "cyan" | "blue"> = {
 
 const InviteItem: React.FC<Partial<Invite>> = ({
   createdAt,
+  updatedAt,
   email,
   status = INVITATION_STATUS.SENT,
 }) => {
@@ -46,7 +47,13 @@ const InviteItem: React.FC<Partial<Invite>> = ({
           >
             <Flex gap={4}>
               <Text>{t(`invitation.status.${status}`)}</Text>
-              <TimeAgo date={createdAt ?? ""} />
+              <TimeAgo
+                date={
+                  status === INVITATION_STATUS.SENT
+                    ? createdAt ?? ""
+                    : updatedAt ?? ""
+                }
+              />
             </Flex>
           </List.Item>
         </List>

@@ -4,16 +4,20 @@ import { useForm } from "@mantine/form";
 import { useTranslation } from "react-i18next";
 import validator from "validator";
 import { CreateUserInput } from "@/services/graphql/schemas/user.schema";
+import { useRouter } from "next/router";
 
 const useCreateAccountForm = () => {
   const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const { id, type } = router.query;
 
   const form = useForm<CreateUserInput>({
     initialValues: {
       email: "",
       password: "",
       language: LANGUAGES.en,
-      role: ROLES.MEDIC,
+      role: type ? (type as ROLES) : ROLES.MEDIC,
+      medicId: id as string,
     },
     validateInputOnBlur: true,
     validate: {

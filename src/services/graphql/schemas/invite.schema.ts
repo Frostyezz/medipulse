@@ -86,6 +86,9 @@ export class Invite {
 
   @Field(() => String)
   createdAt: string;
+
+  @Field(() => String)
+  updatedAt: string;
 }
 
 const InviteModel = getModelForClass<typeof Invite, QueryHelpers>(Invite);

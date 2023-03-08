@@ -1,6 +1,8 @@
 import { Context } from "@apollo/client";
+import InviteModel from "../schemas/invite.schema";
 import ProfileModel, { CreateProfileInput } from "../schemas/profile.schema";
 import UserModel from "../schemas/user.schema";
+import { INVITATION_STATUS } from "../types/enums";
 
 class ProfileService {
   async createProfile(input: CreateProfileInput, context: Context) {
@@ -12,10 +14,16 @@ class ProfileService {
       medicId: user?.medicId,
     });
 
-    await UserModel.findByIdAndUpdate(context.userId, {
-      profileId: newProfileProfile._id,
-      registerStep: 3,
-    });
+    const { email } =
+      (await UserModel.findByIdAndUpdate(context.userId, {
+        profileId: newProfileProfile._id,
+        registerStep: 3,
+      })) ?? {};
+
+    await InviteModel.findOneAndUpdate(
+      { email },
+      { status: INVITATION_STATUS.ACCEPTED }
+    );
 
     return newProfileProfile;
   }

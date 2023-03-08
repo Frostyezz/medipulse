@@ -13,6 +13,7 @@ const FETCH_INVITES = gql`
       email
       status
       createdAt
+      updatedAt
     }
   }
 `;
