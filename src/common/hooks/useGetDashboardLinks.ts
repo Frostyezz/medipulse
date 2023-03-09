@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   UserPlus,
   Users,
+  MapSearch,
 } from "tabler-icons-react";
 import { ROUTES } from "../utils/routes";
 
@@ -58,6 +59,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       label: "dashboard.label.home",
       to: ROUTES.MEDIC_DASHBOARD,
       icon: LayoutDashboard,
+    },
+    {
+      label: "dashboard.label.doctors",
+      to: ROUTES.PATIENT_DOCTORS,
+      icon: MapSearch,
     },
   ],
 };

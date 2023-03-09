@@ -7,7 +7,7 @@ import {
   Severity,
 } from "@typegoose/typegoose";
 import { AsQueryMethod, ReturnModelType } from "@typegoose/typegoose/lib/types";
-import { IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
 import { ROLES } from "../types/enums";
 
@@ -81,6 +81,9 @@ export class Profile {
   @Field(() => Number, { nullable: true })
   @prop()
   longitude?: number;
+
+  @Field(() => Number, { nullable: true })
+  patientsCount?: number;
 }
 
 const ProfileModel = getModelForClass<typeof Profile, QueryHelpers>(Profile);
@@ -109,4 +112,19 @@ export class CreateProfileInput {
 
   @Field(() => Number, { nullable: true })
   longitude?: number;
+}
+
+@InputType()
+export class GetDoctorsNearMeInput {
+  @IsOptional()
+  @Field(() => Number)
+  latitude: number;
+
+  @IsOptional()
+  @Field(() => Number)
+  longitude: number;
+
+  @IsOptional()
+  @Field(() => Number)
+  maxDistance: number;
 }

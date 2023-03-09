@@ -87,6 +87,7 @@
   "dashboard.label.home": "Home",
   "dashboard.label.invite": "Invite patients or nurses",
   "dashboard.label.patients": "Patients",
+  "dashboard.label.doctors": "Doctors near you",
   "invitation.status.SENT": "Sent",
   "invitation.status.ACCEPTED": "Accepted",
   "invite.mail.subject": "MediPulse - You received an invitation!",
@@ -105,5 +106,12 @@
   "patients.list.title": "Your patients",
   "patients.list.card.history": "See medical history",
   "patients.zeroState": "There are no patients...",
-  "joined": "Joined"
+  "joined": "Joined",
+  "doctors.area.label": "Show me doctors within (kms):",
+  "doctors.location.warning": "Please allow location sharing in order to explore your local doctors",
+  "doctors.card.count_zero": "No patients",
+  "doctors.card.count_one": "1 patient",
+  "doctors.card.count_other": "{{count}} patients",
+  "doctors.card.button": "Request transfer",
+  "doctors.zeroState": "Unfortunately, we couldn't find any doctors near your location..."
 }

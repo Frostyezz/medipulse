@@ -1,5 +1,9 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { CreateProfileInput, Profile } from "../schemas/profile.schema";
+import {
+  CreateProfileInput,
+  GetDoctorsNearMeInput,
+  Profile,
+} from "../schemas/profile.schema";
 import ProfileService from "../service/profile.service";
 import type { Context } from "../types/context";
 
@@ -25,5 +29,10 @@ export default class ProfileResolver {
   @Query(() => [Profile], { nullable: true })
   getMyPatients(@Ctx() context: Context) {
     return this.profileService.getMyPatients(context);
+  }
+
+  @Query(() => [Profile], { nullable: true })
+  getDoctorsNearMe(@Arg("input") input: GetDoctorsNearMeInput) {
+    return this.profileService.getDoctorsNearMe(input);
   }
 }
