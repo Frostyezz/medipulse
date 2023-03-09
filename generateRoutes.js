@@ -31,15 +31,15 @@ function listener(changeType) {
 
   const routes = filePaths.map((item) =>
     item
-      .substring(0, item.includes("tsx") ? item.length - 4 : item.length)
-      .substring(0, item.includes("ts") ? item.length - 3 : item.length)
+      .substring(0, item.includes(".tsx") ? item.length - 4 : item.length)
+      .substring(0, item.includes(".ts") ? item.length - 3 : item.length)
       .replace(/\[/g, ":")
       .replace(/]/g, "")
   );
   const routeKeys = filePaths.map((item) =>
     item
-      .substring(0, item.includes("tsx") ? item.length - 4 : item.length)
-      .substring(0, item.includes("ts") ? item.length - 3 : item.length)
+      .substring(0, item.includes(".tsx") ? item.length - 4 : item.length)
+      .substring(0, item.includes(".ts") ? item.length - 3 : item.length)
       .slice(1)
       .replace(/\[/g, "")
       .replace(/]/g, "")

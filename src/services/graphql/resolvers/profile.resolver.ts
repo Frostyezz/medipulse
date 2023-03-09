@@ -21,4 +21,9 @@ export default class ProfileResolver {
   getMyProfile(@Ctx() context: Context) {
     return this.profileService.getMyProfile(context);
   }
+
+  @Query(() => [Profile], { nullable: true })
+  getMyPatients(@Ctx() context: Context) {
+    return this.profileService.getMyPatients(context);
+  }
 }

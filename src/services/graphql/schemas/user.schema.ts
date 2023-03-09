@@ -15,7 +15,14 @@ import {
   ReturnModelType,
   Severity,
 } from "@typegoose/typegoose";
-import { IsEmail, IsOptional, Max, MaxLength, Min, MinLength } from "class-validator";
+import {
+  IsEmail,
+  IsOptional,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+} from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
 import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";

@@ -84,6 +84,7 @@
   "logout": "Log out",
   "dashboard.label.home": "Home",
   "dashboard.label.invite": "Invite patients or nurses",
+  "dashboard.label.patients": "Patients",
   "invitation.status.SENT": "Sent",
   "invitation.status.ACCEPTED": "Accepted",
   "invite.mail.subject": "MediPulse - You received an invitation!",
@@ -96,5 +97,11 @@
   "invite.list.title": "Invitations sent",
   "invite.success.title": "Invite sent successfully!",
   "invite.error.alreadySent": "You have already sent an invite to this email address!",
-  "invite.error.emailTaken": "There is already an account using this email address!"
+  "invite.error.emailTaken": "There is already an account using this email address!",
+  "patients.filter.name.label": "Search by name",
+  "patients.filter.name.placeholder": "Name",
+  "patients.list.title": "Your patients",
+  "patients.list.card.history": "See medical history",
+  "patients.zeroState": "There are no patients...",
+  "joined": "Joined"
 }

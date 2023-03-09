@@ -2,21 +2,22 @@ import { Context } from "@apollo/client";
 import InviteModel from "../schemas/invite.schema";
 import ProfileModel, { CreateProfileInput } from "../schemas/profile.schema";
 import UserModel from "../schemas/user.schema";
-import { INVITATION_STATUS } from "../types/enums";
+import { INVITATION_STATUS, ROLES } from "../types/enums";
 
 class ProfileService {
   async createProfile(input: CreateProfileInput, context: Context) {
     const user = await UserModel.findById(context.userId).lean();
 
-    const newProfileProfile = await ProfileModel.create({
+    const newProfile = await ProfileModel.create({
       ...input,
       contextId: context.userId,
       medicId: user?.medicId,
+      role: user?.role,
     });
 
     const { email } =
       (await UserModel.findByIdAndUpdate(context.userId, {
-        profileId: newProfileProfile._id,
+        profileId: newProfile._id,
         registerStep: 3,
       })) ?? {};
 
@@ -25,7 +26,7 @@ class ProfileService {
       { status: INVITATION_STATUS.ACCEPTED }
     );
 
-    return newProfileProfile;
+    return newProfile;
   }
 
   async getMyProfile(context: Context) {
@@ -33,6 +34,15 @@ class ProfileService {
       .findByContextId(context.userId)
       .lean();
     return ProfileProfile;
+  }
+
+  async getMyPatients(context: Context) {
+    const patients = await ProfileModel.find({
+      medicId: context.userId,
+      role: ROLES.PATIENT,
+    }).lean();
+
+    return patients;
   }
 }
 

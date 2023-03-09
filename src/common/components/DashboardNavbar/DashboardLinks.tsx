@@ -1,6 +1,6 @@
 import React from "react";
-import useGetDashboardLinks from "@/common/hooks/useGetDashboardLinks";
 import Link from "next/link";
+import useGetDashboardLinks from "@/common/hooks/useGetDashboardLinks";
 import { useDashboardNavbarStyles } from "./DashboardNavbar.styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";

@@ -8,7 +8,12 @@ import {
 } from "@typegoose/typegoose";
 import { AsQueryMethod, ReturnModelType } from "@typegoose/typegoose/lib/types";
 import { IsOptional, IsString } from "class-validator";
-import { Field, InputType, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
+import { ROLES } from "../types/enums";
+
+registerEnumType(ROLES, {
+  name: "ROLES",
+});
 
 interface QueryHelpers {
   findByContextId: AsQueryMethod<typeof findByContextId>;
@@ -58,6 +63,24 @@ export class Profile {
   @Field(() => String, { nullable: true })
   @prop()
   medicId: string;
+
+  @Field(() => ROLES)
+  @prop({ type: String, enum: ROLES, required: true, default: ROLES.MEDIC })
+  role: ROLES;
+
+  @Field(() => String)
+  createdAt: string;
+
+  @Field(() => String)
+  updatedAt: string;
+
+  @Field(() => Number, { nullable: true })
+  @prop()
+  latitude?: number;
+
+  @Field(() => Number, { nullable: true })
+  @prop()
+  longitude?: number;
 }
 
 const ProfileModel = getModelForClass<typeof Profile, QueryHelpers>(Profile);
@@ -80,4 +103,10 @@ export class CreateProfileInput {
 
   @Field(() => String)
   lastName: string;
+
+  @Field(() => Number, { nullable: true })
+  latitude?: number;
+
+  @Field(() => Number, { nullable: true })
+  longitude?: number;
 }
