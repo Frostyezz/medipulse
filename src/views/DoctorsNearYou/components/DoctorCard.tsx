@@ -3,6 +3,7 @@ import { Profile } from "@/services/graphql/schemas/profile.schema";
 import { useTranslation } from "react-i18next";
 import { Avatar, Text, Button, Paper, Flex } from "@mantine/core";
 import TimeAgo from "@/common/components/TimeAgo/TimeAgo";
+import useSendTransferRequest from "../hooks/useSendTransferRequest";
 
 const DoctorCard: React.FC<Partial<Profile>> = ({
   avatar,
@@ -10,8 +11,10 @@ const DoctorCard: React.FC<Partial<Profile>> = ({
   lastName,
   createdAt,
   patientsCount,
+  contextId,
 }) => {
   const { t } = useTranslation();
+  const { loading, sendTransferRequest } = useSendTransferRequest();
 
   return (
     <Paper
@@ -36,7 +39,17 @@ const DoctorCard: React.FC<Partial<Profile>> = ({
         </Flex>
       </Text>
 
-      <Button variant="default" mt={6} fullWidth>
+      <Button
+        loading={loading}
+        onClick={() =>
+          sendTransferRequest({
+            variables: { input: { transferTo: contextId } },
+          })
+        }
+        variant="default"
+        mt={6}
+        fullWidth
+      >
         {t("doctors.card.button")}
       </Button>
     </Paper>

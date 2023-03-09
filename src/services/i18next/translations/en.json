@@ -113,5 +113,9 @@
   "doctors.card.count_one": "1 patient",
   "doctors.card.count_other": "{{count}} patients",
   "doctors.card.button": "Request transfer",
+  "doctors.request.success.title": "Your request was successfully submitted!",
+  "doctors.request.success.subtitle": "Please wait for your current doctor to manage the request.",
+  "doctors.request.alreadySent.title": "You already requested a transfer to this doctor!",
+  "doctors.request.error.current.title": "You can't request a transfer to your current doctor!",
   "doctors.zeroState": "Unfortunately, we couldn't find any doctors near your location..."
 }

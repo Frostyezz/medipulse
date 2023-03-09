@@ -8,6 +8,7 @@ const FETCH_DOCTORS_NEAR_YOU = gql`
   query GetDoctorsNearMe($input: GetDoctorsNearMeInput!) {
     getDoctorsNearMe(input: $input) {
       _id
+      contextId
       avatar
       createdAt
       firstName
