@@ -52,6 +52,8 @@
   "verify.errors.invalidCode": "The code you entered is invalid.",
   "verify.notify.emailSent.title": "A new email was sent to {{email}}",
   "verify.notify.emailSent.subtitle": "Remember to check your spam folder too!",
+  "createProfile.alert.title": "Why do you need my location?",
+  "createProfile.alert.text": "MediPulse will use your location to display your profile to nearby patients. You can choose to not share it and your profile will not be discoverable by patients in your area.",
   "createProfile.label.firstName": "First name",
   "createProfile.label.lastName": "Last name",
   "createProfile.label.avatar": "Upload a profile picture (optional)",

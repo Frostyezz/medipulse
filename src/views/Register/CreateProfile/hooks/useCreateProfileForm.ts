@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { CreateProfileInput } from "@/services/graphql/schemas/profile.schema";
 import { ROLES } from "@/services/graphql/types/enums";
 import { useAppSelector } from "@/services/redux/hooks";
@@ -25,6 +26,15 @@ const useCreateProfileForm = () => {
         value ? undefined : t("createProfile.error.proof"),
     },
   });
+
+  useEffect(() => {
+    if (!isPatient) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        form.setFieldValue("latitude", coords.latitude);
+        form.setFieldValue("longitude", coords.longitude);
+      });
+    }
+  }, []);
 
   return form;
 };

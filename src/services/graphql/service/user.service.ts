@@ -15,10 +15,12 @@ class UserService {
   async createUser(input: CreateUserInput, context: Context) {
     const user = await UserModel.find().findByEmail(input.email).lean();
     if (user) throw new ApolloError("register.error.emailAlreadyUsed");
+    
     const newUser = await UserModel.create({
       ...input,
       validationCode: Math.floor(Math.random() * 9000 + 1000),
     });
+    
     i18next.changeLanguage(newUser.language);
     try {
       await transporter.sendMail(

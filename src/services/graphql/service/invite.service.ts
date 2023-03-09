@@ -53,8 +53,12 @@ class InviteService {
             : "https://refine.dev/img/generic-profile.png",
           link:
             process.env.NODE_ENV !== "production"
-              ? `http://localhost:3000/register?id=${invite._id}&type=${invite.role}`
-              : "https://medipulse.vercel.app/register?id=${invite._id}&type=${invite.role}",
+              ? `http://localhost:3000/register?id=${
+                  profile?.medicId ?? context.userId
+                }&type=${invite.role}`
+              : `https://medipulse.vercel.app/register?id=${
+                  profile?.medicId ?? context.userId
+                }&type=${invite.role}`,
         },
       },
       (err, info) => {

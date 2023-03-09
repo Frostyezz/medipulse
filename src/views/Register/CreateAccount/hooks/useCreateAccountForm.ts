@@ -43,6 +43,11 @@ const useCreateAccountForm = () => {
   });
 
   useEffect(() => {
+    if (id) form.setFieldValue("medicId", id as string);
+    if (type) form.setFieldValue("role", type ? (type as ROLES) : ROLES.MEDIC);
+  }, [id, type]);
+
+  useEffect(() => {
     if (form.values.language) i18n.changeLanguage(form.values.language);
   }, [form.values.language, i18n]);
 

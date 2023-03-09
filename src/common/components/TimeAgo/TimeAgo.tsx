@@ -14,7 +14,7 @@ const TimeAgo: React.FC<TextProps & { date: string }> = ({
 }) => {
   const language = useAppSelector((store) => store.user.language);
   dayjs.locale(language);
-  console.log(new Date(Number(date)), date);
+
   return <Text {...props}>{dayjs().to(dayjs(new Date(Number(date))))}</Text>;
 };
 

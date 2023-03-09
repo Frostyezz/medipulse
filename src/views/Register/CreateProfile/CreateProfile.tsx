@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Title, Text, TextInput, Button } from "@mantine/core";
+import { Flex, Title, Text, TextInput, Button, Alert } from "@mantine/core";
 import useCreatForm from "./hooks/useCreateProfileForm";
 import AvatarUpload from "@/common/components/AvatarUpload/AvatarUpload";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import DropzoneButton from "@/common/components/DropzoneButton/DropzoneButton";
 import useCreateProfile from "./hooks/useCreateProfile";
 import { useAppSelector } from "@/services/redux/hooks";
 import { ROLES } from "@/services/graphql/types/enums";
+import { AlertCircle } from "tabler-icons-react";
 
 const CreateProfile: React.FC = () => {
   const form = useCreatForm();
@@ -68,23 +69,32 @@ const CreateProfile: React.FC = () => {
           />
         </Flex>
         {!isPatient && (
-          <DropzoneButton
-            {...form.getInputProps("medicalProof")}
-            onUpload={(value: string) =>
-              form.setFieldValue("medicalProof", value)
-            }
-            title={
-              form.values.medicalProof
-                ? t("createProfile.label.proof.uploaded")
-                : t("createProfile.label.proof")
-            }
-            subtitle={
-              form.values.medicalProof
-                ? t("createProfile.desc.proof.uploaded")
-                : t("createProfile.desc.proof")
-            }
-          />
+          <>
+            <DropzoneButton
+              {...form.getInputProps("medicalProof")}
+              onUpload={(value: string) =>
+                form.setFieldValue("medicalProof", value)
+              }
+              title={
+                form.values.medicalProof
+                  ? t("createProfile.label.proof.uploaded")
+                  : t("createProfile.label.proof")
+              }
+              subtitle={
+                form.values.medicalProof
+                  ? t("createProfile.desc.proof.uploaded")
+                  : t("createProfile.desc.proof")
+              }
+            />
+            <Alert
+              icon={<AlertCircle size={16} />}
+              title={t("createProfile.alert.title")}
+            >
+              <Text>{t("createProfile.alert.text")}</Text>
+            </Alert>
+          </>
         )}
+
         <Button
           loading={loading}
           type="submit"
