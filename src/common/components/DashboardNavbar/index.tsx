@@ -18,6 +18,8 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ children }) => {
         style={{
           padding: isMobile ? "60px 12px 40px 12px" : "50px 50px 50px 350px",
           width: "100%",
+          minHeight:
+            typeof window !== "undefined" ? window.innerHeight : "100vh",
         }}
       >
         {children}

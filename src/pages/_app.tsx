@@ -11,6 +11,7 @@ import { ApolloProvider } from "@apollo/client";
 import client from "@/services/apollo";
 import { Notifications } from "@mantine/notifications";
 import CurrentUserProvider from "@/common/components/CurrentUserProvider";
+import "animate.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -92,6 +92,7 @@
   "invite.error.role": "Invitation type is required",
   "invite.error.role.label": "Invitation type",
   "invite.button": "Send invite",
+  "invite.zeroState": "You haven't sent any invitations yet...",
   "invite.list.title": "Invitations sent",
   "invite.success.title": "Invite sent successfully!",
   "invite.error.alreadySent": "You have already sent an invite to this email address!",

@@ -19,12 +19,12 @@ const InviteItem: React.FC<Partial<Invite>> = ({
   email,
   status = INVITATION_STATUS.SENT,
 }) => {
-  const { classes } = useInviteStyles();
+  const { classes, cx } = useInviteStyles();
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 1400px)");
 
   return (
-    <Flex className={classes.wrapper}>
+    <Flex className={cx(classes.wrapper, "animate__animated animate__fadeIn")}>
       <Flex
         align="center"
         justify="center"
