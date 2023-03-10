@@ -1,17 +1,20 @@
 import React from "react";
 import { GetTransfersRequestsResult } from "@/services/graphql/schemas/transferRequest.schema";
 import { useTranslation } from "react-i18next";
-import { Flex, Paper, Text } from "@mantine/core";
+import { Button, Flex, Paper, Text } from "@mantine/core";
 import ProfileInfo from "./ProfileInfo";
 import { useMediaQuery } from "@mantine/hooks";
 import TimeAgo from "@/common/components/TimeAgo/TimeAgo";
 import Arrow from "./Arrow";
+import useProcessTransferRequest from "../hooks/useProcessTransferRequest";
+import { REQUEST_STATUS } from "@/services/graphql/types/enums";
 
 const TransferCard: React.FC<GetTransfersRequestsResult> = ({
   request,
   medicProfile,
   patientProfile,
 }) => {
+  const { loading, processRequest } = useProcessTransferRequest();
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 1200px)");
 
@@ -34,13 +37,97 @@ const TransferCard: React.FC<GetTransfersRequestsResult> = ({
           justify={isMobile ? "start" : "center"}
           ml={isMobile ? 45 : 0}
         >
-          {!isMobile && <Text c="dimmed">{t("requests.transfer.title")}</Text>}
+          {!isMobile && (
+            <Flex mb={4} gap={10}>
+              <Button
+                onClick={() =>
+                  processRequest({
+                    variables: {
+                      input: {
+                        transferId: request._id,
+                        status: REQUEST_STATUS.ACCEPTED,
+                      },
+                    },
+                  })
+                }
+                disabled={loading}
+                compact
+                variant="light"
+                color="blue"
+              >
+                {t("requests.transfer.approve")}
+              </Button>
+              <Button
+                onClick={() =>
+                  processRequest({
+                    variables: {
+                      input: {
+                        transferId: request._id,
+                        status: REQUEST_STATUS.REJECTED,
+                      },
+                    },
+                  })
+                }
+                disabled={loading}
+                compact
+                variant="light"
+                color="cyan"
+              >
+                {t("requests.transfer.reject")}
+              </Button>
+            </Flex>
+          )}
           <Arrow />
-          {!isMobile && <TimeAgo c="dimmed" mt={16} date={request.createdAt} />}
-          {isMobile && (
-            <Flex direction="column" ml={16} justify="center">
+          {!isMobile && (
+            <Flex gap={4} mt={16}>
               <Text c="dimmed">{t("requests.transfer.title")}</Text>
               <TimeAgo c="dimmed" date={request.createdAt} />
+            </Flex>
+          )}
+          {isMobile && (
+            <Flex direction="column" ml={16} justify="center">
+              <Flex gap={10}>
+                <Button
+                  onClick={() =>
+                    processRequest({
+                      variables: {
+                        input: {
+                          transferId: request._id,
+                          status: REQUEST_STATUS.ACCEPTED,
+                        },
+                      },
+                    })
+                  }
+                  disabled={loading}
+                  compact
+                  variant="light"
+                  color="blue"
+                >
+                  {t("requests.transfer.approve")}
+                </Button>
+                <Button
+                  onClick={() =>
+                    processRequest({
+                      variables: {
+                        input: {
+                          transferId: request._id,
+                          status: REQUEST_STATUS.REJECTED,
+                        },
+                      },
+                    })
+                  }
+                  disabled={loading}
+                  compact
+                  variant="light"
+                  color="cyan"
+                >
+                  {t("requests.transfer.reject")}
+                </Button>
+              </Flex>
+              <Flex gap={4} mt={6}>
+                <Text c="dimmed">{t("requests.transfer.title")}</Text>
+                <TimeAgo c="dimmed" date={request.createdAt} />
+              </Flex>
             </Flex>
           )}
         </Flex>

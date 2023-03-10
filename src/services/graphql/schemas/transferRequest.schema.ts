@@ -5,8 +5,13 @@ import {
   Severity,
 } from "@typegoose/typegoose";
 import { IsString } from "class-validator";
-import { Field, InputType, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
+import { REQUEST_STATUS } from "../types/enums";
 import { Profile } from "./profile.schema";
+
+registerEnumType(REQUEST_STATUS, {
+  name: "REQUEST_STATUS",
+});
 
 @ModelOptions({
   schemaOptions: {
@@ -61,4 +66,14 @@ export class GetTransfersRequestsResult {
 
   @Field(() => Profile)
   medicProfile: Profile;
+}
+
+@InputType()
+export class ProcessTransferRequestInput {
+  @IsString()
+  @Field(() => String)
+  transferId: String;
+
+  @Field(() => REQUEST_STATUS)
+  status: REQUEST_STATUS;
 }

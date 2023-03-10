@@ -2,9 +2,11 @@ import { ApolloError } from "apollo-server-micro";
 import ProfileModel from "../schemas/profile.schema";
 import TransferRequestModel, {
   CreateTransferRequestInput,
+  ProcessTransferRequestInput,
 } from "../schemas/transferRequest.schema";
 import UserModel from "../schemas/user.schema";
 import { Context } from "../types/context";
+import { REQUEST_STATUS } from "../types/enums";
 
 class transferRequestService {
   async createTransferRequest(
@@ -48,6 +50,25 @@ class transferRequestService {
         return { request, patientProfile, medicProfile };
       })
     );
+  }
+
+  async processTransferRequest(input: ProcessTransferRequestInput) {
+    const request = await TransferRequestModel.findByIdAndDelete(
+      input.transferId
+    ).lean();
+
+    if (input.status === REQUEST_STATUS.ACCEPTED) {
+      await UserModel.findByIdAndUpdate(request?.patientId, {
+        medicId: request?.transferTo,
+      });
+
+      await ProfileModel.findOneAndUpdate(
+        { contextId: request?.patientId },
+        { medicId: request?.transferTo }
+      );
+    }
+
+    return request?._id;
   }
 }
 

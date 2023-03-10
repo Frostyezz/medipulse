@@ -2,6 +2,8 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import {
   CreateTransferRequestInput,
   GetTransfersRequestsResult,
+  ProcessTransferRequestInput,
+  TransferRequest,
 } from "../schemas/transferRequest.schema";
 import TransferRequestService from "../service/transferRequest.service";
 import type { Context } from "../types/context";
@@ -23,5 +25,10 @@ export default class TransferRequestsResolver {
     @Ctx() context: Context
   ) {
     return this.TransferRequestsService.createTransferRequest(input, context);
+  }
+
+  @Mutation(() => String)
+  processTransferRequest(@Arg("input") input: ProcessTransferRequestInput) {
+    return this.TransferRequestsService.processTransferRequest(input);
   }
 }

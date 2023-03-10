@@ -11,5 +11,10 @@ export enum LANGUAGES {
 
 export enum INVITATION_STATUS {
   SENT = "SENT",
-  ACCEPTED = "ACCEPTED"
+  ACCEPTED = "ACCEPTED",
+}
+
+export enum REQUEST_STATUS {
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
 }

@@ -120,6 +120,9 @@
   "doctors.request.error.current.title": "You can't request a transfer to your current doctor!",
   "doctors.zeroState": "Unfortunately, we couldn't find any doctors near your location...",
   "requests.title": "Transfer requests from your patients",
-  "requests.transfer.title": "Transfer requested",
-  "requests.zeroState": "There are no requests to review..."
+  "requests.transfer.title": "Requested",
+  "requests.transfer.approve": "Approve",
+  "requests.transfer.reject": "Reject",
+  "requests.zeroState": "There are no requests to review...",
+  "request.success.title": "The requested was updated successfully!"
 }

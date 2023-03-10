@@ -58,7 +58,9 @@ class ProfileService {
         getDistance(
           { lat: input.latitude, lng: input.longitude },
           { lat: doctor.latitude, lng: doctor.longitude }
-        ) <= input.maxDistance
+        ) /
+          1000 <=
+        input.maxDistance
       );
     });
 

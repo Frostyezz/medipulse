@@ -14,25 +14,28 @@ const TransferRequests: React.FC = () => {
   return (
     <Flex direction="column" gap={24} sx={{ height: "100%" }}>
       <Title order={2}>{t("requests.title")}</Title>
-      {!loading && !requests.length && <TransferRequestsZeroState />}
-      <Flex direction="column" gap={24}>
-        {!loading && requests.length ? (
-          requests.map((request) => (
-            <TransferCard {...request} key={request.request._id} />
-          ))
-        ) : (
-          <Skeleton
-            sx={(theme) => ({
-              maxWidth: "1000px",
-              height: "136px",
-              [theme.fn.smallerThan("1200")]: {
-                height: "354px",
-              },
-            })}
-            visible
-          />
-        )}
-      </Flex>
+      {!loading && !requests.length ? (
+        <TransferRequestsZeroState />
+      ) : (
+        <Flex direction="column" gap={24}>
+          {!loading && requests.length ? (
+            requests.map((request) => (
+              <TransferCard {...request} key={request.request._id} />
+            ))
+          ) : (
+            <Skeleton
+              sx={(theme) => ({
+                maxWidth: "1000px",
+                height: "136px",
+                [theme.fn.smallerThan("1200")]: {
+                  height: "354px",
+                },
+              })}
+              visible
+            />
+          )}
+        </Flex>
+      )}
     </Flex>
   );
 };
