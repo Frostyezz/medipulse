@@ -6,6 +6,7 @@ import {
 } from "@typegoose/typegoose";
 import { IsString } from "class-validator";
 import { Field, InputType, ObjectType } from "type-graphql";
+import { Profile } from "./profile.schema";
 
 @ModelOptions({
   schemaOptions: {
@@ -48,4 +49,16 @@ export class CreateTransferRequestInput {
   @IsString()
   @Field(() => String)
   transferTo: String;
+}
+
+@ObjectType()
+export class GetTransfersRequestsResult {
+  @Field(() => TransferRequest)
+  request: TransferRequest;
+
+  @Field(() => Profile)
+  patientProfile: Profile;
+
+  @Field(() => Profile)
+  medicProfile: Profile;
 }

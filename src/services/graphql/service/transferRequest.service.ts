@@ -1,4 +1,5 @@
 import { ApolloError } from "apollo-server-micro";
+import ProfileModel from "../schemas/profile.schema";
 import TransferRequestModel, {
   CreateTransferRequestInput,
 } from "../schemas/transferRequest.schema";
@@ -33,9 +34,20 @@ class transferRequestService {
   async getTransferRequests(context: Context) {
     const requests = await TransferRequestModel.find({
       medicId: context.userId,
-    });
+    }).lean();
 
-    return requests;
+    return await Promise.all(
+      requests.map(async (request) => {
+        const patientProfile = await ProfileModel.find().findByContextId(
+          request.patientId
+        );
+        const medicProfile = await ProfileModel.find().findByContextId(
+          request.transferTo
+        );
+
+        return { request, patientProfile, medicProfile };
+      })
+    );
   }
 }
 

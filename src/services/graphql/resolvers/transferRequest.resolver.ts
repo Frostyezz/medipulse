@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import {
   CreateTransferRequestInput,
-  TransferRequest,
+  GetTransfersRequestsResult,
 } from "../schemas/transferRequest.schema";
 import TransferRequestService from "../service/transferRequest.service";
 import type { Context } from "../types/context";
@@ -12,7 +12,7 @@ export default class TransferRequestsResolver {
     this.TransferRequestsService = new TransferRequestService();
   }
 
-  @Query(() => [TransferRequest], { nullable: true })
+  @Query(() => [GetTransfersRequestsResult], { nullable: true })
   getTransferRequests(@Ctx() context: Context) {
     return this.TransferRequestsService.getTransferRequests(context);
   }
