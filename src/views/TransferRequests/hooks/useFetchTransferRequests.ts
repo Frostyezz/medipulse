@@ -36,7 +36,7 @@ const FETCH_TRANSFER_REQUESTS = gql`
 const useFetchTransferRequests = () => {
   const { data, loading, error } = useQuery<{
     getTransferRequests: GetTransfersRequestsResult[] | null;
-  }>(FETCH_TRANSFER_REQUESTS);
+  }>(FETCH_TRANSFER_REQUESTS, { fetchPolicy: "network-only" });
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 

@@ -20,7 +20,8 @@ const FETCH_INVITES = gql`
 
 const useFetchInvitations = () => {
   const { data, error, loading } = useQuery<{ getInvites: Partial<Invite>[] }>(
-    FETCH_INVITES
+    FETCH_INVITES,
+    { fetchPolicy: "network-only" }
   );
 
   const dispatch = useAppDispatch();

@@ -21,7 +21,7 @@ const FETCH_PATIENTS = gql`
 const useFetchPatients = () => {
   const { data, error, loading } = useQuery<{
     getMyPatients: Partial<Profile>[];
-  }>(FETCH_PATIENTS);
+  }>(FETCH_PATIENTS, { fetchPolicy: "network-only" });
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
