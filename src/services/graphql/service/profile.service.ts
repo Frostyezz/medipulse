@@ -3,6 +3,7 @@ import InviteModel from "../schemas/invite.schema";
 import ProfileModel, {
   CreateProfileInput,
   GetDoctorsNearMeInput,
+  UpdateProfileInput,
 } from "../schemas/profile.schema";
 import UserModel from "../schemas/user.schema";
 import { INVITATION_STATUS, ROLES } from "../types/enums";
@@ -73,6 +74,24 @@ class ProfileService {
         return { ...doctor, patientsCount: patients };
       })
     );
+  }
+
+  async updateProfile(
+    { language, ...input }: UpdateProfileInput,
+    context: Context
+  ) {
+    await ProfileModel.findOneAndUpdate(
+      { contextId: context.userId },
+      input
+    ).lean();
+
+    await UserModel.findByIdAndUpdate(context.userId, { language });
+
+    const profile = await ProfileModel.find()
+      .findByContextId(context.userId)
+      .lean();
+
+    return profile;
   }
 }
 

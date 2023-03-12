@@ -3,6 +3,8 @@ import {
   CreateProfileInput,
   GetDoctorsNearMeInput,
   Profile,
+  Schedule,
+  UpdateProfileInput,
 } from "../schemas/profile.schema";
 import ProfileService from "../service/profile.service";
 import type { Context } from "../types/context";
@@ -19,6 +21,14 @@ export default class ProfileResolver {
     @Ctx() context: Context
   ) {
     return this.profileService.createProfile(input, context);
+  }
+
+  @Mutation(() => Profile)
+  updateProfile(
+    @Arg("input") input: UpdateProfileInput,
+    @Ctx() context: Context
+  ) {
+    return this.profileService.updateProfile(input, context);
   }
 
   @Query(() => Profile, { nullable: true })

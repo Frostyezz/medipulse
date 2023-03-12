@@ -1,7 +1,7 @@
 import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { useDashboardNavbarStyles } from "./DashboardNavbar.styles";
-import { ActionIcon, Drawer } from "@mantine/core";
+import { ActionIcon, Burger, Drawer } from "@mantine/core";
 import { Menu2 } from "tabler-icons-react";
 import DashboardNavbar from "./DashboardNavbarDesktop";
 import { useSwipeable } from "react-swipeable";
@@ -17,12 +17,12 @@ const MobileDashboardNavbar: React.FC = () => {
     <>
       <ActionIcon
         className={classes.drawerButton}
-        onClick={open}
+        onClick={opened ? close : open}
         color="cyan"
         size="lg"
         variant="filled"
       >
-        <Menu2 />
+        <Burger size="sm" color="white" opened={opened} />
       </ActionIcon>
       <Drawer
         withCloseButton={false}

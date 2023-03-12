@@ -7,7 +7,7 @@ import { showNotification } from "@mantine/notifications";
 import { Avatar } from "@mantine/core";
 
 const AvatarUpload: React.FC<
-  Partial<DropzoneProps> & { onUpload: (value: string) => void }
+  Partial<DropzoneProps> & { onUpload: (value: string) => void; value?: string }
 > = ({ onUpload, ...props }) => {
   const [fileUrls, loading, uploadFiles] = useUploadFiles();
   const { t } = useTranslation();
@@ -40,9 +40,9 @@ const AvatarUpload: React.FC<
       {...props}
     >
       <Dropzone.Idle>
-        {fileUrls.length ? (
+        {fileUrls.length || props?.value ? (
           <Avatar
-            src={fileUrls.length ? fileUrls[0] : ""}
+            src={fileUrls.length ? fileUrls[0] : (props?.value as string) ?? ""}
             alt="Avatar"
             sx={{ width: "100px", height: "100px", borderRadius: "100%" }}
           />
@@ -56,7 +56,7 @@ const AvatarUpload: React.FC<
       </Dropzone.Idle>
       <Dropzone.Accept>
         <Avatar
-          src={fileUrls.length ? fileUrls[0] : ""}
+          src={fileUrls.length ? fileUrls[0] : (props?.value as string) ?? ""}
           alt="Avatar"
           sx={{ width: "100px", height: "100px", borderRadius: "100%" }}
         />

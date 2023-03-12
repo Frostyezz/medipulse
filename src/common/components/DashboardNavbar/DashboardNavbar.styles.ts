@@ -71,6 +71,7 @@ export const useDashboardNavbarStyles = createStyles((theme) => ({
     position: "fixed",
     top: 10,
     left: 10,
+    zIndex: 99999,
     boxShadow: theme.shadows.xl,
   },
 }));

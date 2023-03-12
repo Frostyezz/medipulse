@@ -7,6 +7,7 @@ import {
   Users,
   MapSearch,
   UserExclamation,
+  EditCircle,
 } from "tabler-icons-react";
 import { ROUTES } from "../utils/routes";
 
@@ -39,6 +40,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       label: "dashboard.label.transfer",
       to: ROUTES.MEDIC_TRANSFER_REQUESTS,
       icon: UserExclamation,
+    },
+    {
+      label: "dashboard.label.update",
+      to: ROUTES.MEDIC_UPDATE_PROFILE,
+      icon: EditCircle,
     },
   ],
   [ROLES.NURSE]: [

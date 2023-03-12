@@ -89,6 +89,7 @@
   "dashboard.label.patients": "Patients",
   "dashboard.label.doctors": "Doctors near you",
   "dashboard.label.transfer": "Transfer requests",
+  "dashboard.label.update": "Update profile",
   "invitation.status.SENT": "Sent",
   "invitation.status.ACCEPTED": "Accepted",
   "invite.mail.subject": "MediPulse - You received an invitation!",
@@ -124,5 +125,6 @@
   "requests.transfer.approve": "Approve",
   "requests.transfer.reject": "Reject",
   "requests.zeroState": "There are no requests to review...",
-  "request.success.title": "The requested was updated successfully!"
+  "request.success.title": "The requested was updated successfully!",
+  "update.submit": "Submit changes"
 }

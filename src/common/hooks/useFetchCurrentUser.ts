@@ -23,6 +23,13 @@ export const FETCH_CURRENT_USER = gql`
       avatar
       firstName
       lastName
+      schedule {
+        startTime
+        endTime
+        display
+        daysOfWeek
+        color
+      }
     }
   }
 `;

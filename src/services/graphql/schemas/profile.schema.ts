@@ -2,17 +2,22 @@ import {
   getModelForClass,
   index,
   ModelOptions,
+  Passthrough,
   prop,
   queryMethod,
   Severity,
 } from "@typegoose/typegoose";
 import { AsQueryMethod, ReturnModelType } from "@typegoose/typegoose/lib/types";
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
-import { ROLES } from "../types/enums";
+import { LANGUAGES, ROLES } from "../types/enums";
 
 registerEnumType(ROLES, {
   name: "ROLES",
+});
+
+registerEnumType(LANGUAGES, {
+  name: "LANGUAGES",
 });
 
 interface QueryHelpers {
@@ -84,10 +89,68 @@ export class Profile {
 
   @Field(() => Number, { nullable: true })
   patientsCount?: number;
+
+  @Field(() => [Schedule], { nullable: true })
+  @prop({
+    required: false,
+    type: () =>
+      new Passthrough(
+        {
+          startTime: String,
+          endTime: String,
+          daysOfWeek: [String],
+          display: String,
+          color: String,
+        },
+        true
+      ),
+  })
+  schedule?: Schedule[];
 }
 
 const ProfileModel = getModelForClass<typeof Profile, QueryHelpers>(Profile);
 export default ProfileModel;
+
+@ObjectType()
+export class Schedule {
+  @Field(() => String)
+  @prop({ required: true })
+  startTime: string;
+
+  @Field(() => String)
+  @prop({ required: true })
+  endTime: string;
+
+  @Field(() => [String])
+  @prop({ required: true })
+  daysOfWeek: string[];
+
+  @Field(() => String)
+  @prop({ required: true, default: "background" })
+  display: string;
+
+  @Field(() => String)
+  @prop({ required: true, default: "#228be6" })
+  color: string;
+}
+
+@InputType()
+class ScheduleInput {
+  @Field(() => String)
+  startTime: string;
+
+  @Field(() => String)
+  endTime: string;
+
+  @Field(() => [String])
+  daysOfWeek: string[];
+
+  @Field(() => String)
+  display: string;
+
+  @Field(() => String)
+  color: string;
+}
 
 @InputType()
 export class CreateProfileInput {
@@ -127,4 +190,27 @@ export class GetDoctorsNearMeInput {
   @IsOptional()
   @Field(() => Number)
   maxDistance: number;
+}
+
+@InputType()
+export class UpdateProfileInput {
+  @IsOptional()
+  @Field(() => [ScheduleInput], { nullable: true })
+  schedule?: ScheduleInput[];
+
+  @IsString()
+  @Field(() => String)
+  firstName: string;
+
+  @IsString()
+  @Field(() => String)
+  lastName: string;
+
+  @Field(() => LANGUAGES)
+  language: LANGUAGES;
+
+  @IsOptional()
+  @IsString()
+  @Field(() => String, { nullable: true })
+  avatar?: string;
 }
