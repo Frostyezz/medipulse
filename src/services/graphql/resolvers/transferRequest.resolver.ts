@@ -3,7 +3,6 @@ import {
   CreateTransferRequestInput,
   GetTransfersRequestsResult,
   ProcessTransferRequestInput,
-  TransferRequest,
 } from "../schemas/transferRequest.schema";
 import TransferRequestService from "../service/transferRequest.service";
 import type { Context } from "../types/context";
