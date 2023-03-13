@@ -77,6 +77,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       to: ROUTES.PATIENT_DOCTORS,
       icon: MapSearch,
     },
+    {
+      label: "dashboard.label.update",
+      to: ROUTES.PATIENT_UPDATE_PROFILE,
+      icon: EditCircle,
+    },
   ],
 };
 

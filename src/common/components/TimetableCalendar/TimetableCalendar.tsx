@@ -6,12 +6,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useAppSelector } from "@/services/redux/hooks";
 import handlers, { dateClick } from "./utils/handlers";
 import dayjs from "dayjs";
+import { LANGUAGES } from "@/services/graphql/types/enums";
 
 const TimetableCalendar = forwardRef<
   FullCalendar | null,
-  { currentDate?: Date }
->(({ currentDate }, ref) => {
-  const { language } = useAppSelector((store) => store.user);
+  { currentDate?: Date; language: LANGUAGES }
+>(({ currentDate, language }, ref) => {
   const { schedule } = useAppSelector((store) => store.profile);
 
   const events = useMemo(
@@ -48,6 +48,7 @@ const TimetableCalendar = forwardRef<
       events={events}
       height="702px"
       locale={language}
+      now={dayjs().set("d", 0).toISOString()}
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
       dayHeaderFormat={{ weekday: "short" }}

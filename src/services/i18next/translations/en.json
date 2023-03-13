@@ -126,5 +126,7 @@
   "requests.transfer.reject": "Reject",
   "requests.zeroState": "There are no requests to review...",
   "request.success.title": "The requested was updated successfully!",
-  "update.submit": "Submit changes"
+  "update.submit": "Submit changes",
+  "update.label.schedule.MEDIC": "Consultation schedule",
+  "update.label.schedule.PATIENT": "Consultation availability schedule"
 }

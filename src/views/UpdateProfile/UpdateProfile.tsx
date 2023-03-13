@@ -7,13 +7,15 @@ import TimetableCalendar from "@/common/components/TimetableCalendar/TimetableCa
 import { LANGUAGES } from "@/services/graphql/types/enums";
 import FullCalendar from "@fullcalendar/react";
 import useUpdateProfile from "./hooks/useUpdateProfile";
+import { useAppSelector } from "@/services/redux/hooks";
 
 const UpdateProfile: React.FC = () => {
   const { t } = useTranslation();
   const form = useUpdateProfileForm();
   const { loading, updateProfile } = useUpdateProfile(form.values.language);
+  const { role } = useAppSelector((store) => store.user) ?? {};
   const ref = useRef<FullCalendar | null>(null);
-  console.log();
+
   return (
     <form
       onSubmit={form.onSubmit(async (values) => {
@@ -76,9 +78,13 @@ const UpdateProfile: React.FC = () => {
             {...form.getInputProps("language")}
           />
         </Flex>
+        <Title weight={500} order={4}>
+          {t(`update.label.schedule.${role}`)}
+        </Title>
         {/* @ts-ignore */}
         <TimetableCalendar
           ref={ref}
+          language={form.values.language}
           currentDate={ref.current?.getApi().getDate()}
         />
         <Button
