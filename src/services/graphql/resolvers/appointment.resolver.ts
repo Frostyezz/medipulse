@@ -1,5 +1,8 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { CreateAppointmentInput } from "../schemas/appointment.schema";
+import {
+  Appointment,
+  CreateAppointmentInput,
+} from "../schemas/appointment.schema";
 import AppointmentService from "../service/appointment.service";
 import type { Context } from "../types/context";
 
@@ -7,6 +10,11 @@ import type { Context } from "../types/context";
 export default class AppointmentResolver {
   constructor(private appointmentService: AppointmentService) {
     this.appointmentService = new AppointmentService();
+  }
+
+  @Query(() => [Appointment], { nullable: true })
+  getInvites(@Ctx() context: Context) {
+    return this.appointmentService.getMedicAppointments(context);
   }
 
   @Mutation(() => Boolean)
