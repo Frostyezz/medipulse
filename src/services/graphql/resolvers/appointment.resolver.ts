@@ -13,12 +13,12 @@ export default class AppointmentResolver {
   }
 
   @Query(() => [Appointment], { nullable: true })
-  getInvites(@Ctx() context: Context) {
+  getMedicAppointments(@Ctx() context: Context) {
     return this.appointmentService.getMedicAppointments(context);
   }
 
-  @Mutation(() => Boolean)
-  createTransferRequest(@Arg("input") input: CreateAppointmentInput) {
+  @Mutation(() => Appointment)
+  createAppointment(@Arg("input") input: CreateAppointmentInput) {
     return this.appointmentService.createAppointment(input);
   }
 }

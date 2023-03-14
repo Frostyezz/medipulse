@@ -9,6 +9,7 @@ import {
   APPOINTMENT_IMPORTANCE,
   APPOINTMENT_STATUS,
 } from "@/services/graphql/types/enums";
+import { IsOptional } from "class-validator";
 
 registerEnumType(APPOINTMENT_IMPORTANCE, {
   name: "APPOINTMENT_IMPORTANCE",
@@ -35,9 +36,17 @@ export class Appointment {
   @prop({ required: true })
   medicId: String;
 
+  @Field(() => String, { nullable: true })
+  @prop({ required: false })
+  patientId?: String;
+
+  @Field(() => String, { nullable: true })
+  @prop({ required: false })
+  patientName?: String;
+
   @Field(() => String)
   @prop({ required: true })
-  patientId: String;
+  title: String;
 
   @Field(() => APPOINTMENT_STATUS)
   @prop({
@@ -88,8 +97,16 @@ export class CreateAppointmentInput {
   @Field(() => String)
   medicId: String;
 
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  patientId?: String;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  patientName?: String;
+
   @Field(() => String)
-  patientId: String;
+  title?: String;
 
   @Field(() => String)
   start: string;

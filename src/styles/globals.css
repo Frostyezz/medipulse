@@ -19,3 +19,13 @@ a {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.fc-toolbar-title {
+  font-weight: 400;
+  font-size: 1.25rem !important;
+}
+
+.fc-button-primary {
+  background-color: #228be6 !important;
+  border-color: #228be6 !important;
+}

@@ -7,9 +7,9 @@ import { ROLES } from "../types/enums";
 
 class AppointmentService {
   async createAppointment(input: CreateAppointmentInput) {
-    await AppointmentModel.create(input);
+    const appointment = await AppointmentModel.create(input);
 
-    return true;
+    return appointment;
   }
 
   async getMedicAppointments(context: Context) {

@@ -8,6 +8,7 @@ import {
   MapSearch,
   UserExclamation,
   EditCircle,
+  CalendarEvent,
 } from "tabler-icons-react";
 import { ROUTES } from "../utils/routes";
 
@@ -25,6 +26,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       label: "dashboard.label.home",
       to: ROUTES.MEDIC_DASHBOARD,
       icon: LayoutDashboard,
+    },
+    {
+      label: "dashboard.label.appointments",
+      to: ROUTES.MEDIC_APPOINTMENTS,
+      icon: CalendarEvent,
     },
     {
       label: "dashboard.label.invite",
@@ -71,6 +77,11 @@ const links: Record<ROLES, DashboardLinkType[]> = {
       label: "dashboard.label.home",
       to: ROUTES.MEDIC_DASHBOARD,
       icon: LayoutDashboard,
+    },
+    {
+      label: "dashboard.label.appointments",
+      to: ROUTES.PATIENT_APPOINTMENTS,
+      icon: CalendarEvent,
     },
     {
       label: "dashboard.label.doctors",

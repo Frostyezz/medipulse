@@ -10,6 +10,7 @@ import { ROUTES } from "../utils/routes";
 import { RESET_INVITES } from "@/services/redux/slices/invitesSlice";
 import { RESET_TRANSFER_REQUESTS } from "@/services/redux/slices/transferRequests";
 import { RESET_PATIENT } from "@/services/redux/slices/patientsSlice";
+import { RESET_APPOINTMENTS } from "@/services/redux/slices/appointmentsSlice";
 
 const LOGOUT = gql`
   mutation LogOut {
@@ -38,6 +39,7 @@ const useLogout = () => {
       dispatch(RESET_INVITES());
       dispatch(RESET_TRANSFER_REQUESTS());
       dispatch(RESET_PATIENT());
+      dispatch(RESET_APPOINTMENTS());
       router.replace(ROUTES.ROOT);
     }
   }, [data, loading, error]);

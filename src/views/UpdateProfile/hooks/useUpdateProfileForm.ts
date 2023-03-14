@@ -35,7 +35,8 @@ const useUpdateProfileForm = () => {
 
   useEffect(() => {
     if (form.values.language) i18n.changeLanguage(form.values.language);
-  }, [form.values.language, i18n]);
+    return () => i18n.changeLanguage(language);
+  }, [form.values.language, i18n, language]);
 
   return form;
 };

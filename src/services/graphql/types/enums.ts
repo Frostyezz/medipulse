@@ -27,7 +27,6 @@ export enum APPOINTMENT_STATUS {
 
 export enum APPOINTMENT_IMPORTANCE {
   URGENT = "URGENT",
-  HIGH = "HIGH",
   NORMAL = "NORMAL",
   LOW = "LOW",
 }

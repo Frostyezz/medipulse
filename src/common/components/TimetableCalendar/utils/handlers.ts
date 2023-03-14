@@ -56,13 +56,13 @@ export const dateClick = (start: Date, calendar: CalendarApi) => {
       extendedProps: {
         startTime: [
           dayjs(start).hour(),
-          dayjs(start).minute(),
-          dayjs(start).second(),
+          dayjs(start).minute() ? dayjs(start).minute() : "00",
+          "00",
         ].join(":"),
         endTime: [
           dayjs(end).hour(),
-          dayjs(end).minute(),
-          dayjs(end).second(),
+          dayjs(start).minute() ? dayjs(start).minute() : "00",
+          "00",
         ].join(":"),
         daysOfWeek: [String(dayjs(start).get("d"))],
         display: "background",
@@ -93,13 +93,13 @@ export const select = (info: DateSelectArg) => {
       extendedProps: {
         startTime: [
           dayjs(info.start).hour(),
-          dayjs(info.start).minute(),
-          dayjs(info.start).second(),
+          dayjs(info.start).minute() ? dayjs(info.start).minute() : "00",
+          "00",
         ].join(":"),
         endTime: [
           dayjs(info.end).hour(),
-          dayjs(info.end).minute(),
-          dayjs(info.end).second(),
+          dayjs(info.start).minute() ? dayjs(info.start).minute() : "00",
+          "00",
         ].join(":"),
         daysOfWeek: [String(dayjs(info.start).get("d"))],
         display: "background",

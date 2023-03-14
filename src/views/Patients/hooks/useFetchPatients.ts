@@ -1,5 +1,6 @@
 import { Profile } from "@/services/graphql/schemas/profile.schema";
-import { useAppDispatch } from "@/services/redux/hooks";
+import { ROLES } from "@/services/graphql/types/enums";
+import { useAppDispatch, useAppSelector } from "@/services/redux/hooks";
 import { SET_PATIENTS } from "@/services/redux/slices/patientsSlice";
 import { gql, useQuery } from "@apollo/client";
 import { showNotification } from "@mantine/notifications";
@@ -10,6 +11,7 @@ const FETCH_PATIENTS = gql`
   query GetPatients {
     getMyPatients {
       _id
+      contextId
       avatar
       firstName
       lastName
@@ -19,9 +21,14 @@ const FETCH_PATIENTS = gql`
 `;
 
 const useFetchPatients = () => {
+  const { role } = useAppSelector((store) => store.user) ?? {};
+
   const { data, error, loading } = useQuery<{
     getMyPatients: Partial<Profile>[];
-  }>(FETCH_PATIENTS, { fetchPolicy: "network-only" });
+  }>(FETCH_PATIENTS, {
+    fetchPolicy: "network-only",
+    skip: role === ROLES.PATIENT,
+  });
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();

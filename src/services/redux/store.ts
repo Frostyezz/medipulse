@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import appointmentSlice from "./slices/appointmentsSlice";
 import inviteSlice from "./slices/invitesSlice";
 import patientsSlice from "./slices/patientsSlice";
 import profileSlice from "./slices/profileSlice";
@@ -12,6 +13,7 @@ export const store = configureStore({
     [inviteSlice.name]: inviteSlice.reducer,
     [patientsSlice.name]: patientsSlice.reducer,
     [transferRequestsSlice.name]: transferRequestsSlice.reducer,
+    [appointmentSlice.name]: appointmentSlice.reducer
   },
 });
 

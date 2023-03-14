@@ -93,6 +93,16 @@ class ProfileService {
 
     return profile;
   }
+
+  async getMedicProfile(context: Context) {
+    const { medicId } = (await UserModel.findById(context.userId).lean()) ?? {};
+
+    const medicProfile = await ProfileModel.find()
+      .findByContextId(medicId ?? "")
+      .lean();
+
+    return medicProfile;
+  }
 }
 
 export default ProfileService;

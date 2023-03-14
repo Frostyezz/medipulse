@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { Inter } from "@next/font/google";
 import RouterTransition from "@/common/components/RouterTransition";
 import "../services/i18next";
@@ -38,11 +39,13 @@ export default function App(props: AppProps) {
               colorScheme: "light",
             }}
           >
-            <CurrentUserProvider>
-              <Notifications />
-              <RouterTransition />
-              <Component {...pageProps} />
-            </CurrentUserProvider>
+            <ModalsProvider>
+              <CurrentUserProvider>
+                <Notifications />
+                <RouterTransition />
+                <Component {...pageProps} />
+              </CurrentUserProvider>
+            </ModalsProvider>
           </MantineProvider>
         </Provider>
       </ApolloProvider>

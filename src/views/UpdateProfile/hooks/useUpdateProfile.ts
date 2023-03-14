@@ -46,6 +46,11 @@ const useUpdateProfile = (language: LANGUAGES) => {
           language,
         })
       );
+      showNotification({
+        title: t("update.success"),
+        message: "",
+        color: "green",
+      });
     }
   }, [data, error, dispatch]);
 
