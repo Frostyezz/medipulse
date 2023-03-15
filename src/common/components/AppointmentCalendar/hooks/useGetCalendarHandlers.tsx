@@ -1,14 +1,18 @@
 import { useCallback } from "react";
 import dayjs from "dayjs";
-import { Schedule } from "@/services/graphql/schemas/profile.schema";
-import { CalendarApi, DateSelectArg, EventAddArg } from "@fullcalendar/core";
+import {
+  CalendarApi,
+  DateSelectArg,
+  EventAddArg,
+  EventChangeArg,
+} from "@fullcalendar/core";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import EventAddForm from "../components/EventAddForm";
 import useCreateAppointment from "./useCreateAppointment";
 
-const useGetCalendarHandlers = (schedule: Schedule[], refetch?: () => void) => {
+const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 800px)");
   const { sendTransferRequest } = useCreateAppointment();
@@ -48,12 +52,15 @@ const useGetCalendarHandlers = (schedule: Schedule[], refetch?: () => void) => {
         await sendTransferRequest({
           variables: { input: ev.event.extendedProps },
         });
-        refetch?.();
       },
     });
   }, []);
 
-  return { select, dateClick, eventAdd };
+  const eventChange = useCallback((changeInfo: EventChangeArg) => {
+    console.log(changeInfo.event.startStr, changeInfo.event.endStr);
+  }, []);
+
+  return { select, dateClick, eventAdd, eventChange };
 };
 
 export default useGetCalendarHandlers;

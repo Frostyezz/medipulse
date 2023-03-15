@@ -16,7 +16,7 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
   const schedule = useFetchMedicSchedule();
   const appointments = useAppSelector((store) => store.appointment);
   const calendarRef = useRef<FullCalendar | null>(null);
-  const { select, dateClick, eventAdd } = useGetCalendarHandlers(schedule);
+  const { select, dateClick, eventAdd, eventChange } = useGetCalendarHandlers();
   const isMobile = useMediaQuery("(max-width: 800px)");
 
   return (
@@ -39,6 +39,7 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
       ]}
       eventAdd={eventAdd}
       dateClick={(arg) => dateClick(arg.date, arg.view.calendar)}
+      eventChange={eventChange}
       locale={language}
       nowIndicator
       now={dayjs().set("d", 0).toISOString()}

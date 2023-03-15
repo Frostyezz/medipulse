@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { EffectCallback, useEffect } from "react";
 import { useAppSelector } from "@/services/redux/hooks";
 import { useForm } from "@mantine/form";
 import { useTranslation } from "react-i18next";
@@ -35,7 +35,8 @@ const useUpdateProfileForm = () => {
 
   useEffect(() => {
     if (form.values.language) i18n.changeLanguage(form.values.language);
-    return () => i18n.changeLanguage(language);
+    // @ts-ignore
+    return () => i18n.changeLanguage(language) as EffectCallback;
   }, [form.values.language, i18n, language]);
 
   return form;
