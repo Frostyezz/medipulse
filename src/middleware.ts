@@ -27,10 +27,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  if (url.pathname === ROUTES.LOGIN && decoded?._id) {
-    url.pathname = ROUTES.NOT_FOUND;
-    return NextResponse.rewrite(url);
-  }
+  //   if (url.pathname === ROUTES.LOGIN && decoded?._id) {
+  //     url.pathname = ROUTES.NOT_FOUND;
+  //     return NextResponse.rewrite(url);
+  //   }
 
   return NextResponse.next();
 }
