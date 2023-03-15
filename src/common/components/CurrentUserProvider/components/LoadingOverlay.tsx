@@ -32,6 +32,7 @@ const LoadingOverlay: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        position: "fixed",
       }}
       className={
         unmountDelay

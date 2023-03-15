@@ -12,17 +12,22 @@ export async function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
 
-  if (url.pathname.includes("medic") && decoded?.role !== ROLES.MEDIC) {
+  if (url.pathname.startsWith("/medic") && decoded?.role !== ROLES.MEDIC) {
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }
 
-  if (url.pathname.includes("nurse") && decoded?.role !== ROLES.NURSE) {
+  if (url.pathname.startsWith("/nurse") && decoded?.role !== ROLES.NURSE) {
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }
 
-  if (url.pathname.includes("patient") && decoded?.role !== ROLES.PATIENT) {
+  if (url.pathname.startsWith("/patient") && decoded?.role !== ROLES.PATIENT) {
+    url.pathname = ROUTES.NOT_FOUND;
+    return NextResponse.rewrite(url);
+  }
+
+  if (url.pathname === ROUTES.LOGIN && decoded?._id) {
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }

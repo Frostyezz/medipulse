@@ -10,17 +10,18 @@ export const useStyles = createStyles((theme) => ({
   hero: {
     display: "flex",
     flexDirection: "column",
-    height: "80vh",
+    height: "100vh",
     justifyContent: "center",
     marginLeft: "5%",
+    paddingBottom: "100px",
     gap: "20px",
     [theme.fn.smallerThan("md")]: {
       alignItems: "center",
       textAlign: "center",
       justifyContent: "start",
       margin: "0 20px",
-      marginTop: "50px",
-      height: "100vh",
+      marginTop: "50%",
+      paddingBottom: "0px",
     },
   },
   heroImg: {

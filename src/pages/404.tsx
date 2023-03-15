@@ -58,7 +58,7 @@ const NotFoundPage: React.FC<NextPage> = () => {
   const { t } = useTranslation();
 
   return (
-    <Container className={classes.root}>
+    <Container sx={{ height: "74vh" }} className={classes.root}>
       <div className={classes.label}>404</div>
       <Title className={classes.title}>{t("notFound.title")}</Title>
       <Text

@@ -13,6 +13,7 @@ import client from "@/services/apollo";
 import { Notifications } from "@mantine/notifications";
 import CurrentUserProvider from "@/common/components/CurrentUserProvider";
 import "animate.css";
+import Footer from "@/common/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default function App(props: AppProps) {
                 <Notifications />
                 <RouterTransition />
                 <Component {...pageProps} />
+                <Footer />
               </CurrentUserProvider>
             </ModalsProvider>
           </MantineProvider>
