@@ -1,5 +1,5 @@
-import useFetchCurrentUser from "@/common/hooks/useFetchCurrentUser";
 import React from "react";
+import LoadingOverlay from "./components/LoadingOverlay";
 
 interface CurrentUserProviderProps {
   children: React.ReactNode;
@@ -8,9 +8,12 @@ interface CurrentUserProviderProps {
 const CurrentUserProvider: React.FC<CurrentUserProviderProps> = ({
   children,
 }) => {
-  useFetchCurrentUser();
-
-  return <>{children}</>;
+  return (
+    <>
+      <LoadingOverlay />
+      {children}
+    </>
+  );
 };
 
 export default CurrentUserProvider;

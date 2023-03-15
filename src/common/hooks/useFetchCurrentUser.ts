@@ -56,6 +56,8 @@ const useFetchCurrentUser = () => {
       }
     }
   }, [data, loading, error, dispatch]);
+
+  return loading;
 };
 
 export default useFetchCurrentUser;
