@@ -15,12 +15,12 @@ class UserService {
   async createUser(input: CreateUserInput, context: Context) {
     const user = await UserModel.find().findByEmail(input.email).lean();
     if (user) throw new ApolloError("register.error.emailAlreadyUsed");
-    
+
     const newUser = await UserModel.create({
       ...input,
       validationCode: Math.floor(Math.random() * 9000 + 1000),
     });
-    
+
     i18next.changeLanguage(newUser.language);
     try {
       await transporter.sendMail(
@@ -49,7 +49,7 @@ class UserService {
       console.error(err);
       throw new ApolloError(`${err}`);
     }
-    const token = signJwt({ _id: newUser._id, role: newUser.role });
+    const token = await signJwt({ _id: newUser._id, role: newUser.role });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
@@ -140,7 +140,7 @@ class UserService {
     const isValidPassword = bcrypt.compareSync(input.password, user.password);
     if (!isValidPassword) throw new ApolloError("login.error.failed");
 
-    const token = signJwt({ _id: user._id, role: user.role });
+    const token = await signJwt({ _id: user._id, role: user.role });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",

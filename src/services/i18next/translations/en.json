@@ -146,5 +146,8 @@
   "appointments.details.importance": "Importance",
   "appointments.details.status": "Status",
   "appointments.create.success": "Appointment created successfully!",
-  "appointments.create.update": "Appointment updated successfully!"
+  "appointments.create.update": "Appointment updated successfully!",
+  "notFound.title": "This page is unavailable",
+  "notFound.subtitle": "Unfortunately, this page does not exist, has been deleted or is temporary disabled.",
+  "notFound.button": "Back to the landing page"
 }

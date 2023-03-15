@@ -18,7 +18,12 @@ function listener(changeType) {
           ...getFileList(`${dirName}/${item.name}`),
         ];
       } else {
-        if (item.name[0] === "_" || item.name.includes("index")) continue;
+        if (
+          item.name[0] === "_" ||
+          item.name.includes("index") ||
+          item.name.includes("404")
+        )
+          continue;
         files.push(`${dirName.substring(TARGET_DIR.length)}/${item.name}`);
       }
     }
@@ -49,7 +54,8 @@ function listener(changeType) {
   );
 
   const _enum = `export enum ROUTES {
-  ROOT = '/',
+  ROOT = '/', \r
+  NOT_FOUND = '/404',
   ${routeKeys.map((key, i) => `${i ? "\r  " : ""}${key} = '${routes[i]}'`)}
 }`;
 

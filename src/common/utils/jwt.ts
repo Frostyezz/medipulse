@@ -1,25 +1,30 @@
-import jwt from "jsonwebtoken";
-
-const publicKey = Buffer.from(process.env.PUBLIC_KEY ?? "", "base64").toString(
-  "ascii"
-);
+import { SignJWT, jwtVerify } from "jose";
+import { nanoid } from "nanoid";
 
 const privateKey = Buffer.from(
   process.env.PRIVATE_KEY ?? "",
   "base64"
 ).toString("ascii");
 
-export function signJwt(object: Object, options?: jwt.SignOptions) {
-  return jwt.sign(object, privateKey, {
-    ...(options ?? {}),
-    algorithm: "RS256",
-  });
+export function signJwt(object: Object) {
+  const iat = Math.floor(Date.now() / 1000);
+
+  return new SignJWT({ ...object })
+    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
+    .setJti(nanoid())
+    .setExpirationTime("30d")
+    .setIssuedAt(iat)
+    .setNotBefore(iat)
+    .sign(new TextEncoder().encode(process.env.PRIVATE_KEY));
 }
 
-export function verifyJwt<T>(token: string): T | null {
+export async function verifyJwt<T>(token: string): Promise<T | null> {
   try {
-    const decoded = jwt.verify(token, publicKey) as T;
-    return decoded;
+    const decoded = await jwtVerify(
+      token,
+      new TextEncoder().encode(process.env.PRIVATE_KEY)
+    );
+    return decoded?.payload as T | null;
   } catch (error) {
     return null;
   }

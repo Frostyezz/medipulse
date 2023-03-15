@@ -36,9 +36,9 @@ const schema = await buildSchema({
 
 const server = new ApolloServer({
   schema,
-  context: (ctx: Context) => {
+  context: async (ctx: Context) => {
     if (ctx.req.cookies.MediPulseJWT) {
-      const decoded = verifyJwt<{ _id: User["_id"]; role: User["role"] }>(
+      const decoded = await verifyJwt<{ _id: User["_id"]; role: User["role"] }>(
         ctx.req.cookies.MediPulseJWT
       );
       if (decoded) {

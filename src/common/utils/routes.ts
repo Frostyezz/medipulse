@@ -1,4 +1,5 @@
 export enum ROUTES {
-  ROOT = '/',
+  ROOT = '/', 
+  NOT_FOUND = '/404',
   API = '/api',  API_GRAPHQL = '/api/graphql',  LOGIN = '/login',  MEDIC = '/medic',  MEDIC_APPOINTMENTS = '/medic/appointments',  MEDIC_DASHBOARD = '/medic/dashboard',  MEDIC_INVITE = '/medic/invite',  MEDIC_PATIENTS = '/medic/patients',  MEDIC_TRANSFER_REQUESTS = '/medic/transfer-requests',  MEDIC_UPDATE_PROFILE = '/medic/update-profile',  PATIENT = '/patient',  PATIENT_APPOINTMENTS = '/patient/appointments',  PATIENT_DOCTORS = '/patient/doctors',  PATIENT_UPDATE_PROFILE = '/patient/update-profile',  REGISTER = '/register'
 }export type TArgs =| [ROUTES.ROOT]| [ROUTES.API]| [ROUTES.API_GRAPHQL]| [ROUTES.LOGIN]| [ROUTES.MEDIC]| [ROUTES.MEDIC_APPOINTMENTS]| [ROUTES.MEDIC_DASHBOARD]| [ROUTES.MEDIC_INVITE]| [ROUTES.MEDIC_PATIENTS]| [ROUTES.MEDIC_TRANSFER_REQUESTS]| [ROUTES.MEDIC_UPDATE_PROFILE]| [ROUTES.PATIENT]| [ROUTES.PATIENT_APPOINTMENTS]| [ROUTES.PATIENT_DOCTORS]| [ROUTES.PATIENT_UPDATE_PROFILE]| [ROUTES.REGISTER];
