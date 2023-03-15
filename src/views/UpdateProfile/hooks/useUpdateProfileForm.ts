@@ -33,6 +33,7 @@ const useUpdateProfileForm = () => {
     form.setValues({ firstName, lastName, avatar, language, schedule });
   }, [firstName, lastName, avatar, language, schedule]);
 
+  // @ts-ignore
   useEffect(() => {
     if (form.values.language) i18n.changeLanguage(form.values.language);
     // @ts-ignore
