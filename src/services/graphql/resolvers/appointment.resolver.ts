@@ -2,6 +2,7 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import {
   Appointment,
   CreateAppointmentInput,
+  UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
 import AppointmentService from "../service/appointment.service";
 import type { Context } from "../types/context";
@@ -20,5 +21,10 @@ export default class AppointmentResolver {
   @Mutation(() => Appointment)
   createAppointment(@Arg("input") input: CreateAppointmentInput) {
     return this.appointmentService.createAppointment(input);
+  }
+
+  @Mutation(() => Appointment)
+  updateAppointment(@Arg("input") input: UpdateAppointmentInput) {
+    return this.appointmentService.updateAppointment(input);
   }
 }

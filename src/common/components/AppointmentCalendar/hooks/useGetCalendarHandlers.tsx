@@ -11,11 +11,14 @@ import { useMediaQuery } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import EventAddForm from "../components/EventAddForm";
 import useCreateAppointment from "./useCreateAppointment";
+import useUpdateAppointment from "@/common/hooks/useUpdateAppointment";
+import { APPOINTMENT_STATUS } from "@/services/graphql/types/enums";
 
 const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 800px)");
   const { sendTransferRequest } = useCreateAppointment();
+  const updateAppointment = useUpdateAppointment();
 
   const select = useCallback((info: DateSelectArg) => {
     info.view.calendar.addEvent({
@@ -57,7 +60,16 @@ const useGetCalendarHandlers = () => {
   }, []);
 
   const eventChange = useCallback((changeInfo: EventChangeArg) => {
-    console.log(changeInfo.event.startStr, changeInfo.event.endStr);
+    updateAppointment({
+      variables: {
+        input: {
+          id: changeInfo.event._def.extendedProps._id,
+          start: changeInfo.event.startStr,
+          end: changeInfo.event.endStr,
+          status: APPOINTMENT_STATUS.PENDING,
+        },
+      },
+    });
   }, []);
 
   return { select, dateClick, eventAdd, eventChange };

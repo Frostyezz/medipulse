@@ -1,5 +1,6 @@
 import AppointmentModel, {
   CreateAppointmentInput,
+  UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
 import UserModel from "../schemas/user.schema";
 import type { Context } from "../types/context";
@@ -8,6 +9,15 @@ import { ROLES } from "../types/enums";
 class AppointmentService {
   async createAppointment(input: CreateAppointmentInput) {
     const appointment = await AppointmentModel.create(input);
+
+    return appointment;
+  }
+
+  async updateAppointment({ id, ...input }: UpdateAppointmentInput) {
+    const appointment = await AppointmentModel.findByIdAndUpdate(
+      id,
+      input
+    ).lean();
 
     return appointment;
   }

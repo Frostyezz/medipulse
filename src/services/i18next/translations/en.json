@@ -145,5 +145,6 @@
   "appointments.details.title.default": "Appointment",
   "appointments.details.importance": "Importance",
   "appointments.details.status": "Status",
-  "appointments.create.success": "Appointment created successfully!"
+  "appointments.create.success": "Appointment created successfully!",
+  "appointments.create.update": "Appointment updated successfully!"
 }

@@ -120,3 +120,37 @@ export class CreateAppointmentInput {
   @Field(() => APPOINTMENT_STATUS)
   status: APPOINTMENT_STATUS;
 }
+
+@InputType()
+export class UpdateAppointmentInput {
+  @Field(() => String)
+  id: string;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  title?: String;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  start?: string;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  end?: string;
+
+  @IsOptional()
+  @Field(() => APPOINTMENT_IMPORTANCE, { nullable: true })
+  importance?: APPOINTMENT_IMPORTANCE;
+
+  @IsOptional()
+  @Field(() => APPOINTMENT_STATUS, { nullable: true })
+  status?: APPOINTMENT_STATUS;
+
+  @IsOptional()
+  @Field(() => [String], { nullable: true })
+  notes?: string[];
+
+  @IsOptional()
+  @Field(() => [String], { nullable: true })
+  files?: string[];
+}
