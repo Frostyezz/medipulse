@@ -1,11 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { nanoid } from "nanoid";
 
-const privateKey = Buffer.from(
-  process.env.PRIVATE_KEY ?? "",
-  "base64"
-).toString("ascii");
-
 export function signJwt(object: Object) {
   const iat = Math.floor(Date.now() / 1000);
 
