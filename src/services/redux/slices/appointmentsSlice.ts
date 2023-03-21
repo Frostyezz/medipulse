@@ -1,6 +1,7 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Appointment } from "@/services/graphql/schemas/appointment.schema";
+import { APPOINTMENT_STATUS } from "@/services/graphql/types/enums";
 
 type AppoitmentType = Partial<
   Appointment & { [x: string | number | symbol]: unknown }
@@ -23,8 +24,10 @@ export const appointmentSlice = createSlice({
       action.payload,
     ],
     UPDATE_APPOINTMENT: (state, action: PayloadAction<AppoitmentType>) => {
+      if (action.payload.status === APPOINTMENT_STATUS.REJECTED) {
+        return state.filter((item) => item._id !== action.payload._id);
+      }
       const idx = state.findIndex(({ _id }) => _id === action.payload._id);
-      console.log(current(state[idx]), action.payload);
       state[idx] = { ...state[idx], ...action.payload };
     },
     RESET_APPOINTMENTS: () => initialState,

@@ -214,3 +214,10 @@ export class UpdateProfileInput {
   @Field(() => String, { nullable: true })
   avatar?: string;
 }
+
+@InputType()
+export class GetProfileByIdInput {
+  @IsString()
+  @Field(() => String)
+  profileId: string;
+}

@@ -5,6 +5,7 @@ import {
   DateSelectArg,
   EventAddArg,
   EventChangeArg,
+  EventClickArg,
 } from "@fullcalendar/core";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "@mantine/hooks";
@@ -14,6 +15,7 @@ import useCreateAppointment from "./useCreateAppointment";
 import useUpdateAppointment from "@/common/hooks/useUpdateAppointment";
 import { APPOINTMENT_STATUS, ROLES } from "@/services/graphql/types/enums";
 import { useAppSelector } from "@/services/redux/hooks";
+import AppointmentOverview from "../components/AppointmentOverview";
 
 const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
@@ -37,6 +39,7 @@ const useGetCalendarHandlers = () => {
       calendar.addEvent({
         start: start,
         end: end,
+        extendedProps: { new: true }
       });
     },
     [isMobile]
@@ -64,7 +67,7 @@ const useGetCalendarHandlers = () => {
   }, []);
 
   const eventChange = useCallback((changeInfo: EventChangeArg) => {
-    if (!changeInfo.oldEvent.extendedProps.new) {
+    if (!changeInfo.event.extendedProps.new) {
       updateAppointment({
         variables: {
           input: {
@@ -78,7 +81,15 @@ const useGetCalendarHandlers = () => {
     }
   }, [isMedic]);
 
-  return { select, dateClick, eventAdd, eventChange };
+  const eventClick = useCallback((info: EventClickArg) => {
+    modals.open({
+      title: t("appointments.modal.overview.title"),
+      children: <AppointmentOverview {...info} />,
+      centered: true,
+    });
+  }, [])
+
+  return { select, dateClick, eventAdd, eventChange, eventClick };
 };
 
 export default useGetCalendarHandlers;
