@@ -22,8 +22,20 @@ class UserService {
     });
 
     i18next.changeLanguage(newUser.language);
-    try {
-      await transporter.sendMail(
+
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+            reject(error);
+          } else {
+              resolve(success);
+          }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(
         {
           from: process.env.MAIL_USER,
           to: newUser.email,
@@ -40,15 +52,15 @@ class UserService {
         (err, info) => {
           if (err) {
             console.error(err);
+            reject(err);
             throw new ApolloError(`${err}`);
           }
-          console.info(info);
+          console.log(info);
+          resolve(info);
         }
       );
-    } catch (err) {
-      console.error(err);
-      throw new ApolloError(`${err}`);
-    }
+    });
+
     const token = await signJwt({ _id: newUser._id, role: newUser.role });
     const serialised = serialize("MediPulseJWT", token, {
       httpOnly: true,
@@ -67,8 +79,20 @@ class UserService {
       validationCode: newValidationCode,
     });
     if (!user) throw new ApolloError("register.error");
-    try {
-      await transporter.sendMail(
+
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+            reject(error);
+          } else {
+              resolve(success);
+          }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+     transporter.sendMail(
         {
           from: process.env.MAIL_USER,
           to: user.email,
@@ -85,14 +109,14 @@ class UserService {
         (err, info) => {
           if (err) {
             console.error(err);
+            reject(err);
             throw new ApolloError(`${err}`);
           }
-          console.info(info);
+          console.log(info);
+          resolve(info);
         }
       );
-    } catch (err) {
-      throw new ApolloError(`${err}`);
-    }
+    })
 
     return true;
   }
