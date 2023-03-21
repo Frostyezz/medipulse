@@ -22,8 +22,8 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
   return (
     <FullCalendar
       ref={calendarRef}
-      selectConstraint="schedule"
-      eventConstraint="schedule"
+      selectConstraint={schedule.length ? "schedule" : "businessHours"}
+      eventConstraint={schedule.length ? "schedule" : "businessHours"}
       eventOverlap={(still) => !!still.groupId}
       selectOverlap={(overlaped) => !!overlaped.groupId}
       height="766px"
