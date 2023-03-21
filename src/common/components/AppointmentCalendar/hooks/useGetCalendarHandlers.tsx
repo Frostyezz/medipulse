@@ -12,18 +12,21 @@ import { modals } from "@mantine/modals";
 import EventAddForm from "../components/EventAddForm";
 import useCreateAppointment from "./useCreateAppointment";
 import useUpdateAppointment from "@/common/hooks/useUpdateAppointment";
-import { APPOINTMENT_STATUS } from "@/services/graphql/types/enums";
+import { APPOINTMENT_STATUS, ROLES } from "@/services/graphql/types/enums";
+import { useAppSelector } from "@/services/redux/hooks";
 
 const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 800px)");
-  const { sendTransferRequest } = useCreateAppointment();
+  const { createAppointment } = useCreateAppointment();
   const updateAppointment = useUpdateAppointment();
+  const isMedic = useAppSelector(store => store.user.role) === ROLES.MEDIC;
 
   const select = useCallback((info: DateSelectArg) => {
     info.view.calendar.addEvent({
       start: info.start,
       end: info.end,
+      extendedProps: { new: true }
     });
   }, []);
 
@@ -52,7 +55,8 @@ const useGetCalendarHandlers = () => {
       withCloseButton: false,
       onCancel: ev.revert,
       onConfirm: async () => {
-        await sendTransferRequest({
+        ev.event.setExtendedProp('new', undefined);
+        await createAppointment({
           variables: { input: ev.event.extendedProps },
         });
       },
@@ -60,17 +64,19 @@ const useGetCalendarHandlers = () => {
   }, []);
 
   const eventChange = useCallback((changeInfo: EventChangeArg) => {
-    updateAppointment({
-      variables: {
-        input: {
-          id: changeInfo.event._def.extendedProps._id,
-          start: changeInfo.event.startStr,
-          end: changeInfo.event.endStr,
-          status: APPOINTMENT_STATUS.PENDING,
+    if (!changeInfo.oldEvent.extendedProps.new) {
+      updateAppointment({
+        variables: {
+          input: {
+            id: changeInfo.event._def.extendedProps._id,
+            start: changeInfo.event.startStr,
+            end: changeInfo.event.endStr,
+            status: isMedic ? undefined : APPOINTMENT_STATUS.PENDING,
+          },
         },
-      },
-    });
-  }, []);
+      });
+    }
+  }, [isMedic]);
 
   return { select, dateClick, eventAdd, eventChange };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import dayjs from "dayjs";
 import { useAppSelector } from "@/services/redux/hooks";
 import FullCalendar from "@fullcalendar/react";
@@ -42,7 +42,6 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
       eventChange={eventChange}
       locale={language}
       nowIndicator
-      now={dayjs().set("d", 0).toISOString()}
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
       dayHeaderFormat={{ weekday: "short" }}

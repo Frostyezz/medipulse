@@ -27,7 +27,7 @@ const CREATE_APPOINTMENT = gql`
 `;
 
 const useCreateAppointment = () => {
-  const [sendTransferRequest, { data, error, loading }] = useMutation<{
+  const [createAppointment, { data, error, loading }] = useMutation<{
     createAppointment: Partial<Appointment>;
   }>(CREATE_APPOINTMENT);
   const { t } = useTranslation();
@@ -61,7 +61,7 @@ const useCreateAppointment = () => {
     }
   }, [data, error, loading]);
 
-  return { sendTransferRequest, loading };
+  return { createAppointment, loading };
 };
 
 export default useCreateAppointment;

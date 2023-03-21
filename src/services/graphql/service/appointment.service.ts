@@ -16,7 +16,8 @@ class AppointmentService {
   async updateAppointment({ id, ...input }: UpdateAppointmentInput) {
     const appointment = await AppointmentModel.findByIdAndUpdate(
       id,
-      input
+      input,
+      {new: true}
     ).lean();
 
     return appointment;

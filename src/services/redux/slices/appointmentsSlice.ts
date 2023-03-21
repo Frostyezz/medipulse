@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Appointment } from "@/services/graphql/schemas/appointment.schema";
 
@@ -24,6 +24,7 @@ export const appointmentSlice = createSlice({
     ],
     UPDATE_APPOINTMENT: (state, action: PayloadAction<AppoitmentType>) => {
       const idx = state.findIndex(({ _id }) => _id === action.payload._id);
+      console.log(current(state[idx]), action.payload);
       state[idx] = { ...state[idx], ...action.payload };
     },
     RESET_APPOINTMENTS: () => initialState,
