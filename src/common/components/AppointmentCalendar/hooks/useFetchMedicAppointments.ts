@@ -24,6 +24,8 @@ const FETCH_MEDIC_APPOINTMENTS = gql`
       status
       title
       createdAt
+      notes
+      files
     }
   }
 `;

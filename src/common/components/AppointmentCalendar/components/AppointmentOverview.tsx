@@ -12,10 +12,7 @@ const AppointmentOverview: React.FC<EventClickArg> = ({ event }) => {
 
   return (
     <Flex direction="column" gap={12}>
-      <AppointmentHeader
-        _id={event.extendedProps._id}
-        status={event.extendedProps.status as APPOINTMENT_STATUS}
-      />
+      <AppointmentHeader event={event} />
       <Divider />
       {event.extendedProps.patientName || !!patient ? (
         <ProfileInfo

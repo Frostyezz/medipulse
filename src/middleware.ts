@@ -13,19 +13,16 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   if (url.pathname.startsWith("/medic") && decoded?.role !== ROLES.MEDIC) {
-    console.log(decoded);
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }
 
   if (url.pathname.startsWith("/nurse") && decoded?.role !== ROLES.NURSE) {
-    console.log(decoded);
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }
 
   if (url.pathname.startsWith("/patient") && decoded?.role !== ROLES.PATIENT) {
-    console.log(decoded);
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }

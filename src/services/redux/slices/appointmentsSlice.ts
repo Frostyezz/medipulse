@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Appointment } from "@/services/graphql/schemas/appointment.schema";
-import { APPOINTMENT_STATUS } from "@/services/graphql/types/enums";
+import {
+  APPOINTMENT_IMPORTANCE,
+  APPOINTMENT_STATUS,
+} from "@/services/graphql/types/enums";
+import { importanceColorMap } from "@/common/components/AppointmentCalendar/utils/colors";
 
-type AppoitmentType = Partial<
+export type AppoitmentType = Partial<
   Appointment & { [x: string | number | symbol]: unknown }
 >;
 
@@ -28,7 +32,17 @@ export const appointmentSlice = createSlice({
         return state.filter((item) => item._id !== action.payload._id);
       }
       const idx = state.findIndex(({ _id }) => _id === action.payload._id);
-      state[idx] = { ...state[idx], ...action.payload };
+      state[idx] = {
+        ...state[idx],
+        ...action.payload,
+        backgroundColor:
+          action.payload.status !== state[idx].status ||
+          action.payload.importance !== state[idx].importance
+            ? importanceColorMap[
+                action.payload.importance ?? APPOINTMENT_IMPORTANCE.NORMAL
+              ]
+            : state[idx].backgroundColor,
+      };
     },
     REMOVE_APPOINTMENT: (state, action: PayloadAction<Appointment["_id"]>) =>
       state.filter(({ _id }) => _id !== action.payload),

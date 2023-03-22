@@ -10,6 +10,7 @@ import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
 import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
 import { useRouter } from "next/router";
 import { ROUTES } from "@/common/utils/routes";
+import { ROLES } from "@/services/graphql/types/enums";
 
 const LOGIN = gql`
   mutation LogIn($input: LoginInput!) {
@@ -40,7 +41,6 @@ const useLogin = () => {
         color: "red",
       });
     } else if (data?.login && !loading) {
-      console.log("da");
       fetchUser();
     }
   }, [data, loading, error]);
@@ -51,7 +51,11 @@ const useLogin = () => {
       i18n.changeLanguage(userData.me.language);
       dispatch(SET_USER_DATA(userData.me));
       dispatch(SET_PROFILE_DATA(userData.getMyProfile));
-      router.replace(ROUTES.MEDIC_DASHBOARD);
+      router.replace(
+        userData.me.role === ROLES.MEDIC
+          ? ROUTES.MEDIC_DASHBOARD
+          : ROUTES.PATIENT_DASHBOARD
+      );
     }
   }, [userData, userLoading, userError]);
 

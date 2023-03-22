@@ -6,6 +6,8 @@ import { Pencil, Trash, X } from "tabler-icons-react";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/services/redux/hooks";
 import useDeleteAppointment from "@/common/hooks/useDeleteAppointment";
+import { EventClickArg } from "@fullcalendar/core";
+import useEditModal from "../hooks/useEditModal";
 
 const StatusColorMap: Record<APPOINTMENT_STATUS, string> = {
   [APPOINTMENT_STATUS.ACCEPTED]: "blue",
@@ -13,33 +15,32 @@ const StatusColorMap: Record<APPOINTMENT_STATUS, string> = {
   [APPOINTMENT_STATUS.REJECTED]: "red",
 };
 
-interface AppointmentHeaderProps {
-  status: APPOINTMENT_STATUS;
-  _id: string;
-}
-
-const AppointmentHeader: React.FC<AppointmentHeaderProps> = ({
-  status,
-  _id,
-}) => {
+const AppointmentHeader: React.FC<
+  Omit<EventClickArg, "el" | "jsEvent" | "view">
+> = ({ event }) => {
   const { t } = useTranslation();
   const { role } = useAppSelector((store) => store.user) ?? {};
   const deleteAppointment = useDeleteAppointment();
+  const openEditModal = useEditModal(event.extendedProps);
 
   return (
     <Flex sx={{ width: "100%" }} align="center" justify="space-between">
-      <Badge color={StatusColorMap[status as APPOINTMENT_STATUS]}>
-        {t(`appointment.status.${status}`)}
+      <Badge
+        color={StatusColorMap[event.extendedProps.status as APPOINTMENT_STATUS]}
+      >
+        {t(`appointment.status.${event.extendedProps.status}`)}
       </Badge>
       <Flex gap={6}>
         {role === ROLES.MEDIC && (
           <>
-            <ActionIcon size="sm">
+            <ActionIcon onClick={openEditModal} size="sm">
               <Pencil />
             </ActionIcon>
             <ActionIcon
               onClick={async () => {
-                await deleteAppointment({ variables: { input: { _id } } });
+                await deleteAppointment({
+                  variables: { input: { _id: event.extendedProps._id } },
+                });
                 modals.closeAll();
               }}
               size="sm"
