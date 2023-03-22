@@ -2,6 +2,7 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import {
   CreateProfileInput,
   GetDoctorsNearMeInput,
+  GetProfileByIdInput,
   Profile,
   Schedule,
   UpdateProfileInput,
@@ -49,5 +50,10 @@ export default class ProfileResolver {
   @Query(() => [Profile], { nullable: true })
   getDoctorsNearMe(@Arg("input") input: GetDoctorsNearMeInput) {
     return this.profileService.getDoctorsNearMe(input);
+  }
+
+  @Query(() => Profile)
+  getProfileById(@Arg("input") input: GetProfileByIdInput) {
+    return this.profileService.getProfileById(input);
   }
 }

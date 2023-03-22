@@ -75,7 +75,7 @@ const links: Record<ROLES, DashboardLinkType[]> = {
     {
       initiallyOpened: true,
       label: "dashboard.label.home",
-      to: ROUTES.MEDIC_DASHBOARD,
+      to: ROUTES.PATIENT_DASHBOARD,
       icon: LayoutDashboard,
     },
     {

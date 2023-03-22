@@ -5,6 +5,7 @@ import {
   DateSelectArg,
   EventAddArg,
   EventChangeArg,
+  EventClickArg,
 } from "@fullcalendar/core";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "@mantine/hooks";
@@ -12,18 +13,22 @@ import { modals } from "@mantine/modals";
 import EventAddForm from "../components/EventAddForm";
 import useCreateAppointment from "./useCreateAppointment";
 import useUpdateAppointment from "@/common/hooks/useUpdateAppointment";
-import { APPOINTMENT_STATUS } from "@/services/graphql/types/enums";
+import { APPOINTMENT_STATUS, ROLES } from "@/services/graphql/types/enums";
+import { useAppSelector } from "@/services/redux/hooks";
+import AppointmentOverview from "../components/AppointmentOverview";
 
 const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 800px)");
-  const { sendTransferRequest } = useCreateAppointment();
+  const { createAppointment } = useCreateAppointment();
   const updateAppointment = useUpdateAppointment();
+  const isMedic = useAppSelector(store => store.user.role) === ROLES.MEDIC;
 
   const select = useCallback((info: DateSelectArg) => {
     info.view.calendar.addEvent({
       start: info.start,
       end: info.end,
+      extendedProps: { new: true }
     });
   }, []);
 
@@ -34,6 +39,7 @@ const useGetCalendarHandlers = () => {
       calendar.addEvent({
         start: start,
         end: end,
+        extendedProps: { new: true }
       });
     },
     [isMobile]
@@ -52,7 +58,8 @@ const useGetCalendarHandlers = () => {
       withCloseButton: false,
       onCancel: ev.revert,
       onConfirm: async () => {
-        await sendTransferRequest({
+        ev.event.setExtendedProp('new', undefined);
+        await createAppointment({
           variables: { input: ev.event.extendedProps },
         });
       },
@@ -60,19 +67,29 @@ const useGetCalendarHandlers = () => {
   }, []);
 
   const eventChange = useCallback((changeInfo: EventChangeArg) => {
-    updateAppointment({
-      variables: {
-        input: {
-          id: changeInfo.event._def.extendedProps._id,
-          start: changeInfo.event.startStr,
-          end: changeInfo.event.endStr,
-          status: APPOINTMENT_STATUS.PENDING,
+    if (!changeInfo.event.extendedProps.new) {
+      updateAppointment({
+        variables: {
+          input: {
+            id: changeInfo.event._def.extendedProps._id,
+            start: changeInfo.event.startStr,
+            end: changeInfo.event.endStr,
+            status: isMedic ? undefined : APPOINTMENT_STATUS.PENDING,
+          },
         },
-      },
-    });
-  }, []);
+      });
+    }
+  }, [isMedic]);
 
-  return { select, dateClick, eventAdd, eventChange };
+  const eventClick = useCallback((info: EventClickArg) => {
+    modals.open({
+      title: t("appointments.modal.overview.title"),
+      children: <AppointmentOverview {...info} />,
+      centered: true,
+    });
+  }, [])
+
+  return { select, dateClick, eventAdd, eventChange, eventClick };
 };
 
 export default useGetCalendarHandlers;

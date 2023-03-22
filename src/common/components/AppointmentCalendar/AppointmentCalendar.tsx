@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import dayjs from "dayjs";
 import { useAppSelector } from "@/services/redux/hooks";
 import FullCalendar from "@fullcalendar/react";
@@ -16,14 +16,14 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
   const schedule = useFetchMedicSchedule();
   const appointments = useAppSelector((store) => store.appointment);
   const calendarRef = useRef<FullCalendar | null>(null);
-  const { select, dateClick, eventAdd, eventChange } = useGetCalendarHandlers();
+  const { select, dateClick, eventAdd, eventChange, eventClick } = useGetCalendarHandlers();
   const isMobile = useMediaQuery("(max-width: 800px)");
 
   return (
     <FullCalendar
       ref={calendarRef}
-      selectConstraint="schedule"
-      eventConstraint="schedule"
+      selectConstraint={schedule.length ? "schedule" : "businessHours"}
+      eventConstraint={schedule.length ? "schedule" : "businessHours"}
       eventOverlap={(still) => !!still.groupId}
       selectOverlap={(overlaped) => !!overlaped.groupId}
       height="766px"
@@ -38,11 +38,11 @@ const AppointmentCalendar = React.forwardRef<FullCalendar | null>((_, ref) => {
         ...appointments,
       ]}
       eventAdd={eventAdd}
+      eventClick={eventClick}
       dateClick={(arg) => dateClick(arg.date, arg.view.calendar)}
       eventChange={eventChange}
       locale={language}
       nowIndicator
-      now={dayjs().set("d", 0).toISOString()}
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
       dayHeaderFormat={{ weekday: "short" }}

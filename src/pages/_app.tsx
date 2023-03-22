@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
@@ -12,8 +11,9 @@ import { ApolloProvider } from "@apollo/client";
 import client from "@/services/apollo";
 import { Notifications } from "@mantine/notifications";
 import CurrentUserProvider from "@/common/components/CurrentUserProvider";
-import "animate.css";
 import Footer from "@/common/components/Footer/Footer";
+import "animate.css";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

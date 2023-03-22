@@ -3,6 +3,7 @@ import InviteModel from "../schemas/invite.schema";
 import ProfileModel, {
   CreateProfileInput,
   GetDoctorsNearMeInput,
+  GetProfileByIdInput,
   UpdateProfileInput,
 } from "../schemas/profile.schema";
 import UserModel from "../schemas/user.schema";
@@ -102,6 +103,12 @@ class ProfileService {
       .lean();
 
     return medicProfile;
+  }
+
+  async getProfileById(input: GetProfileByIdInput) {
+    const profile = await ProfileModel.find().findByContextId(input.profileId).lean();
+
+    return profile;
   }
 }
 

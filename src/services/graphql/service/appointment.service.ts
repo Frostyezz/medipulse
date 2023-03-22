@@ -4,7 +4,7 @@ import AppointmentModel, {
 } from "../schemas/appointment.schema";
 import UserModel from "../schemas/user.schema";
 import type { Context } from "../types/context";
-import { ROLES } from "../types/enums";
+import { APPOINTMENT_STATUS, ROLES } from "../types/enums";
 
 class AppointmentService {
   async createAppointment(input: CreateAppointmentInput) {
@@ -14,9 +14,14 @@ class AppointmentService {
   }
 
   async updateAppointment({ id, ...input }: UpdateAppointmentInput) {
+    if (input.status === APPOINTMENT_STATUS.REJECTED) {
+      const deleted = await AppointmentModel.findByIdAndDelete(id).lean();
+      return {...deleted, status: APPOINTMENT_STATUS.REJECTED};
+    }
     const appointment = await AppointmentModel.findByIdAndUpdate(
       id,
-      input
+      input,
+      {new: true}
     ).lean();
 
     return appointment;

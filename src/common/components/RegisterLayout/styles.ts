@@ -32,6 +32,7 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: "70px",
+    overflowY: 'scroll',
     [theme.fn.smallerThan("md")]: {
       width: "100%",
       padding: "20px",

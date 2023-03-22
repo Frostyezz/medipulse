@@ -29,46 +29,60 @@ class InviteService {
     });
 
     i18next.changeLanguage(input.language);
-    await transporter.sendMail(
-      {
-        from: process.env.MAIL_USER,
-        to: input.email,
-        subject: i18next.t("invite.mail.subject") as string,
-        // @ts-ignore-next-line
-        template: "invite",
-        context: {
-          title: i18next.t("invite.mail.title", {
-            role: context.role?.toLowerCase(),
-          }),
-          name: [
-            i18next.t(`roles.short.${context.role}`, {
+
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+            reject(error);
+          } else {
+              resolve(success);
+          }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(
+        {
+          from: process.env.MAIL_USER,
+          to: input.email,
+          subject: i18next.t("invite.mail.subject") as string,
+          // @ts-ignore-next-line
+          template: "invite",
+          context: {
+            title: i18next.t("invite.mail.title", {
               role: context.role?.toLowerCase(),
             }),
-            profile?.firstName,
-            profile?.lastName,
-          ].join(" "),
-          button: i18next.t("invite.mail.button"),
-          avatar: !!profile?.avatar
-            ? profile?.avatar
-            : "https://refine.dev/img/generic-profile.png",
-          link:
-            process.env.NODE_ENV !== "production"
-              ? `http://localhost:3000/register?id=${
-                  profile?.medicId ?? context.userId
+            name: [
+              i18next.t(`roles.short.${context.role}`, {
+                role: context.role?.toLowerCase(),
+              }),
+              profile?.firstName,
+              profile?.lastName,
+            ].join(" "),
+            button: i18next.t("invite.mail.button"),
+            avatar: !!profile?.avatar
+              ? profile?.avatar
+              : "https://refine.dev/img/generic-profile.png",
+            link:
+              process.env.NODE_ENV !== "production"
+                ? `http://localhost:3000/register?id=${profile?.medicId ?? context.userId
                 }&type=${invite.role}`
-              : `https://medipulse.vercel.app/register?id=${
-                  profile?.medicId ?? context.userId
+                : `https://medipulse.vercel.app/register?id=${profile?.medicId ?? context.userId
                 }&type=${invite.role}`,
+          },
         },
-      },
-      (err, info) => {
-        if (err) {
-          console.error(err);
-          throw new ApolloError(`${err}`);
+        (err, info) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+            throw new ApolloError(`${err}`);
+          }
+          resolve(info);
+          console.log(info);
         }
-        console.info(info);
-      }
-    );
+      );
+    });
 
     return invite;
   }

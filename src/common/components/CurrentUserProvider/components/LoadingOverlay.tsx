@@ -44,8 +44,7 @@ const LoadingOverlay: React.FC = () => {
       opacity={1}
     >
       <Logo
-        className="animate__animated animate__fadeInUp"
-        textLogo
+        className="animate__animated animate__fadeInUp" 
         width={180}
         height={180}
       />
