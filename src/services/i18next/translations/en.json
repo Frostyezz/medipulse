@@ -162,7 +162,7 @@
   "appointments.modal.add.cancel": "Cancel",
   "appointments.details.title": "Title",
   "appointments.details.title.default": "Appointment",
-  "appointments.details.importance": "Importance",
+  "appointments.details.importance": "Priority",
   "appointments.details.status": "Status",
   "appointments.create.success": "Appointment created successfully!",
   "appointments.create.update": "Appointment updated successfully!",

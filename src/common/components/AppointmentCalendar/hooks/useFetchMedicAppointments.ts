@@ -23,6 +23,7 @@ const FETCH_MEDIC_APPOINTMENTS = gql`
       start
       status
       title
+      createdAt
     }
   }
 `;

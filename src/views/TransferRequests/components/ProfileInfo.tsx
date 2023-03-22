@@ -40,13 +40,15 @@ const ProfileInfo: React.FC<Partial<Profile>> = ({
             {role === ROLES.MEDIC && "Dr."} {[firstName, lastName].join(" ")}
           </Text>
 
-          <Group noWrap spacing={10} mt={3}>
-            <Text fz="xs" c="dimmed">
-              <Flex gap={4}>
-                {t("joined")} <TimeAgo date={createdAt ?? ""} />
-              </Flex>
-            </Text>
-          </Group>
+          {createdAt && (
+            <Group noWrap spacing={10} mt={3}>
+              <Text fz="xs" c="dimmed">
+                <Flex gap={4}>
+                  {t("joined")} <TimeAgo date={createdAt ?? ""} />
+                </Flex>
+              </Text>
+            </Group>
+          )}
         </div>
       </Group>
     </div>

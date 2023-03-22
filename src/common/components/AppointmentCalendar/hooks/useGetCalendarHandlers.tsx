@@ -16,6 +16,7 @@ import useUpdateAppointment from "@/common/hooks/useUpdateAppointment";
 import { APPOINTMENT_STATUS, ROLES } from "@/services/graphql/types/enums";
 import { useAppSelector } from "@/services/redux/hooks";
 import AppointmentOverview from "../components/AppointmentOverview";
+import { ActionIcon, Badge, Flex } from "@mantine/core";
 
 const useGetCalendarHandlers = () => {
   const { t } = useTranslation();
@@ -87,7 +88,7 @@ const useGetCalendarHandlers = () => {
 
   const eventClick = useCallback((info: EventClickArg) => {
     modals.open({
-      title: t("appointments.modal.overview.title"),
+      withCloseButton: false,
       children: <AppointmentOverview {...info} />,
       centered: true,
     });
