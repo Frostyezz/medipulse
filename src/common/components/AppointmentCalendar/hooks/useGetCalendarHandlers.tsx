@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import dayjs from "dayjs";
 import {
   CalendarApi,
@@ -22,13 +22,14 @@ const useGetCalendarHandlers = () => {
   const isMobile = useMediaQuery("(max-width: 800px)");
   const { createAppointment } = useCreateAppointment();
   const updateAppointment = useUpdateAppointment();
-  const isMedic = useAppSelector(store => store.user.role) === ROLES.MEDIC;
+  const isMedic = useAppSelector((store) => store.user.role) === ROLES.MEDIC;
+  const isCreating = useRef(false);
 
   const select = useCallback((info: DateSelectArg) => {
+    isCreating.current = true;
     info.view.calendar.addEvent({
       start: info.start,
       end: info.end,
-      extendedProps: { new: true }
     });
   }, []);
 
@@ -36,10 +37,10 @@ const useGetCalendarHandlers = () => {
     (start: Date, calendar: CalendarApi) => {
       if (!isMobile) return;
       const end = dayjs(start).add(30, "m").toDate();
+      isCreating.current = true;
       calendar.addEvent({
         start: start,
         end: end,
-        extendedProps: { new: true }
       });
     },
     [isMobile]
@@ -58,7 +59,7 @@ const useGetCalendarHandlers = () => {
       withCloseButton: false,
       onCancel: ev.revert,
       onConfirm: async () => {
-        ev.event.setExtendedProp('new', undefined);
+        isCreating.current = false;
         await createAppointment({
           variables: { input: ev.event.extendedProps },
         });
@@ -66,20 +67,23 @@ const useGetCalendarHandlers = () => {
     });
   }, []);
 
-  const eventChange = useCallback((changeInfo: EventChangeArg) => {
-    if (!changeInfo.event.extendedProps.new) {
-      updateAppointment({
-        variables: {
-          input: {
-            id: changeInfo.event._def.extendedProps._id,
-            start: changeInfo.event.startStr,
-            end: changeInfo.event.endStr,
-            status: isMedic ? undefined : APPOINTMENT_STATUS.PENDING,
+  const eventChange = useCallback(
+    (changeInfo: EventChangeArg) => {
+      if (!isCreating.current) {
+        updateAppointment({
+          variables: {
+            input: {
+              id: changeInfo.event._def.extendedProps._id,
+              start: changeInfo.event.startStr,
+              end: changeInfo.event.endStr,
+              status: isMedic ? undefined : APPOINTMENT_STATUS.PENDING,
+            },
           },
-        },
-      });
-    }
-  }, [isMedic]);
+        });
+      }
+    },
+    [isMedic, isCreating.current]
+  );
 
   const eventClick = useCallback((info: EventClickArg) => {
     modals.open({
@@ -87,7 +91,7 @@ const useGetCalendarHandlers = () => {
       children: <AppointmentOverview {...info} />,
       centered: true,
     });
-  }, [])
+  }, []);
 
   return { select, dateClick, eventAdd, eventChange, eventClick };
 };
