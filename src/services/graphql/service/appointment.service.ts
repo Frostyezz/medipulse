@@ -1,5 +1,6 @@
 import AppointmentModel, {
   CreateAppointmentInput,
+  DeleteAppoitmentById,
   UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
 import UserModel from "../schemas/user.schema";
@@ -16,13 +17,11 @@ class AppointmentService {
   async updateAppointment({ id, ...input }: UpdateAppointmentInput) {
     if (input.status === APPOINTMENT_STATUS.REJECTED) {
       const deleted = await AppointmentModel.findByIdAndDelete(id).lean();
-      return {...deleted, status: APPOINTMENT_STATUS.REJECTED};
+      return { ...deleted, status: APPOINTMENT_STATUS.REJECTED };
     }
-    const appointment = await AppointmentModel.findByIdAndUpdate(
-      id,
-      input,
-      {new: true}
-    ).lean();
+    const appointment = await AppointmentModel.findByIdAndUpdate(id, input, {
+      new: true,
+    }).lean();
 
     return appointment;
   }
@@ -38,6 +37,14 @@ class AppointmentService {
     const appointments = await AppointmentModel.find({ medicId: id }).lean();
 
     return appointments;
+  }
+
+  async deleteAppointment(input: DeleteAppoitmentById) {
+    const appointment = await AppointmentModel.findByIdAndDelete(
+      input._id
+    ).lean();
+
+    return appointment?._id ?? input._id;
   }
 }
 

@@ -30,6 +30,8 @@ export const appointmentSlice = createSlice({
       const idx = state.findIndex(({ _id }) => _id === action.payload._id);
       state[idx] = { ...state[idx], ...action.payload };
     },
+    REMOVE_APPOINTMENT: (state, action: PayloadAction<Appointment["_id"]>) =>
+      state.filter(({ _id }) => _id !== action.payload),
     RESET_APPOINTMENTS: () => initialState,
   },
 });
@@ -40,6 +42,7 @@ export const {
   ADD_APPOINTMENT,
   RESET_APPOINTMENTS,
   UPDATE_APPOINTMENT,
+  REMOVE_APPOINTMENT,
 } = appointmentSlice.actions;
 
 export default appointmentSlice;

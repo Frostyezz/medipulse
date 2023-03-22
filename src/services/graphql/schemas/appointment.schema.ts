@@ -9,7 +9,7 @@ import {
   APPOINTMENT_IMPORTANCE,
   APPOINTMENT_STATUS,
 } from "@/services/graphql/types/enums";
-import { IsOptional } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 registerEnumType(APPOINTMENT_IMPORTANCE, {
   name: "APPOINTMENT_IMPORTANCE",
@@ -153,4 +153,11 @@ export class UpdateAppointmentInput {
   @IsOptional()
   @Field(() => [String], { nullable: true })
   files?: string[];
+}
+
+@InputType()
+export class DeleteAppoitmentById {
+  @IsString()
+  @Field(() => String)
+  _id: string;
 }

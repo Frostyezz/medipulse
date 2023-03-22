@@ -20,9 +20,7 @@ const AppointmentBody: React.FC<
   return (
     <List spacing="md" mt={12}>
       <List.Item icon={<ClipboardText color="#868e96" />}>
-        <Title weight={500} order={5}>
-          {event.extendedProps.title}
-        </Title>
+        <Title order={6}>{event.extendedProps.title}</Title>
       </List.Item>
       <List.Item icon={<CalendarEvent color="#868e96" />}>
         <Title order={6}>
@@ -51,6 +49,8 @@ const AppointmentBody: React.FC<
             sx={{
               width: "18px",
               height: "18px",
+              marginRight: "3px",
+              marginLeft: "3px",
               borderRadius: "4px",
               backgroundColor:
                 importanceColorMap[
