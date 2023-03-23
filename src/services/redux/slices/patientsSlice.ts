@@ -24,7 +24,8 @@ export const patientsSlice = createSlice({
         state.patients = state.fetchedPatients.filter((patient) =>
           [patient.firstName, patient.lastName]
             .join("")
-            .includes(action.payload)
+            .toLowerCase()
+            .includes(action.payload.toLowerCase())
         );
         return;
       }
