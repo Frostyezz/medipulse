@@ -150,6 +150,7 @@
   "update.success": "Your profile was updated successfully!",
   "update.label.schedule.MEDIC": "Consultation schedule",
   "update.label.schedule.PATIENT": "Consultation availability schedule",
+  "update.label.theme": "Theme",
   "appointment.importance.LOW": "Low",
   "appointment.importance.NORMAL": "Normal",
   "appointment.importance.URGENT": "Urgent",

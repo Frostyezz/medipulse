@@ -10,7 +10,8 @@ import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
 import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
 import { useRouter } from "next/router";
 import { ROUTES } from "@/common/utils/routes";
-import { ROLES } from "@/services/graphql/types/enums";
+import { ROLES, THEME } from "@/services/graphql/types/enums";
+import { useMantineColorScheme } from "@mantine/core";
 
 const LOGIN = gql`
   mutation LogIn($input: LoginInput!) {
@@ -22,6 +23,7 @@ const useLogin = () => {
   const [login, { data, error, loading }] = useMutation<{ login: boolean }>(
     LOGIN
   );
+  const { toggleColorScheme } = useMantineColorScheme();
   const [
     fetchUser,
     { data: userData, loading: userLoading, error: userError },
@@ -49,6 +51,7 @@ const useLogin = () => {
     if (userError) console.error(userError);
     else if (!userLoading && userData?.me && userData?.getMyProfile) {
       i18n.changeLanguage(userData.me.language);
+      toggleColorScheme(userData.me?.theme ?? THEME.light);
       dispatch(SET_USER_DATA(userData.me));
       dispatch(SET_PROFILE_DATA(userData.getMyProfile));
       router.replace(

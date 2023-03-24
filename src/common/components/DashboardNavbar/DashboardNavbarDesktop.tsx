@@ -16,7 +16,7 @@ const DashboardNavbarDesktop: React.FC = () => {
       className={classes.navbar}
     >
       <Navbar.Section mx="auto">
-        <Logo width={120} height={120} textLogo />
+        <Logo width={120} height={120} />
       </Navbar.Section>
 
       <Navbar.Section grow mt="xl">

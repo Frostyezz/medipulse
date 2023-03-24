@@ -46,7 +46,7 @@ const Faq: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Container mt={100} size="sm" className={classes.wrapper}>
+    <Container mt={250} size="sm" className={classes.wrapper}>
       <Title align="center" className={classes.title}>
         {t("landingPage.faq.title")}
       </Title>

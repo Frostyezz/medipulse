@@ -25,7 +25,7 @@ import {
 } from "class-validator";
 import bcrypt from "bcrypt";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
-import { LANGUAGES, ROLES } from "@/services/graphql/types/enums";
+import { LANGUAGES, ROLES, THEME } from "@/services/graphql/types/enums";
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
@@ -33,6 +33,10 @@ registerEnumType(LANGUAGES, {
 
 registerEnumType(ROLES, {
   name: "ROLES",
+});
+
+registerEnumType(THEME, {
+  name: "THEME",
 });
 
 interface QueryHelpers {
@@ -97,6 +101,10 @@ export class User {
   @Field(() => ROLES)
   @prop({ type: String, enum: ROLES, required: true, default: ROLES.MEDIC })
   role: ROLES;
+
+  @Field(() => THEME, { nullable: true })
+  @prop({ type: String, enum: THEME, required: true, default: THEME.light })
+  theme: THEME;
 
   @Field(() => LANGUAGES)
   @prop({

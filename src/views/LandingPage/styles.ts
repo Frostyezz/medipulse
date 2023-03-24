@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, rem } from "@mantine/core";
 
 export const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -6,30 +6,72 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: "column",
   },
 
-  // Hero.tsx
-  hero: {
+  heroWrapper: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+
+  inner: {
+    position: "relative",
+    zIndex: 1,
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
-    justifyContent: "center",
-    marginLeft: "5%",
-    paddingBottom: "100px",
-    gap: "20px",
-    [theme.fn.smallerThan("md")]: {
-      alignItems: "center",
-      textAlign: "center",
-      justifyContent: "start",
-      margin: "0 20px",
-      marginTop: "50%",
-      paddingBottom: "0px",
+    alignItems: "center",
+  },
+
+  title: {
+    textAlign: "center",
+    fontWeight: 800,
+    fontSize: rem(40),
+    letterSpacing: -1,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    marginBottom: theme.spacing.xs,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+
+    [theme.fn.smallerThan("xs")]: {
+      fontSize: rem(28),
     },
   },
-  heroImg: {
-    objectFit: "cover",
-    objectPosition: "right",
-    zIndex: -1,
-    [theme.fn.smallerThan("md")]: {
-      display: "none",
+
+  highlight: {
+    color:
+      theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
+  },
+
+  description: {
+    textAlign: "center",
+
+    [theme.fn.smallerThan("xs")]: {
+      fontSize: theme.fontSizes.md,
+    },
+  },
+
+  controls: {
+    marginTop: theme.spacing.lg,
+    display: "flex",
+    justifyContent: "center",
+
+    [theme.fn.smallerThan("xs")]: {
+      flexDirection: "column",
+    },
+  },
+
+  control: {
+    "&:not(:first-of-type)": {
+      marginLeft: theme.spacing.md,
+    },
+
+    [theme.fn.smallerThan("xs")]: {
+      height: rem(42),
+      fontSize: theme.fontSizes.md,
+
+      "&:not(:first-of-type)": {
+        marginTop: theme.spacing.md,
+        marginLeft: 0,
+      },
     },
   },
 }));

@@ -6,6 +6,8 @@ import { gql, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import { Profile } from "@/services/graphql/schemas/profile.schema";
 import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
+import { useMantineColorScheme } from "@mantine/core";
+import { THEME } from "@/services/graphql/types/enums";
 
 export const FETCH_CURRENT_USER = gql`
   query FetchCurrentUser {
@@ -16,6 +18,7 @@ export const FETCH_CURRENT_USER = gql`
       role
       language
       registerStep
+      theme
     }
     getMyProfile {
       _id
@@ -43,12 +46,14 @@ const useFetchCurrentUser = () => {
   }>(FETCH_CURRENT_USER);
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
+  const { toggleColorScheme } = useMantineColorScheme();
 
   useEffect(() => {
     if (error) console.error(error);
     else if (!loading) {
       if (data?.me) {
         i18n.changeLanguage(data.me.language);
+        toggleColorScheme(data.me?.theme ?? THEME.light);
         dispatch(SET_USER_DATA(data.me));
       }
       if (data?.getMyProfile) {

@@ -1,5 +1,5 @@
 import { Profile } from "@/services/graphql/schemas/profile.schema";
-import { LANGUAGES } from "@/services/graphql/types/enums";
+import { LANGUAGES, THEME } from "@/services/graphql/types/enums";
 import { useAppDispatch } from "@/services/redux/hooks";
 import { SET_PROFILE_DATA } from "@/services/redux/slices/profileSlice";
 import { SET_USER_DATA } from "@/services/redux/slices/userSlice";
@@ -25,7 +25,7 @@ const UPDATE_PROFILE = gql`
   }
 `;
 
-const useUpdateProfile = (language: LANGUAGES) => {
+const useUpdateProfile = (language: LANGUAGES, theme: THEME) => {
   const [updateProfile, { data, loading, error }] = useMutation<{
     updateProfile: Partial<Profile>;
   }>(UPDATE_PROFILE);
@@ -44,6 +44,7 @@ const useUpdateProfile = (language: LANGUAGES) => {
       dispatch(
         SET_USER_DATA({
           language,
+          theme,
         })
       );
       showNotification({

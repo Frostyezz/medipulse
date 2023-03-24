@@ -78,7 +78,7 @@ class ProfileService {
   }
 
   async updateProfile(
-    { language, ...input }: UpdateProfileInput,
+    { language, theme, ...input }: UpdateProfileInput,
     context: Context
   ) {
     await ProfileModel.findOneAndUpdate(
@@ -86,7 +86,7 @@ class ProfileService {
       input
     ).lean();
 
-    await UserModel.findByIdAndUpdate(context.userId, { language });
+    await UserModel.findByIdAndUpdate(context.userId, { language, theme });
 
     const profile = await ProfileModel.find()
       .findByContextId(context.userId)
@@ -106,7 +106,9 @@ class ProfileService {
   }
 
   async getProfileById(input: GetProfileByIdInput) {
-    const profile = await ProfileModel.find().findByContextId(input.profileId).lean();
+    const profile = await ProfileModel.find()
+      .findByContextId(input.profileId)
+      .lean();
 
     return profile;
   }

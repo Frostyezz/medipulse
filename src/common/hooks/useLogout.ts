@@ -11,6 +11,8 @@ import { RESET_INVITES } from "@/services/redux/slices/invitesSlice";
 import { RESET_TRANSFER_REQUESTS } from "@/services/redux/slices/transferRequests";
 import { RESET_PATIENT } from "@/services/redux/slices/patientsSlice";
 import { RESET_APPOINTMENTS } from "@/services/redux/slices/appointmentsSlice";
+import { useMantineColorScheme } from "@mantine/core";
+import { THEME } from "@/services/graphql/types/enums";
 
 const LOGOUT = gql`
   mutation LogOut {
@@ -25,6 +27,7 @@ const useLogout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const { toggleColorScheme } = useMantineColorScheme();
 
   useEffect(() => {
     if (error) {
@@ -40,6 +43,7 @@ const useLogout = () => {
       dispatch(RESET_TRANSFER_REQUESTS());
       dispatch(RESET_PATIENT());
       dispatch(RESET_APPOINTMENTS());
+      toggleColorScheme(THEME.light);
       router.replace(ROUTES.ROOT);
     }
   }, [data, loading, error]);

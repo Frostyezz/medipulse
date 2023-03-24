@@ -1,3 +1,4 @@
+import { THEME } from "@/services/graphql/types/enums";
 import { createStyles, Divider, Flex } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
@@ -25,7 +26,8 @@ const useStyles = createStyles((theme) => ({
     right: 0,
     position: "absolute",
     transform: "rotate(-45deg)",
-    border: "solid #ced4da",
+    border:
+      theme.colorScheme === THEME.dark ? "solid #373A40" : "solid #ced4da",
     borderWidth: "0 3px 3px 0",
     display: "inline-block",
     padding: "5px",

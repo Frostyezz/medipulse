@@ -10,7 +10,7 @@ import {
 import { AsQueryMethod, ReturnModelType } from "@typegoose/typegoose/lib/types";
 import { IsOptional, IsString } from "class-validator";
 import { Field, InputType, ObjectType, registerEnumType } from "type-graphql";
-import { LANGUAGES, ROLES } from "../types/enums";
+import { LANGUAGES, ROLES, THEME } from "../types/enums";
 
 registerEnumType(ROLES, {
   name: "ROLES",
@@ -18,6 +18,10 @@ registerEnumType(ROLES, {
 
 registerEnumType(LANGUAGES, {
   name: "LANGUAGES",
+});
+
+registerEnumType(THEME, {
+  name: "THEME",
 });
 
 interface QueryHelpers {
@@ -93,6 +97,7 @@ export class Profile {
   @Field(() => [Schedule], { nullable: true })
   @prop({
     required: false,
+    default: null,
     type: () =>
       new Passthrough(
         {
@@ -208,6 +213,9 @@ export class UpdateProfileInput {
 
   @Field(() => LANGUAGES)
   language: LANGUAGES;
+
+  @Field(() => THEME)
+  theme: THEME;
 
   @IsOptional()
   @IsString()

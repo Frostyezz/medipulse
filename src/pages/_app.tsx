@@ -1,6 +1,11 @@
+import { useCallback, useState } from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Inter } from "@next/font/google";
 import RouterTransition from "@/common/components/RouterTransition";
@@ -20,6 +25,14 @@ const inter = Inter({ subsets: ["latin"] });
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = useCallback(
+    (value?: ColorScheme) => {
+      setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+    },
+    [colorScheme]
+  );
+
   return (
     <>
       <Head>
@@ -31,24 +44,29 @@ export default function App(props: AppProps) {
       </Head>
       <ApolloProvider client={client}>
         <Provider store={store}>
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{
-              fontFamily: inter.style.fontFamily,
-              headings: { fontFamily: inter.style.fontFamily },
-              colorScheme: "light",
-            }}
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
           >
-            <ModalsProvider>
-              <CurrentUserProvider>
-                <Notifications />
-                <RouterTransition />
-                <Component {...pageProps} />
-                <Footer />
-              </CurrentUserProvider>
-            </ModalsProvider>
-          </MantineProvider>
+            <MantineProvider
+              withGlobalStyles
+              withNormalizeCSS
+              theme={{
+                fontFamily: inter.style.fontFamily,
+                headings: { fontFamily: inter.style.fontFamily },
+                colorScheme,
+              }}
+            >
+              <ModalsProvider>
+                <CurrentUserProvider>
+                  <Notifications />
+                  <RouterTransition />
+                  <Component {...pageProps} />
+                  <Footer />
+                </CurrentUserProvider>
+              </ModalsProvider>
+            </MantineProvider>
+          </ColorSchemeProvider>
         </Provider>
       </ApolloProvider>
     </>

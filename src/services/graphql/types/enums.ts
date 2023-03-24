@@ -30,3 +30,8 @@ export enum APPOINTMENT_IMPORTANCE {
   NORMAL = "NORMAL",
   LOW = "LOW",
 }
+
+export enum THEME {
+  dark = "dark",
+  light = "light",
+}

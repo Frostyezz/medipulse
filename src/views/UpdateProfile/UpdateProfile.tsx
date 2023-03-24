@@ -1,20 +1,34 @@
 import React, { useRef } from "react";
-import { Flex, Button, Title, Text, TextInput, Select } from "@mantine/core";
+import {
+  Flex,
+  Button,
+  Title,
+  Text,
+  TextInput,
+  Select,
+  Switch,
+  useMantineTheme,
+} from "@mantine/core";
 import AvatarUpload from "@/common/components/AvatarUpload/AvatarUpload";
 import { useTranslation } from "react-i18next";
 import useUpdateProfileForm from "./hooks/useUpdateProfileForm";
 import TimetableCalendar from "@/common/components/TimetableCalendar/TimetableCalendar";
-import { LANGUAGES } from "@/services/graphql/types/enums";
+import { LANGUAGES, THEME } from "@/services/graphql/types/enums";
 import FullCalendar from "@fullcalendar/react";
 import useUpdateProfile from "./hooks/useUpdateProfile";
 import { useAppSelector } from "@/services/redux/hooks";
+import { MoonStars, Sun } from "tabler-icons-react";
 
 const UpdateProfile: React.FC = () => {
   const { t } = useTranslation();
   const form = useUpdateProfileForm();
-  const { loading, updateProfile } = useUpdateProfile(form.values.language);
+  const { loading, updateProfile } = useUpdateProfile(
+    form.values.language,
+    form.values.theme
+  );
   const { role } = useAppSelector((store) => store.user) ?? {};
   const ref = useRef<FullCalendar | null>(null);
+  const theme = useMantineTheme();
 
   return (
     <form
@@ -52,7 +66,22 @@ const UpdateProfile: React.FC = () => {
             <Text>{t("createProfile.desc.avatar")}</Text>
           </Flex>
         </Flex>
-        <Flex wrap="wrap" gap={12} mb={12}>
+        <Switch
+          checked={form.values.theme === THEME.dark}
+          onChange={({ currentTarget }) =>
+            form.setFieldValue(
+              "theme",
+              !currentTarget.checked ? THEME.light : THEME.dark
+            )
+          }
+          my={12}
+          size="lg"
+          label={t("update.label.theme")}
+          color={theme.colorScheme === "dark" ? "gray" : "dark"}
+          onLabel={<Sun size="1rem" color={theme.colors.yellow[4]} />}
+          offLabel={<MoonStars size="1rem" color={theme.colors.blue[6]} />}
+        />
+        <Flex wrap="wrap" gap={12} mb={12} align="flex-end">
           <TextInput
             sx={{ width: "200px" }}
             placeholder={t("createProfile.label.firstName") as string}
