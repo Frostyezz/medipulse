@@ -19,6 +19,7 @@ export const FETCH_CURRENT_USER = gql`
       language
       registerStep
       theme
+      completedFTU
     }
     getMyProfile {
       _id
