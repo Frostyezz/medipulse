@@ -34,8 +34,12 @@ class transferRequestService {
   }
 
   async getTransferRequests(context: Context) {
+    const profile = await ProfileModel.find().findByContextId(
+      context.userId ?? ""
+    );
+
     const requests = await TransferRequestModel.find({
-      medicId: context.userId,
+      medicId: profile?.medicId ?? context.userId,
     }).lean();
 
     return await Promise.all(

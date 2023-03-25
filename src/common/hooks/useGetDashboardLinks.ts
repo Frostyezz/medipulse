@@ -8,9 +8,9 @@ import {
   Users,
   MapSearch,
   UserExclamation,
-  EditCircle,
   CalendarEvent,
   ReportMedical,
+  Settings,
 } from "tabler-icons-react";
 import { createPath } from "../utils/createPath";
 import { ROUTES } from "../utils/routes";
@@ -57,25 +57,35 @@ const useGetDashboardLinks = () => {
         {
           label: "dashboard.label.update",
           to: ROUTES.MEDIC_UPDATE_PROFILE,
-          icon: EditCircle,
+          icon: Settings,
         },
       ],
       [ROLES.NURSE]: [
         {
           initiallyOpened: true,
           label: "dashboard.label.home",
-          to: ROUTES.MEDIC_DASHBOARD,
+          to: ROUTES.NURSE_DASHBOARD,
           icon: LayoutDashboard,
         },
         {
           label: "dashboard.label.invite",
-          to: ROUTES.MEDIC_INVITE,
+          to: ROUTES.NURSE_INVITE,
           icon: UserPlus,
         },
         {
           label: "dashboard.label.patients",
-          to: ROUTES.MEDIC_PATIENTS,
+          to: ROUTES.NURSE_PATIENTS,
           icon: Users,
+        },
+        {
+          label: "dashboard.label.transfer",
+          to: ROUTES.NURSE_TRANSFER_REQUESTS,
+          icon: UserExclamation,
+        },
+        {
+          label: "dashboard.label.update",
+          to: ROUTES.NURSE_UPDATE_PROFILE,
+          icon: Settings,
         },
       ],
       [ROLES.PATIENT]: [
@@ -105,7 +115,7 @@ const useGetDashboardLinks = () => {
         {
           label: "dashboard.label.update",
           to: ROUTES.PATIENT_UPDATE_PROFILE,
-          icon: EditCircle,
+          icon: Settings,
         },
       ],
     }),

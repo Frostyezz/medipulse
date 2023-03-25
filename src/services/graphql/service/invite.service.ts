@@ -24,7 +24,7 @@ class InviteService {
 
     const invite = await InviteModel.create({
       ...input,
-      medicId: context.userId,
+      medicId: profile?.medicId ?? context.userId,
       status: INVITATION_STATUS.SENT,
     });
 
@@ -32,12 +32,12 @@ class InviteService {
 
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
-          if (error) {
-            console.log(error);
-            reject(error);
-          } else {
-              resolve(success);
-          }
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          resolve(success);
+        }
       });
     });
 
@@ -66,10 +66,12 @@ class InviteService {
               : "https://refine.dev/img/generic-profile.png",
             link:
               process.env.NODE_ENV !== "production"
-                ? `http://localhost:3000/register?id=${profile?.medicId ?? context.userId
-                }&type=${invite.role}`
-                : `https://medipulse.vercel.app/register?id=${profile?.medicId ?? context.userId
-                }&type=${invite.role}`,
+                ? `http://localhost:3000/register?id=${
+                    profile?.medicId ?? context.userId
+                  }&type=${invite.role}`
+                : `https://medipulse.vercel.app/register?id=${
+                    profile?.medicId ?? context.userId
+                  }&type=${invite.role}`,
           },
         },
         (err, info) => {
@@ -88,7 +90,13 @@ class InviteService {
   }
 
   async getInvites(context: Context) {
-    const invites = await InviteModel.find({ medicId: context?.userId ?? "" });
+    const profile = await ProfileModel.find().findByContextId(
+      context.userId ?? ""
+    );
+
+    const invites = await InviteModel.find({
+      medicId: profile?.medicId ?? context?.userId,
+    });
 
     return invites;
   }

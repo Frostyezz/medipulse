@@ -44,8 +44,12 @@ class ProfileService {
   }
 
   async getMyPatients(context: Context) {
+    const profile = await ProfileModel.find().findByContextId(
+      context.userId ?? ""
+    );
+
     const patients = await ProfileModel.find({
-      medicId: context.userId,
+      medicId: profile?.medicId ?? context.userId,
       role: ROLES.PATIENT,
     }).lean();
 
