@@ -19,6 +19,7 @@ class ProfileService {
       contextId: context.userId,
       medicId: user?.medicId,
       role: user?.role,
+      schedule: [],
     });
 
     const { email } =
