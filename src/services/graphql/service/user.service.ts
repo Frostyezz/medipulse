@@ -25,12 +25,12 @@ class UserService {
 
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
-          if (error) {
-            console.log(error);
-            reject(error);
-          } else {
-              resolve(success);
-          }
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          resolve(success);
+        }
       });
     });
 
@@ -82,17 +82,17 @@ class UserService {
 
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
-          if (error) {
-            console.log(error);
-            reject(error);
-          } else {
-              resolve(success);
-          }
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          resolve(success);
+        }
       });
     });
 
     await new Promise((resolve, reject) => {
-     transporter.sendMail(
+      transporter.sendMail(
         {
           from: process.env.MAIL_USER,
           to: user.email,
@@ -116,7 +116,7 @@ class UserService {
           resolve(info);
         }
       );
-    })
+    });
 
     return true;
   }
@@ -180,6 +180,12 @@ class UserService {
   async getUser(context: Context) {
     const user = await UserModel.findById(context.userId).lean();
     return user;
+  }
+
+  async completeFTU(context: Context) {
+    await UserModel.findByIdAndUpdate(context?.userId, { completedFTU: true });
+
+    return true;
   }
 }
 

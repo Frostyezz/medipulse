@@ -44,6 +44,11 @@ export default class UserResolver {
     return this.userService.deleteUser(context);
   }
 
+  @Mutation(() => Boolean, { nullable: true })
+  completeFTU(@Ctx() context: Context) {
+    return this.userService.completeFTU(context);
+  }
+
   @Query(() => User, { nullable: true })
   me(@Ctx() context: Context) {
     return this.userService.getUser(context);

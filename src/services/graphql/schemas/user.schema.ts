@@ -118,6 +118,10 @@ export class User {
   @Field(() => Int)
   @prop({ default: 1 })
   registerStep: number;
+
+  @Field(() => Boolean, { nullable: true })
+  @prop({ default: false, required: false })
+  completedFTU?: boolean;
 }
 
 const UserModel = getModelForClass<typeof User, QueryHelpers>(User);
