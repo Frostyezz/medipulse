@@ -4,12 +4,16 @@ import { Profile } from "@/services/graphql/schemas/profile.schema";
 import TimeAgo from "@/common/components/TimeAgo/TimeAgo";
 import { useTranslation } from "react-i18next";
 import ActionsButton from "./ActionsButton";
+import { createPath } from "@/common/utils/createPath";
+import { ROUTES } from "@/common/utils/routes";
+import Link from "next/link";
 
 const PatientCard: React.FC<Partial<Profile>> = ({
   avatar,
   firstName,
   lastName,
   createdAt,
+  contextId,
 }) => {
   const { t } = useTranslation();
 
@@ -36,10 +40,16 @@ const PatientCard: React.FC<Partial<Profile>> = ({
       </Text>
 
       <Flex gap={6} mt="md">
-        <Button variant="default" fullWidth>
-          {t("patients.list.card.history")}
-        </Button>
-        <ActionsButton />
+        <Link
+          style={{ textDecoration: "unset", width: "100%" }}
+          href={createPath(ROUTES.MEDICAL_HISTORY_ID, {
+            id: (contextId as string) ?? "",
+          })}
+        >
+          <Button variant="default" fullWidth>
+            {t("patients.list.card.history")}
+          </Button>
+        </Link>
       </Flex>
     </Paper>
   );

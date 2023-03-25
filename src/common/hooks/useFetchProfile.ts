@@ -1,26 +1,26 @@
 import { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client"
+import { gql, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import { Profile } from "@/services/graphql/schemas/profile.schema";
 import { showNotification } from "@mantine/notifications";
 
 const FETCH_PROFILE = gql`
-query GetProfileById($input: GetProfileByIdInput!) {
-  getProfileById(input: $input) {
-    avatar
-    firstName
-    lastName
-    createdAt
-    role
+  query GetProfileById($input: GetProfileByIdInput!) {
+    getProfileById(input: $input) {
+      avatar
+      firstName
+      lastName
+      createdAt
+      role
+    }
   }
-}
-`
+`;
 
-const useFetchProfile = (profileId?: number) => {
-const { t } = useTranslation();
-const { data, error } = useQuery<{
-    getProfileById: Partial<Profile>
-}>(FETCH_PROFILE, { skip: !profileId, variables: { input: { profileId } }});
+const useFetchProfile = (profileId?: string) => {
+  const { t } = useTranslation();
+  const { data, error } = useQuery<{
+    getProfileById: Partial<Profile>;
+  }>(FETCH_PROFILE, { skip: !profileId, variables: { input: { profileId } } });
 
   useEffect(() => {
     if (error)
@@ -32,6 +32,6 @@ const { data, error } = useQuery<{
   }, [error]);
 
   return data?.getProfileById;
-}
+};
 
-export default useFetchProfile
+export default useFetchProfile;

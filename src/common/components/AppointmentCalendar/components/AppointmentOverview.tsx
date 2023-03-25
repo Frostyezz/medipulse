@@ -1,9 +1,9 @@
 import React from "react";
-import { Divider, Flex, List, Skeleton, Text, Title } from "@mantine/core";
+import { Divider, Flex, Skeleton } from "@mantine/core";
 import { EventClickArg } from "@fullcalendar/core";
 import useFetchProfile from "@/common/hooks/useFetchProfile";
 import ProfileInfo from "@/views/TransferRequests/components/ProfileInfo";
-import { APPOINTMENT_STATUS, ROLES } from "@/services/graphql/types/enums";
+import { ROLES } from "@/services/graphql/types/enums";
 import AppointmentHeader from "./AppointmentHeader";
 import AppointmentBody from "./AppointmentBody";
 

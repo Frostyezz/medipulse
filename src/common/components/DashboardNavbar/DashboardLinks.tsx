@@ -16,7 +16,7 @@ const DashboardLinks: React.FC = () => {
       {links.map((item) => (
         <Link
           className={cx(classes.link, {
-            [classes.linkActive]: item.to === router.pathname,
+            [classes.linkActive]: item.to === router.asPath,
           })}
           href={item.to}
           key={item.label}

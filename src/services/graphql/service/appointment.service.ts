@@ -1,6 +1,7 @@
 import AppointmentModel, {
   CreateAppointmentInput,
   DeleteAppoitmentById,
+  GetAppointmentsByPatientId,
   UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
 import UserModel from "../schemas/user.schema";
@@ -45,6 +46,16 @@ class AppointmentService {
     ).lean();
 
     return appointment?._id ?? input._id;
+  }
+
+  async getPatientAppointments(input: GetAppointmentsByPatientId) {
+    const appointments = await AppointmentModel.find({
+      patientId: input.id,
+    }).lean();
+
+    return appointments.sort(function (a, b) {
+      return new Date(b.end).valueOf() - new Date(a.end).valueOf();
+    });
   }
 }
 

@@ -12,7 +12,11 @@ export async function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
 
-  if (url.pathname.startsWith("/medic") && decoded?.role !== ROLES.MEDIC) {
+  if (
+    url.pathname.startsWith("/medic") &&
+    decoded?.role !== ROLES.MEDIC &&
+    !url.pathname.startsWith(ROUTES.MEDICAL_HISTORY)
+  ) {
     url.pathname = ROUTES.NOT_FOUND;
     return NextResponse.rewrite(url);
   }

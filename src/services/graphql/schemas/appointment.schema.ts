@@ -161,3 +161,10 @@ export class DeleteAppoitmentById {
   @Field(() => String)
   _id: string;
 }
+
+@InputType()
+export class GetAppointmentsByPatientId {
+  @IsString()
+  @Field(() => String)
+  id: string;
+}

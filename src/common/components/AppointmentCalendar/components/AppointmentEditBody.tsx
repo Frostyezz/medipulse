@@ -34,12 +34,15 @@ const AppointmentEditBody: React.FC<Partial<Appointment>> = (appointment) => {
     },
   });
 
-  useEffect(() => {
-    if (!form.values.files?.[0]) form.setFieldValue("files", []);
-  }, [form.values.files]);
-
   const onSubmit = useCallback(async () => {
-    await updateAppointment({ variables: { input: form.values } });
+    await updateAppointment({
+      variables: {
+        input: {
+          ...form.values,
+          files: form.values.files?.[0] ? form.values.files : [""],
+        },
+      },
+    });
     modals.closeAll();
   }, [form.values]);
 

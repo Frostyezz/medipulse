@@ -3,6 +3,7 @@ import {
   Appointment,
   CreateAppointmentInput,
   DeleteAppoitmentById,
+  GetAppointmentsByPatientId,
   UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
 import AppointmentService from "../service/appointment.service";
@@ -17,6 +18,11 @@ export default class AppointmentResolver {
   @Query(() => [Appointment], { nullable: true })
   getMedicAppointments(@Ctx() context: Context) {
     return this.appointmentService.getMedicAppointments(context);
+  }
+
+  @Query(() => [Appointment], { nullable: true })
+  getPatientAppointments(@Arg("input") input: GetAppointmentsByPatientId) {
+    return this.appointmentService.getPatientAppointments(input);
   }
 
   @Mutation(() => Appointment)

@@ -70,6 +70,7 @@ const EventAddForm: React.FC<EventAddArg> = ({ event }) => {
       />
       {isMedic && (
         <Autocomplete
+          maxDropdownHeight={200}
           label={t("roles.PATIENT")}
           placeholder={t("roles.PATIENT") as string}
           itemComponent={SelectPatientItem}
