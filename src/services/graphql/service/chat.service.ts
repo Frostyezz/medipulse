@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Pusher from "pusher";
 import ChatModel, {
   CreateChatInput,
@@ -24,13 +25,15 @@ class ChatService {
     return chat;
   }
 
-  async sendMessage(input: SendMessageInput) {
-    try {
-      const response = await pusher.trigger("chat", "chat-event", input);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+  async sendMessage({ chatId, ...input }: SendMessageInput) {
+    await ChatModel.findByIdAndUpdate(chatId, {
+      $push: { messages: { ...input, sentAt: dayjs() } },
+    });
+
+    await pusher.trigger(chatId as string, "message", {
+      ...input,
+      sentAt: dayjs(),
+    });
 
     return true;
   }

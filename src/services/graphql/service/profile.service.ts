@@ -56,6 +56,58 @@ class ProfileService {
     return patients;
   }
 
+  async getMyMedicalStaff(context: Context) {
+    const profile = await ProfileModel.find().findByContextId(
+      context.userId ?? ""
+    );
+
+    const nurses =
+      (await ProfileModel.find({
+        medicId: profile?.medicId,
+        role: ROLES.NURSE,
+      }).lean()) ?? [];
+
+    const medic = await ProfileModel.find()
+      .findByContextId(profile?.medicId ?? "")
+      .lean();
+
+    return [medic, ...nurses];
+  }
+
+  async getMyPatientsAndNurses(context: Context) {
+    const patients =
+      (await ProfileModel.find({
+        medicId: context.userId,
+        role: ROLES.PATIENT,
+      }).lean()) ?? [];
+
+    const nurses =
+      (await ProfileModel.find({
+        medicId: context.userId,
+        role: ROLES.NURSE,
+      }).lean()) ?? [];
+
+    return [...nurses, ...patients];
+  }
+
+  async getMyPatientsAndMedic(context: Context) {
+    const profile = await ProfileModel.find().findByContextId(
+      context.userId ?? ""
+    );
+
+    const patients =
+      (await ProfileModel.find({
+        medicId: profile?.medicId,
+        role: ROLES.PATIENT,
+      }).lean()) ?? [];
+
+    const medic = await ProfileModel.find()
+      .findByContextId(profile?.medicId ?? "")
+      .lean();
+
+    return [medic, ...patients];
+  }
+
   async getDoctorsNearMe(input: GetDoctorsNearMeInput) {
     const doctors = await ProfileModel.find({ role: ROLES.MEDIC }).lean();
 

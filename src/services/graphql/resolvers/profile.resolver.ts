@@ -48,6 +48,21 @@ export default class ProfileResolver {
   }
 
   @Query(() => [Profile], { nullable: true })
+  getMyMedicalStaff(@Ctx() context: Context) {
+    return this.profileService.getMyMedicalStaff(context);
+  }
+
+  @Query(() => [Profile], { nullable: true })
+  getMyPatientsAndNurses(@Ctx() context: Context) {
+    return this.profileService.getMyPatientsAndNurses(context);
+  }
+
+  @Query(() => [Profile], { nullable: true })
+  getMyPatientsAndMedic(@Ctx() context: Context) {
+    return this.profileService.getMyPatientsAndMedic(context);
+  }
+
+  @Query(() => [Profile], { nullable: true })
   getDoctorsNearMe(@Arg("input") input: GetDoctorsNearMeInput) {
     return this.profileService.getDoctorsNearMe(input);
   }

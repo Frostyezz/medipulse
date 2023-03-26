@@ -11,6 +11,7 @@ import {
   CalendarEvent,
   ReportMedical,
   Settings,
+  Messages,
 } from "tabler-icons-react";
 import { createPath } from "../utils/createPath";
 import { ROUTES } from "../utils/routes";
@@ -55,6 +56,11 @@ const useGetDashboardLinks = () => {
           icon: UserExclamation,
         },
         {
+          label: "dashboard.label.chat",
+          to: ROUTES.MEDIC_CHAT,
+          icon: Messages,
+        },
+        {
           label: "dashboard.label.update",
           to: ROUTES.MEDIC_UPDATE_PROFILE,
           icon: Settings,
@@ -81,6 +87,11 @@ const useGetDashboardLinks = () => {
           label: "dashboard.label.transfer",
           to: ROUTES.NURSE_TRANSFER_REQUESTS,
           icon: UserExclamation,
+        },
+        {
+          label: "dashboard.label.chat",
+          to: ROUTES.NURSE_CHAT,
+          icon: Messages,
         },
         {
           label: "dashboard.label.update",
@@ -111,6 +122,11 @@ const useGetDashboardLinks = () => {
           label: "dashboard.label.doctors",
           to: ROUTES.PATIENT_DOCTORS,
           icon: MapSearch,
+        },
+        {
+          label: "dashboard.label.chat",
+          to: ROUTES.PATIENT_CHAT,
+          icon: Messages,
         },
         {
           label: "dashboard.label.update",

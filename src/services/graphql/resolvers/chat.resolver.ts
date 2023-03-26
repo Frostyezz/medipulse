@@ -14,7 +14,7 @@ export default class ChatResolver {
   }
 
   @Mutation(() => Chat)
-  createTransferRequest(@Arg("input") input: CreateChatInput) {
+  createChat(@Arg("input") input: CreateChatInput) {
     return this.chatService.createChat(input);
   }
 

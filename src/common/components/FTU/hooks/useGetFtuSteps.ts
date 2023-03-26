@@ -44,6 +44,11 @@ const useGetFtuSteps = () => {
         },
         {
           target: ".step5",
+          title: t("ftu.nurse.step.6.title"),
+          content: t("ftu.nurse.step.6.content"),
+        },
+        {
+          target: ".step6",
           title: t("ftu.nurse.step.5.title"),
           content: t("ftu.nurse.step.5.content"),
         },
@@ -77,6 +82,11 @@ const useGetFtuSteps = () => {
         },
         {
           target: ".step4",
+          title: t("ftu.nurse.step.6.title"),
+          content: t("ftu.nurse.step.6.content"),
+        },
+        {
+          target: ".step5",
           title: t("ftu.nurse.step.5.title"),
           content: t("ftu.nurse.step.5.content"),
         },
@@ -110,6 +120,11 @@ const useGetFtuSteps = () => {
         },
         {
           target: ".step4",
+          title: t("ftu.nurse.step.6.title"),
+          content: t("ftu.nurse.step.6.content"),
+        },
+        {
+          target: ".step5",
           title: t("ftu.nurse.step.5.title"),
           content: t("ftu.nurse.step.5.content"),
         },

@@ -5,7 +5,7 @@ import {
   prop,
   Severity,
 } from "@typegoose/typegoose";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 import { Field, InputType, ObjectType } from "type-graphql";
 
 @ModelOptions({
@@ -33,20 +33,11 @@ export class Chat {
   @prop({ required: false })
   nurseId?: String;
 
+  @IsOptional()
   @Field(() => [Message], { nullable: true })
   @prop({
     required: false,
     default: [],
-    type: () =>
-      new Passthrough(
-        {
-          sender: String,
-          receiver: String,
-          content: String,
-          sentAt: String,
-        },
-        true
-      ),
   })
   messages?: Message[];
 
@@ -59,18 +50,22 @@ export class Chat {
 
 @ObjectType()
 export class Message {
+  @IsOptional()
   @Field(() => String)
   @prop({ required: true })
   sender: String;
 
+  @IsOptional()
   @Field(() => String)
   @prop({ required: true })
   receiver: String;
 
+  @IsOptional()
   @Field(() => String)
   @prop({ required: true })
   content: String;
 
+  @IsOptional()
   @Field(() => String)
   @prop({ required: true })
   sentAt: String;
@@ -81,24 +76,36 @@ export default ChatModel;
 
 @InputType()
 export class CreateChatInput {
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   medicId?: String;
 
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   patientId?: String;
 
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   nurseId?: String;
 }
 
 @InputType()
 export class GetChatInput {
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   medicId?: String;
 
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   patientId?: String;
 
+  @IsString()
+  @IsOptional()
   @Field(() => String, { nullable: true })
   nurseId?: String;
 }
@@ -112,4 +119,12 @@ export class SendMessageInput {
   @IsString()
   @Field(() => String)
   content: String;
+
+  @IsString()
+  @Field(() => String)
+  sender: String;
+
+  @IsString()
+  @Field(() => String)
+  receiver: String;
 }
