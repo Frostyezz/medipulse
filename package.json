@@ -57,6 +57,8 @@
     "next": "13.1.6",
     "nodemailer": "^6.9.1",
     "nodemailer-express-handlebars": "^6.0.0",
+    "pusher": "^5.1.2",
+    "pusher-js": "^8.0.2",
     "react": "18.2.0",
     "react-countdown": "^2.3.5",
     "react-dom": "18.2.0",

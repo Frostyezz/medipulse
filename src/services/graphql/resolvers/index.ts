@@ -1,4 +1,5 @@
 import AppointmentResolver from "./appointment.resolver";
+import ChatResolver from "./chat.resolver";
 import InviteResolver from "./invite.resolver";
 import ProfileResolver from "./profile.resolver";
 import TransferRequestsResolver from "./transferRequest.resolver";
@@ -10,4 +11,5 @@ export const resolvers = [
   InviteResolver,
   TransferRequestsResolver,
   AppointmentResolver,
+  ChatResolver,
 ] as const;
