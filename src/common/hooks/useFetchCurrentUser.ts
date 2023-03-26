@@ -20,6 +20,7 @@ export const FETCH_CURRENT_USER = gql`
       registerStep
       theme
       completedFTU
+      medicId
     }
     getMyProfile {
       _id

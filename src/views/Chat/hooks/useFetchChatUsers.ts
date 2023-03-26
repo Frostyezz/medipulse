@@ -14,7 +14,7 @@ const useFetchChatUsers = () => {
     getMyMedicalStaff?: Partial<Profile>[];
     getMyPatientsAndMedic?: Partial<Profile[]>;
     getMyPatientsAndNurses?: Partial<Profile[]>;
-  }>(chatQueries[role ?? ROLES.MEDIC]);
+  }>(chatQueries[role ?? ROLES.MEDIC], { fetchPolicy: "network-only" });
   const { t } = useTranslation();
 
   useEffect(() => {

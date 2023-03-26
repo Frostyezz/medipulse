@@ -57,7 +57,9 @@ const useLogin = () => {
       router.replace(
         userData.me.role === ROLES.MEDIC
           ? ROUTES.MEDIC_DASHBOARD
-          : ROUTES.PATIENT_DASHBOARD
+          : userData.me.role === ROLES.PATIENT
+          ? ROUTES.PATIENT_DASHBOARD
+          : ROUTES.NURSE_DASHBOARD
       );
     }
   }, [userData, userLoading, userError]);

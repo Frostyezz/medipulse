@@ -52,7 +52,6 @@ const useManageChat = () => {
   });
 
   useEffect(() => {
-    console.log(userId, _id, chat?._id);
     if (userId) form.setFieldValue("receiver", userId);
     if (_id) form.setFieldValue("sender", _id);
     if (chat?._id) form.setFieldValue("chatId", chat._id);
