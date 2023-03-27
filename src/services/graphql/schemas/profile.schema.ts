@@ -229,3 +229,24 @@ export class GetProfileByIdInput {
   @Field(() => String)
   profileId: string;
 }
+
+@ObjectType()
+export class GetStatsResult {
+  @Field(() => Number, { nullable: true })
+  patients: number;
+
+  @Field(() => Number, { nullable: true })
+  patientPercentage: number;
+
+  @Field(() => Number, { nullable: true })
+  appointments: number;
+
+  @Field(() => Number, { nullable: true })
+  appointmentPercentage: number;
+
+  @Field(() => Number, { nullable: true })
+  invites: number;
+
+  @Field(() => Number, { nullable: true })
+  invitePercentage: number;
+}

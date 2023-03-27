@@ -1,13 +1,12 @@
 import { useAppSelector } from "@/services/redux/hooks";
-import { Flex, Grid, SimpleGrid, Skeleton, Title, rem } from "@mantine/core";
+import { Flex, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import AppointmentPanel from "./components/AppointmentPanel";
-
+import Stats from "./components/Stats";
 const Dashboard: React.FC = () => {
   const profile = useAppSelector((store) => store.profile);
   const { t } = useTranslation();
-  console.log(dayjs().hour());
 
   return (
     <Flex direction="column" gap={56}>
@@ -17,6 +16,7 @@ const Dashboard: React.FC = () => {
           : t("dashboard.title.noon", { name: profile.firstName })}
       </Title>
       <AppointmentPanel />
+      <Stats />
     </Flex>
   );
 };

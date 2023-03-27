@@ -9,6 +9,8 @@ import ProfileModel, {
 import UserModel from "../schemas/user.schema";
 import { INVITATION_STATUS, ROLES } from "../types/enums";
 import { getDistance } from "geolib";
+import AppointmentModel from "../schemas/appointment.schema";
+import { calculateMonthDiffPercentage } from "@/common/utils/utilFunctions";
 
 class ProfileService {
   async createProfile(input: CreateProfileInput, context: Context) {
@@ -168,6 +170,55 @@ class ProfileService {
       .lean();
 
     return profile;
+  }
+
+  async getStats(context: Context) {
+    if (context?.role === ROLES.PATIENT) {
+      const appointments = await AppointmentModel.find({
+        patientId: context?.userId,
+      }).lean();
+
+      const appointmentPercentage = await calculateMonthDiffPercentage(
+        appointments
+      );
+
+      return {
+        appointments: appointmentPercentage.count,
+        appointmentPercentage: appointmentPercentage.diffPercentage,
+      };
+    }
+
+    const { medicId } = (await UserModel.findById(context.userId).lean()) ?? {};
+
+    const patients = await ProfileModel.find({
+      medicId: medicId ?? context.userId,
+      role: ROLES.PATIENT,
+    }).lean();
+
+    const patientPercentage = await calculateMonthDiffPercentage(patients);
+
+    const appointments = await AppointmentModel.find({
+      medicId: medicId ?? context?.userId,
+    }).lean();
+
+    const appointmentPercentage = await calculateMonthDiffPercentage(
+      appointments
+    );
+
+    const invites = await InviteModel.find({
+      medicId: medicId ?? context?.userId,
+    }).lean();
+
+    const invitePercentage = await calculateMonthDiffPercentage(invites);
+
+    return {
+      appointments: appointmentPercentage.count,
+      appointmentPercentage: appointmentPercentage.diffPercentage,
+      patients: patientPercentage.count,
+      patientPercentage: patientPercentage.diffPercentage,
+      invites: invitePercentage.count,
+      invitePercentage: invitePercentage.diffPercentage,
+    };
   }
 }
 

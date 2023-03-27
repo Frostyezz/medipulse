@@ -8,6 +8,7 @@ import {
   Title,
   Text,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import useManageChat from "../hooks/useManageChat";
 import { useAppSelector } from "@/services/redux/hooks";
 import { useTranslation } from "react-i18next";
@@ -20,6 +21,7 @@ const Messenger: React.FC = () => {
   const chat = useAppSelector((store) => store.chat);
   const { t } = useTranslation();
   const { sendMessage, loading } = useSendMessage();
+  const isMobile = useMediaQuery("(max-width: 800px)");
   const inputRef = useRef<HTMLInputElement>(null);
   // @ts-ignore
   let messageEnd = null;
@@ -103,7 +105,7 @@ const Messenger: React.FC = () => {
       <form
         onSubmit={form.onSubmit(async (values) => {
           await sendMessage({ variables: { input: values } });
-          inputRef!.current!.focus();
+          if (!isMobile) inputRef!.current!.focus();
           form.setFieldValue("content", "");
         })}
       >

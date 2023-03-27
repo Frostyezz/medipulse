@@ -231,5 +231,11 @@
   "dashboard.appointments.title": "Your appointments for today",
   "dashboard.appointments.subtitle": "You can view future or older appointments too!",
   "dashboard.appointments.zeroState.title": "You have no appointments on this day...",
-  "dashboard.appointments.zeroState.button": "Create one"
+  "dashboard.appointments.zeroState.button": "Create one",
+  "dashboard.stats.title": "Your monthly statistics",
+  "dashboard.stats.invites": "New invites",
+  "dashboard.stats.appointments": "New appointments",
+  "dashboard.stats.patients": "New patients",
+  "dashboard.stats.increase": "increase compared to last month",
+  "dashboard.stats.decrease": "decrease compared to last month"
 }

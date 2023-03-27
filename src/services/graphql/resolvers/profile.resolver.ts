@@ -3,6 +3,7 @@ import {
   CreateProfileInput,
   GetDoctorsNearMeInput,
   GetProfileByIdInput,
+  GetStatsResult,
   Profile,
   Schedule,
   UpdateProfileInput,
@@ -50,6 +51,11 @@ export default class ProfileResolver {
   @Query(() => [Profile], { nullable: true })
   getMyMedicalStaff(@Ctx() context: Context) {
     return this.profileService.getMyMedicalStaff(context);
+  }
+
+  @Query(() => GetStatsResult, { nullable: true })
+  getStats(@Ctx() context: Context) {
+    return this.profileService.getStats(context);
   }
 
   @Query(() => [Profile], { nullable: true })
