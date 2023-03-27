@@ -225,5 +225,11 @@
   "chat.messenger.zeroState": "Select a person from above to start the conversation.",
   "notFound.title": "This page is unavailable",
   "notFound.subtitle": "Unfortunately, this page does not exist, has been deleted or is temporary disabled.",
-  "notFound.button": "Back to the landing page"
+  "notFound.button": "Back to the landing page",
+  "dashboard.title.noon": "Good afternoon, {{name}}",
+  "dashboard.title.morning": "Good morning, {{name}}",
+  "dashboard.appointments.title": "Your appointments for today",
+  "dashboard.appointments.subtitle": "You can view future or older appointments too!",
+  "dashboard.appointments.zeroState.title": "You have no appointments on this day...",
+  "dashboard.appointments.zeroState.button": "Create one"
 }

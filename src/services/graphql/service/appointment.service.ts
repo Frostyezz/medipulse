@@ -4,6 +4,7 @@ import AppointmentModel, {
   GetAppointmentsByPatientId,
   UpdateAppointmentInput,
 } from "../schemas/appointment.schema";
+import ProfileModel from "../schemas/profile.schema";
 import UserModel from "../schemas/user.schema";
 import type { Context } from "../types/context";
 import { APPOINTMENT_STATUS, ROLES } from "../types/enums";
@@ -25,6 +26,26 @@ class AppointmentService {
     }).lean();
 
     return appointment;
+  }
+
+  async getMyAppointments(context: Context) {
+    if (context?.role === ROLES.PATIENT) {
+      const appointments = await AppointmentModel.find({
+        patientId: context.userId,
+      }).lean();
+
+      return appointments;
+    }
+
+    const profile = await ProfileModel.find()
+      .findByContextId(context.userId ?? "")
+      .lean();
+
+    const appointments = await AppointmentModel.find({
+      medicId: profile?.medicId ?? context.userId,
+    }).lean();
+
+    return appointments;
   }
 
   async getMedicAppointments(context: Context) {

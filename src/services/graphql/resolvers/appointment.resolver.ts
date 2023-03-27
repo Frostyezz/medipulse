@@ -21,6 +21,11 @@ export default class AppointmentResolver {
   }
 
   @Query(() => [Appointment], { nullable: true })
+  getMyAppointments(@Ctx() context: Context) {
+    return this.appointmentService.getMyAppointments(context);
+  }
+
+  @Query(() => [Appointment], { nullable: true })
   getPatientAppointments(@Arg("input") input: GetAppointmentsByPatientId) {
     return this.appointmentService.getPatientAppointments(input);
   }
