@@ -6,7 +6,7 @@
 
 <h1 align="center">MediPulse</h1>
 
-<br>
+Videoclipul de prezentare poate fi vizionat [aici](https://youtu.be/L58H5ctJDt8).
 
 ## Echipa MIG
 
@@ -14,8 +14,6 @@ Membrii:
 
 - Moraru Robert-Valentin
 - Nițulescu Maria-Mădălina
-
-Videoclipul de prezentare poate fi vizionat [aici](https://youtu.be/L58H5ctJDt8).
 
 ## Ce este MediPulse?
 
