@@ -82,7 +82,7 @@ export const useDashboardStyles = createStyles((theme) => ({
     marginRight: `calc(${theme.spacing.xl} * 2)`,
 
     [theme.fn.smallerThan("xs")]: {
-      flexDirection: "row",
+      flexDirection: "row-reverse",
       alignItems: "center",
       marginRight: 0,
       marginBottom: theme.spacing.xl,
@@ -125,7 +125,7 @@ export const useDashboardStyles = createStyles((theme) => ({
 
   controlIcon: {
     [theme.fn.smallerThan("xs")]: {
-      transform: "rotate(-90deg)",
+      transform: "rotate(90deg)",
     },
   },
 }));
