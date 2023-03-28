@@ -15,6 +15,7 @@ class transferRequestService {
   ) {
     const hasAlreadySent = await TransferRequestModel.countDocuments({
       transferTo: input.transferTo,
+      patientId: context.userId,
     });
     if (hasAlreadySent)
       throw new ApolloError("doctors.request.alreadySent.title");
