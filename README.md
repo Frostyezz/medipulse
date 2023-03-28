@@ -10,7 +10,7 @@ Videoclipul de prezentare poate fi vizionat [aici](https://youtu.be/L58H5ctJDt8)
 
 ## Echipa MIG
 
-Membrii:
+Membri:
 
 - Moraru Robert-Valentin
 - Nițulescu Maria-Mădălina
