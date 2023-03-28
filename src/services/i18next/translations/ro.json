@@ -212,7 +212,7 @@
   "appointments.edit.approve": "Aprobă",
   "appointments.edit.reject": "Respinge",
   "appointments.modal.overview.title": "Prezentare generală a programării",
-  "medicalHistory.title": "Istoricul medical al{{name}} ",
+  "medicalHistory.title": "Istoricul medical al {{name}} ",
   "medicalHistory.title.1": "Istoricul dumneavoastră medical",
   "medicalHistory.createdAt": "Creată",
   "medicalHistory.notes": "Notele medicului",
