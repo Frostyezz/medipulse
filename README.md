@@ -8,13 +8,6 @@
 
 Videoclipul de prezentare poate fi vizionat [aici](https://youtu.be/L58H5ctJDt8).
 
-## Echipa MIG
-
-Membri:
-
-- Moraru Robert-Valentin
-- Nițulescu Maria-Mădălina
-
 ## Ce este MediPulse?
 
 [MediPulse](https://medipulse.vercel.app/) este o aplicație web concepută pentru a eficientiza procesul de asistență medicală, oferind o varietate de soluții pentru problemele întâmpinate de medici și pacienți.
